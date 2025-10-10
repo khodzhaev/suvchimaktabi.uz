@@ -1,0 +1,106 @@
+{% extends 'control/base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jodit/3.24.2/jodit.es2018.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jodit/3.24.2/jodit.es2018.min.js"></script>
+
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <h4 class="page-title">Добавить программу для календаря</h4>
+        </div>
+    </div>
+</div>     
+
+<div class="row">
+    <div class="col-12">
+        <form action="{% url 'control_program_create' %}" method="POST">
+            {% csrf_token %}
+            <div class="card">
+                <div class="card-body">
+                    <label>Дата</label>
+                    <input type="date" required name="date" class="form-control mb-2" >
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="btn-group mb-3 w-100" role="group" aria-label="Basic radio toggle button group">
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                        <label class="btn btn-outline-dark" for="btnradio1">Блок: RU</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                        <label class="btn btn-outline-dark" for="btnradio2">Блок: EN</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                        <label class="btn btn-outline-dark" for="btnradio3">Блок: UZ</label>
+                    </div>
+
+                    <div id="block_ru">
+                        <!-- <p class="sub-header">Snow is a clean, flat toolbar theme.</p> -->
+                        <label>Название (RU)</label>
+                        <input required type="text" name="title_ru" class="form-control mb-2">
+                        <label>Описание (RU)</label>
+                        <textarea  required id="editor1" name="content_ru"></textarea>
+                    </div>
+
+                    <div id="block_en" class="d-none">
+                        <!-- <p class="sub-header">Snow is a clean, flat toolbar theme.</p> -->
+                        <label>Название (EN)</label>
+                        <input required type="text" name="title_en" class="form-control mb-2">
+                        <label>Описание (EN)</label>
+                        <textarea  required id="editor2" name="content_en"></textarea>
+                    </div>
+
+                    <div id="block_uz" class="d-none">
+                        <!-- <p class="sub-header">Snow is a clean, flat toolbar theme.</p> -->
+                        <label>Название (UZ)</label>
+                        <input required type="text" name="title_uz" class="form-control mb-2">
+                        <label>Описание (UZ)</label>
+                        <textarea  required id="editor3" name="content_uz"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg w-100 mt-3">Добавить</button>
+
+                </div>
+            </div> 
+    </form>
+    </div> 
+</div>
+{% endblock content %}
+
+
+{% block script %}
+<script>
+    $('textarea').each(function () {
+        var editor = Jodit.make(this);
+    });
+    $('.jodit-toolbar-button_file').remove()
+    $('.jodit-toolbar-button_video').remove()
+    $('.jodit-ui-group_group_clipboard').remove()
+    $('.jodit-ui-group_group_other').remove()
+    // $('.jodit-ui-group_group_source').remove()
+    $('.jodit-ui-group_group_info').remove()
+    $('.jodit-ui-group_group_search').remove()
+    $('.jodit-toolbar-button_classSpan').remove()
+    // $('.jodit-toolbar-button_brush').remove()
+
+
+    document.querySelector('#btnradio1').addEventListener('click', ()=> {
+        document.querySelector('#block_ru').classList.remove('d-none')
+        document.querySelector('#block_en').classList.add('d-none')
+        document.querySelector('#block_uz').classList.add('d-none')
+    })
+
+    document.querySelector('#btnradio2').addEventListener('click', ()=> {
+        document.querySelector('#block_ru').classList.add('d-none')
+        document.querySelector('#block_en').classList.remove('d-none')
+        document.querySelector('#block_uz').classList.add('d-none')
+    })
+
+    document.querySelector('#btnradio3').addEventListener('click', ()=> {
+        document.querySelector('#block_ru').classList.add('d-none')
+        document.querySelector('#block_en').classList.add('d-none')
+        document.querySelector('#block_uz').classList.remove('d-none')
+    })
+</script>
+{% endblock %}

@@ -1,0 +1,185 @@
+{% extends 'control/base.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <h4 class="page-title">Главная</h4>
+        </div>
+    </div>
+</div>     
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                {% if base.code == 'success' %}
+                <div class="alert alert-info">
+                    Данные были успешно изменены!
+                </div>
+                {% elif base.code == 'create' %}
+                <div class="alert alert-info">
+                    Данное успешно добавлен!
+                </div>
+                {% elif base.code == 'remove' %}
+                <div class="alert alert-info">
+                    Данное успешно удален!
+                </div>
+                {% elif base.code == 'error' %}
+                <div class="alert alert-danger">
+                    Что-то пошло не так!
+                </div>
+                {% endif %}
+                <form action="{% url 'control_index_office_edit' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <label for="">Электронная почта</label>
+                    <input required type="text" class="form-control mb-2" name="email" value="{{office.email}}">
+
+                    <label for="">Телефон номер (основная)</label>
+                    <div class="input-group mb-2">
+                        <span class="input-group-text" id="basic-addon1">+998</span>
+                        <input required type="text" class="form-control" name="phone" value="{{office.phone}}" aria-label="Username" aria-describedby="basic-addon1">
+                    </div>
+
+                    <label for="">Адрес (РУ)</label>
+                    <input required type="text" class="form-control mb-2"   name="address_ru" value="{{office.address_ru}}">
+
+                    <label for="">Адрес (EN)</label>
+                    <input required type="text" class="form-control mb-2"   name="address_en" value="{{office.address_en}}">
+
+                    <label for="">Адрес (O'Z)</label>
+                    <input required type="text" class="form-control mb-2"   name="address_uz" value="{{office.address_uz}}">
+
+                    <!-- <label for="">GMAP</label> -->
+                    <input required type="hidden" class="form-control mb-2"  name="gmap" value="{{office.gmap}}">
+
+                    <label for="">Youtube</label>
+                    <input required type="text" class="form-control mb-2"  name="youtube" value="{{office.youtube}}">
+
+                    <label for="">Instagram</label>
+                    <input type="text" class="form-control mb-2"  name="instagram" value="{{office.instagram}}">
+
+                    <label for="">Facebook</label>
+                    <input type="text" class="form-control mb-2"  name="facebook" value="{{office.facebook}}">
+
+                    <label for="">Telegram</label>
+                    <input type="text" class="form-control mb-2"  name="telegram" value="{{office.telegram}}">
+
+                    <label for="">Telegram bot</label>
+                    <input type="text" class="form-control mb-2"  name="telegram_bot" value="{{office.telegram_bot}}">
+
+
+                    {% if office.about_image %}
+                    <img src="{{office.about_image.url}}" width="150px" style="margin-bottom: 10px; border-radius: 3px;" alt="">
+                    {% endif %}
+                    <label>About image</label>
+                    <input type="file" class="form-control mb-2" name="about_image">
+
+
+                    <button type="submit" class="btn btn-primary">Изменить</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mt-2">
+            <div class="card-body">
+                <h4 class="header-title mt-0 mb-1">Дополнительные телефон номера</h4>
+                <form action="{% url 'control_index_phone_create' %}" method="POST">
+                    {% csrf_token %}
+                    <label for="">Телефон номер</label>
+                    <div class="input-group mb-2">
+                        <span class="input-group-text" id="basic-addon1">+998</span>
+                        <input required type="text" class="form-control" name="phone" placeholder="Введите телефон номер">
+                      </div>
+                    <button type="submit" class="btn btn-primary btn-sm">Добавить</button>
+                </form>
+
+                <ul class="list-group mt-2">
+                    {% for p in phones %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                           <span> +998 {{p.title}}</span>
+                           <button data-bs-toggle="modal" data-bs-target="#f{{p.id}}" class="btn-danger btn btn-sm">Удалить</button>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="card mt-2">
+            <div class="card-body">
+                <h4 class="header-title mt-0 mb-1">Дополнительные электронные почтовые ящики</h4>
+                <form action="{% url 'control_index_email_create' %}" method="POST">
+                    {% csrf_token %}
+                    <label for="">Электронная почта</label>
+                    <div class="input-group mb-2">
+                        <input required type="email" class="form-control" name="email" placeholder="Введите электронную почту">
+                      </div>
+                    <button type="submit" class="btn btn-primary btn-sm">Добавить</button>
+                </form>
+
+                <ul class="list-group mt-2">
+                    {% for e in emails %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                           <span> {{e.title}}</span>
+                           <button data-bs-toggle="modal" data-bs-target="#f{{e.id}}" class="btn-danger btn btn-sm">Удалить</button>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% for p in phones %}
+  <div class="modal" id="f{{p.id}}" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Удалить телефон номер</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>После удаления вы не сможете вернуть обратно, вы действительно хотите удалить?</p>
+        </div>
+        <div class="modal-footer">
+          <form action="{% url 'control_index_phone_remove' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" value="{{p.id}}" name="id">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+            <button type="submit" class="btn btn-danger">Да, удалить!</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+
+{% for e in emails %}
+  <div class="modal" id="f{{e.id}}" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Удалить электронную почту</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>После удаления вы не сможете вернуть обратно, вы действительно хотите удалить?</p>
+        </div>
+        <div class="modal-footer">
+          <form action="{% url 'control_index_email_remove' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" value="{{e.id}}" name="id">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+            <button type="submit" class="btn btn-danger">Да, удалить!</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+
+
+{% endblock content %}

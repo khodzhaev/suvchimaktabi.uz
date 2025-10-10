@@ -1,0 +1,116 @@
+{% extends 'control/base.html' %}
+
+{% block content %}
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <h4 class="page-title">Все пользователи</h4>
+        </div>
+    </div>
+</div>
+<!-- end page title --> 
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                {% if base.code == 'success' %}
+                <div class="alert alert-info">
+                    Пользователь был успешно изменен!
+                </div>
+                {% elif base.code == 'add' %}
+                <div class="alert alert-info">
+                    Пользователь был успешно добавлен!
+                </div>
+                {% elif base.code == 'remove' %}
+                <div class="alert alert-info">
+                    Пользователь был успешно удален!
+                </div>
+                {% elif base.code == 'error' %}
+                <div class="alert alert-danger">
+                    Что-то пошло не так!
+                </div>
+                {% endif %}
+
+                <div class="table-responsive">
+                    <table class="table m-0">
+                        <thead>
+                            <tr>
+                                <th>Телефон</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for u in users %}
+                            <tr>
+                                <td>{{u.username}}</td>
+                                <td></td>
+                                <td class="d-flex justify-content-end ">
+                                    <button data-bs-target="#e{{u.id}}" data-bs-toggle="modal" class="btn btn-sm btn-secondary">Пароль</button>
+                                    <!-- {% if u.email != 'info@bik.uz' %} -->
+                                        <span class="px-1"></span>
+                                        <button data-bs-target="#u{{u.id}}" data-bs-toggle="modal" class="btn btn-sm btn-danger">Удалить</button>
+                                    <!-- {% endif %} -->
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% for u in users %}
+<div class="modal" id="e{{u.id}}" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{% url 'control_users_edit' %}" method="POST">
+                {% csrf_token %}
+                <div class="modal-header">
+                <h5 class="modal-title">Изменить пароль пользователя</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <p class="mb-0">Новый пароль</p>
+                <input required type="text" name="password" class="form-control" placeholder="Введите новый пароль">
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" value="{{u.id}}" name="id">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                    <button type="submit" class="btn btn-success">Изменить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% for u in users %}
+<div class="modal" id="u{{u.id}}" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title">Удалить пользователя</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <p>После удаления вы не сможете вернуть обратно, вы действительно хотите удалить?</p>
+            </div>
+            <div class="modal-footer">
+            <form action="{% url 'control_users_remove' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" value="{{u.id}}" name="id">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <button type="submit" class="btn btn-danger">Да, удалить!</button>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock content %}

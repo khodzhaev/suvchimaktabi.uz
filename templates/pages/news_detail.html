@@ -1,0 +1,110 @@
+{% extends 'pages/base.html' %}
+
+{% load static %}
+
+{% block title %}
+{% endblock title %}
+
+{% block content %}
+<main class="page_content">
+    <section class="page_banner">
+        <div class="container">
+          <div class="content_wrapper" style="background-image: url({% static 'pages/assets/images/web_imgs/news.jpg' %}); width: 100%">
+            <div class="row align-items-center">
+              <div class="col col-12">
+                <ul class="breadcrumb_nav unordered_list">
+                  <li><a href="{% url 'pages_index' %}" class="text-white">
+                    <span class="uz_text">Bosh sahifa</span>
+                    <span class="ru_text">Главная</span>
+                  </a></li>
+                  <li class="text-white"><a href="{% url 'pages_news_all' %}" class="text-white">
+                    <span class="uz_text">Yangiliklar</span>
+                    <span class="ru_text">Новости</span>
+                  </a></li>
+                </ul>
+                <h1 class="page_title text-white ru_text">{{n.title_ru}}</h1>
+                <h1 class="page_title text-white uz_text">{{n.title_uz}}</h1>
+                <h1 class="page_title text-white en_text">{{n.title_en}}</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    <section class="details_section blog_details_section section_space_lg pb-0">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+            
+            <div class="details_content">
+              <ul class="meta_info_list unordered_list">
+                <li>
+                  <a href="#!">
+                    <i class="fas fa-calendar-day"></i>
+                    <span>{{n.html_date}}</span>
+                  </a>
+                </li>
+              </ul>
+              <h1 class="ru_text">
+                {{n.title_ru}}
+              </h1>
+              <h1 class="uz_text">
+                {{n.title_uz}}
+              </h1>
+              <h1 class="en_text">
+                {{n.title_en}}
+              </h1>
+              
+              <div class="mt-5 ru_text">
+                {{n.content_ru | safe}}
+              </div>
+              <div class="mt-5 uz_text">
+                {{n.content_uz | safe}}
+              </div>
+              <div class="mt-5 en_text">
+                {{n.content_en | safe}}
+              </div>
+
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="details_image">
+                <img style="border-radius: 25px;" src="{{n.image.url}}">
+              </div>
+              <div class="sidebar__widget-content my-3">
+                <ul style="list-style: none; padding-left: 0;">
+                   <li class="mb-1"><a class="btn btn-sm w-100 text-white py-3" style="background-color: rgb(0, 136, 204);" href="tg://msg?text=https://suvchimaktabi.uz{{request.get_full_path}}" title="Facebook">Telegram</a></li>
+                   <li class="mb-1"><a class="btn btn-sm w-100 text-white py-3" style="background-color: rgb(37, 211, 102);" href="https://wa.me/?text=https://suvchimaktabi.uz{{request.get_full_path}}" title="Facebook">Whatsapp</a></li>
+                   <li class="mb-1"><a class="btn btn-sm w-100 text-white py-3" style="background-color: rgb(59, 89, 152);" href="https://www.facebook.com/sharer.php?u=https://suvchimaktabi.uz{{request.get_full_path}}" title="Facebook">Facebook</a></li>
+                   <li class="mb-1"><a class="btn btn-sm w-100 text-white py-3" style="background-color: rgb(0, 120, 255);" href="fb-messenger://share/?link=https://suvchimaktabi.uz{{request.get_full_path}}" title="Facebook">Messenger</a></li>
+                   <li class="mb-1"><a class="btn btn-sm w-100 text-white py-3" style="background-color: rgb(102, 92, 172);" href="viber://forward?text=https://suvchimaktabi.uz{{request.get_full_path}}" title="Facebook">Viber</a></li>
+                   <li class="mb-1"><a class="btn btn-sm w-100 text-white py-3" style="background-color: rgb(240, 74, 67);" href="mailto:?body=https://suvchimaktabi.uz{{request.get_full_path}}" title="Facebook">Email</a></li>
+                   <li class="mb-1"><a class="btn btn-sm w-100 text-white py-3" style="background-color: rgb(27, 165, 230);" href="sms://+10000?body=https://suvchimaktabi.uz{{request.get_full_path}}" title="Facebook">SMS</a></li>
+                </ul>
+             </div>
+
+             <div class="sidebar__post rc__post">
+                {% for i in news %}
+                <div class="rc__post mb-4 d-flex align-items-center">
+                   <div class="rc__post-thumb">
+                      <a href="{% url 'pages_news_detail' i.id %}"><img style="min-width: 80px; height: 80px; border-radius: 5px;" src="{{i.image.url}}" alt="blog-sidebar"></a>
+                   </div>
+                   <div class="rc__post-content">
+                      <h3 style="font-size: 18px; margin-left: 10px" >
+                         <a class="ru_text text-dark" href="{% url 'pages_news_detail' i.id %}">{{i.title_ru}}</a>
+                         <a class="uz_text text-dark" href="{% url 'pages_news_detail' i.id %}">{{i.title_uz}}</a>
+                         <a class="en_text text-dark" href="{% url 'pages_news_detail' i.id %}">{{i.title_en}}</a>
+                      </h3>
+                   </div>
+                </div>
+                {% endfor %}
+             </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <br><br><br>
+{% endblock %}

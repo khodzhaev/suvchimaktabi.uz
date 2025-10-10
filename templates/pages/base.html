@@ -1,0 +1,867 @@
+{% load static %}
+
+<!doctype html>
+<html lang="ru-uz">
+
+  <head>
+
+    <script>
+        document.onreadystatechange = () => {
+            if (document.readyState === 'complete') {
+                document.querySelector('#preloadertp').classList.add("d-none");
+            }
+        };
+    </script>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    {% block title %}{% endblock title %}
+    <link rel="shortcut icon" href="{% static 'pages/assets/images/fav.png' %}">
+
+    <link href="{% static 'pages/assets/css/loader.css' %}" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" type="text/css" href="{% static 'pages/assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'pages/assets/css/fontawesome.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'pages/assets/css/animate.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'pages/assets/css/cursor.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'pages/assets/css/slick.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'pages/assets/css/slick-theme.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'pages/assets/css/magnific-popup.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'pages/assets/css/vanilla-calendar.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'pages/assets/css/style.css' %}">
+    <script src="//code.jivo.ru/widget/4uw0Xix4dq" async></script>
+
+    <script>
+      const csrftoken = "{{ csrf_token }}";
+    </script>
+
+    <style>
+      .text-white-hover:hover {
+        color: #fff !important
+      }
+      .captcha_block {
+          border: 1px solid #eceef3;
+          padding: 8px;
+          border-radius: 5px;
+          display: grid;
+          grid-template-columns: 2fr 3fr;
+          grid-gap: 8px;
+          width: 400px;
+          align-items: center;
+      }
+      .captcha_block input {
+          padding: 10px;
+          font-size: 14px;
+          border-radius: 5px;
+          border: 1px solid lightgray;
+          width: 100%;
+          height: 40px !important;
+      }
+      .captcha_block > div:first-child  {
+          position: relative;
+          height: 100%;
+      }
+      .captcha_block img {
+          width: 100%;
+          border: 1px solid lightgray;
+          border-radius: 5px;
+      }
+      .captcha_block svg {
+          position: absolute;
+          bottom: 3px;
+          right: 3px;
+          background-color: #fff;
+          padding: 3px;
+          border-radius: 3px;
+          box-shadow:  0 0 3px 0 lightgray;
+      }
+      .captcha_block span {
+          color: #777;
+          font-size: 10px;
+          display: block;
+          text-align: right;
+      }
+      .captcha_block a {
+          background-color: #FFED00;
+          color: #333;
+          padding: 2px 5px;
+          border-radius: 3px;
+          text-decoration: none;
+      }
+      .captcha_block > div:last-child  {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          height: 100%;
+      }
+      @media (max-width: 430px) {
+          .captcha_block {
+              width: 100%;
+          }
+      }
+
+    </style>
+    
+    {% block style %}
+    {% endblock style %}
+
+  </head>
+
+  <body>
+
+    <div id="preloadertp">
+      <img style="width: 300px;" src="{% static 'pages/assets/images/web_imgs/logo.png' %}" alt="">
+    </div>
+
+    <div class="page_wrapper">
+
+      <div class="backtotop">
+        <a href="#" class="scroll">
+          <i class="far fa-arrow-up"></i>
+        </a>
+      </div>
+
+      <div class="bg_primary">
+        <div class="container py-2 d-none d-lg-block">
+          <div class="d-flex justify-content-between align-items-center">
+            <a class="text-white" href="{% url 'pages_contact' %}"><i class="fas fa-location"></i>  
+            <span class="uz_text">{{office.address_uz}}</span>
+            <span class="ru_text">{{office.address_ru}}</span>
+            <span class="en_text">{{office.address_en}}</span>
+            </a>
+            <a class="text-white" href="mailto:{{office.email}}"><i class="fas fa-envelope"></i> {{office.email}}</a>
+            <a class="text-white" href="tel:{{office.phone}}"><i class="fas fa-phone"></i> {{office.phone}}</a>
+            <div class="dropdown">
+              <button class="btn dropdown-toggle" style="padding: 6px 12px;" data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="uz_text" style="font-weight: bold;">O'z</span>
+                <span class="ru_text" style="font-weight: bold;">Ру</span>
+                <span class=""></span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                <li><a style="cursor: pointer;" class="dropdown-item text-dark" id='uz_btn'>O'z</a></li>
+                <li><a style="cursor: pointer;" class="dropdown-item text-dark" id='ru_btn'>Ру</a></li>
+                <li><a style="cursor: pointer;" class="dropdown-item text-dark" id='en_btn'></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <header class="site_header site_header_1">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col col-lg-2 col-5 logo_div">
+              <div class="site_logo">
+                <a class="site_link" href="{% url 'pages_index' %}">
+                  <img src="{% static 'pages/assets/images/web_imgs/logo.png' %}">
+                </a>
+              </div>
+            </div>
+            <div class="col col-lg-8 col-2 nav_btns_div">
+              <nav class="main_menu navbar d-none d-lg-block navbar-expand-md">
+                <div class="main_menu_inner collapse navbar-collapse justify-content-center" id="main_menu_dropdown">
+                  <ul class="main_menu_list unordered_list_center">
+                    <li {% if request.path == '/' %} class="active" {% endif %}>
+                      <a class="nav-link" href="{% url 'pages_index' %}" id="home_button">
+                        <span class="uz_text">Bosh sahifa</span>
+                        <span class="ru_text">Главная</span>
+                        <span class="en_text"></span>
+                      </a>
+                    </li>
+                    <li {% if request.path == '/about/' %} class="active" {% endif %}>
+                      <a class="nav-link" href="{% url 'pages_about' %}" id="about_button">
+                        <span class="uz_text">Biz haqimizda</span>
+                        <span class="ru_text">О нас</span>
+                        <span class="en_text"></span>
+                      </a>
+                    </li>
+                    <li {% if request.path == '/course/' %} class="active" {% endif %}>
+                      <a class="dropdown" data-bs-toggle="dropdown" class="nav-link"  id="course_button" style="cursor: pointer;">
+                        <span class="uz_text">O'quv dasturi</span>
+                        <span class="ru_text">Программа обучения</span>
+                        <span class="en_text"></span>
+                      </a>
+                      <ul class="dropdown-menu dropdown-menu-dark" style="list-style: none;">
+                        <li><a style="cursor: pointer;" href="{% url 'pages_course_loyihachi' %}" class="dropdown-item text-dark text-white-hover">Loyihachilar kursi</a></li>
+                        <li><a style="cursor: pointer;" href="{% url 'pages_course_fermer' %}" class="dropdown-item text-dark text-white-hover">Fermer va agroklaster kursi</a></li>
+                        <li><a style="cursor: pointer;" href="{% url 'pages_course' %}" class="dropdown-item text-dark text-white-hover">Suvchilar maktabi</a></li>
+                      </ul>
+                    </li>
+                    <li {% if request.path == '/news/' %} class="active" {% endif %}>
+                      <a class="nav-link" href="{% url 'pages_news_all' %}" id="blog_button">
+                        <span class="uz_text">Yangiliklar</span>
+                        <span class="ru_text">Новости</span>
+                        <span class="en_text"></span>
+                      </a>
+                    </li>
+                    <li {% if request.path == '/videos/' %} class="active" {% endif %}>
+                      <a class="nav-link" href="{% url 'pages_videos' %}" id="videos_button">
+                        <span class="uz_text">Vide darslar</span>
+                        <span class="ru_text">Видеокурсы</span>
+                        <span class="en_text"></span>
+                      </a>
+                    </li>
+                    <li {% if request.path == '/experts/' %} class="active" {% endif %}>
+                      <a class="nav-link" href="{% url 'pages_qfe' %}" id="qfe_button">
+                        <span class="uz_text">Expertlar</span>
+                        <span class="ru_text">Эксперты</span>
+                        <span class="en_text">Experts</span>
+                      </a>
+                    </li>
+                    <li {% if request.path == '/books_category/' %} class="active" {% endif %}>
+                      <a class="nav-link" href="{% url 'pages_books_category' %}" id="books_button">
+                        <span class="uz_text">Kitoblar</span>
+                        <span class="ru_text">Книги</span>
+                        <span class="en_text"></span>
+                      </a>
+                    </li>
+                    <li {% if request.path == '/contact/' %} class="active" {% endif %}>
+                      <a class="nav-link" href="{% url 'pages_contact' %}" id="contact_button">
+                        <span class="uz_text">Bog'lanish</span>
+                        <span class="ru_text">Контакты</span>
+                        <span class="en_text"></span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+              <div id="nav_open_btn" class="d-flex d-lg-none justify-content-center align-items-center "><i class="fas fa-2x fa-bars"></i></div>
+            </div>
+            <div class="col col-lg-2 col-5 lang_div">
+              <button class="btn btn_primary w-100" style="padding: 12px 12px;">
+                <i class="fas fa-calendar"></i> <span class="uz_text">Kalendar</span><span class="ru_text">Календарь</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+      <style>
+        .nav_mobile {
+          display: none; background-color: #fff; position: fixed; top:0; left: 0; width: 100%; height: 100vh; padding: 40px; flex-direction: column; align-items: center; justify-content: center; z-index: 1000; text-align: center;
+        }
+      </style>
+
+      <div id="navblock_custom" class="nav_mobile">
+        <img src="{% static 'pages/assets/images/web_imgs/logo_black.svg' %}" style="height: 46px;">
+        <div class="py-5"></div>
+            <h2 class="mb-3" ><a class="text-dark" {% if request.path == '/' %} style="color: #5078FF !important" {% endif %} class="nav-link" href="{% url 'pages_index' %}" id="home_button">
+              <span class="uz_text">Bosh sahifa</span>
+              <span class="ru_text">Главная</span>
+              <span class="en_text"></span>
+            </a></h2>
+
+            <h2 class="mb-3" ><a class="text-dark" {% if request.path == '/about/' %} style="color: #5078FF !important" {% endif %} class="nav-link" href="{% url 'pages_about' %}" id="about_button">
+              <span class="uz_text">Biz haqimizda</span>
+              <span class="ru_text">О нас</span>
+              <span class="en_text"></span>
+            </a></h2>
+
+            <h2 class="mb-3" >
+              <a class="text-dark" {% if request.path == '/course/' %} style="color: #5078FF !important" {% endif %} class="nav-link" href="{% url 'pages_course' %}" id="course_button">
+                <span class="uz_text">O'quv dasturi</span>
+                <span class="ru_text">Программа обучения</span>
+                <span class="en_text"></span>
+              </a>
+            </h2>
+
+            <h2 class="mb-3" ><a class="text-dark" {% if request.path == '/news/' %} style="color: #5078FF !important" {% endif %} class="nav-link" href="{% url 'pages_news_all' %}" id="blog_button">
+              <span class="uz_text">Yangiliklar</span>
+              <span class="ru_text">Новости</span>
+              <span class="en_text"></span>
+            </a></h2>
+          
+            <h2 class="mb-3" ><a class="text-dark" {% if request.path == '/videos/' %} style="color: #5078FF !important" {% endif %} class="nav-link" href="{% url 'pages_videos' %}" id="videos_button">
+              <span class="uz_text">Vide darslar</span>
+              <span class="ru_text">Видеокурсы</span>
+              <span class="en_text"></span>
+            </a></h2>
+          
+            <h2 class="mb-3" ><a class="text-dark" {% if request.path == '/experts/' %} style="color: #5078FF !important" {% endif %} class="nav-link" href="{% url 'pages_qfe' %}" id="qfe_button">
+              <span class="uz_text">Expertlar</span>
+              <span class="ru_text">Эксперты</span>
+              <span class="en_text">Experts</span>
+            </a></h2>
+          
+            <h2 class="mb-3" ><a class="text-dark" {% if request.path == '/books_category/' %} style="color: #5078FF !important" {% endif %} class="nav-link" href="{% url 'pages_books_category' %}" id="books_button">
+              <span class="uz_text">Kitoblar</span>
+              <span class="ru_text">Книги</span>
+              <span class="en_text"></span>
+            </a></h2>
+          
+            <h2 class="mb-3" >
+              <a class="text-dark" {% if request.path == '/contact/' %} style="color: #5078FF !important" {% endif %} class="nav-link" href="{% url 'pages_contact' %}" id="contact_button">
+                <span class="uz_text">Bog'lanish</span>
+                <span class="ru_text">Контакты</span>
+                <span class="en_text"></span>
+              </a>
+            </h2>
+
+            <h3 class="pt-5">
+              <i class="fas fa-location"></i>  
+              <span class="uz_text">{{office.address_uz}}</span>
+              <span class="ru_text">{{office.address_ru}}</span>
+              <span class="en_text">{{office.address_en}}</span>
+            </h3>
+            <h3 class="pt-3">
+              <a class="text-dark" href="mailto:{{office.email}}"><i class="fas fa-envelope"></i> {{office.email}}</a>
+            </h3>
+            <h3 class="pt-3">
+              <a class="text-dark" href="tel:{{office.phone}}"><i class="fas fa-phone"></i> {{office.phone}}</a>
+            </h3>
+
+            <div id="nav_close_btn" style="position: absolute; top: 20px; right: 20px;">
+              <i class="fas fa-3x fa-times"></i>
+            </div>
+      </div>
+
+      <script>
+        let nav_close_btn = document.querySelector('#nav_close_btn');
+        let nav_open_btn = document.querySelector('#nav_open_btn');
+        let navblock_custom = document.querySelector('#navblock_custom');
+
+        nav_open_btn.addEventListener('click', ()=> {
+          navblock_custom.style.display = 'flex'
+        })
+
+        nav_close_btn.addEventListener('click', ()=> {
+          navblock_custom.style.display = 'none'
+        })
+      </script>
+
+      <!-- <div class="modal fade" id="expertModal" tabindex="-1">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <h5 class="modal-title">
+                <span class="uz_text">Ekspertlarimizdan bepul maslahat olish</span>
+                <span class="ru_text">Получить совет от наших экспертов</span>
+                <span class="en_text"></span>
+              </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <form id="qfe_form">
+              <div class="modal-body">
+                  <div class="card card-body bg-primary mb-3">
+                    <h4 class="uz_text mb-0 text-white">Tanlash uchun expert ustiga bosing</h4>
+                    <h4 class="ru_text mb-0 text-white">Нажмите на эксперта, чтобы выбрать</h4>
+                    <h4 class="en_text mb-0 text-white">Click on an expert to select</h4>
+                  </div>
+                  <style>
+                    .experts_base {
+                      display: grid; grid-template-columns: repeat(5, 1fr); grid-gap: 5px
+                    }
+                    @media (max-width: 991px) {
+                      .experts_base {
+                        grid-template-columns: repeat(3, 1fr); 
+                      }
+                    }
+                    @media (max-width: 500px) {
+                      .experts_base {
+                        grid-template-columns: repeat(2, 1fr); 
+                      }
+                    }
+                  </style>
+                  <div class="experts_base text-center">
+                    {% for i in experts %}
+                    <div class="rounded expert-div bg-light p-1" style="cursor: pointer;" data-id="{{i.id}}">
+                      <img class="rounded" src="{{ i.image.url }}">
+                      <p>
+                        <b>
+                          <span class="uz_text">{{i.fio_uz}}</span>
+                          <span class="ru_text">{{i.fio_ru}}</span>
+                        </b>
+                      </p>
+                      <p class="mb-1">
+                        <span class="uz_text">{{i.direction_uz}}</span>
+                        <span class="ru_text">{{i.direction_ru}}</span>
+                      </p>
+                    </div>
+                    {% endfor %}
+                  </div>
+
+                  <label for="">
+                    <span class="uz_text">Ismingiz</span>
+                    <span class="ru_text">ФИО</span>
+                    <span class="en_text"></span>
+                  </label>
+                  <input id="qfe_input_name" style="height: auto; border-radius: 3px;" type="text" class="form-control mb-2" required>
+
+                  <label for="">
+                    <span class="uz_text">Telefon raqamingiz</span>
+                    <span class="ru_text">Номер телефона</span>
+                    <span class="en_text"></span>
+                  </label>
+                  <input id="qfe_input_phone" style="height: auto; border-radius: 3px;" type="text" class="form-control mb-2" required>
+
+                  <label for="">
+                    <span class="uz_text">Savolingiz kiriting</span>
+                    <span class="ru_text">ВВедите Ваш вопрос</span>
+                    <span class="en_text"></span>
+                  </label>
+                  <textarea required style="height: auto; border-radius: 3px;" name="" class="form-control mb-2" id="qfe_input_message" rows="3"></textarea>
+                
+                  <input id="captcha_code_base" type="hidden" name="captcha_code" value="{{captcha.code}}">
+                  <div id="captcha_error_base" class="d-none alert alert-danger">
+                    <span class="ru_text">Captcha введена неправильно.</span>
+                    <span class="uz_text">Captcha xato kiritildi.</span>
+                    <span class="en_text">Captcha entered incorrectly.</span>
+                  </div>
+                  <div class="captcha_block">
+                    <div>
+                      <img class="img" id="captcha_img_base" src="{{captcha.image.url}}" alt="">
+                      <svg id="captcha_btn_refresh_base" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 512.016 512.016" style="enable-background:new 0 0 512.016 512.016;" xml:space="preserve" width="18px" height="18px">
+                        <g>
+                          <path d="M256.008,42.675c57.16,0.188,111.87,23.233,151.936,64h-66.603c-11.782,0-21.333,9.551-21.333,21.333   s9.551,21.333,21.333,21.333h88.384c21.874-0.012,39.604-17.742,39.616-39.616V21.341c0-11.782-9.551-21.333-21.333-21.333   s-21.333,9.551-21.333,21.333v44.331C321.782-28.795,160.169-20.343,65.702,84.55C28.733,125.6,6.058,177.523,1.075,232.541   c-1.096,11.814,7.593,22.279,19.407,23.375c0.64,0.059,1.283,0.09,1.927,0.092c10.813,0.138,19.954-7.977,21.099-18.731   C53.35,127.213,145.505,42.82,256.008,42.675z"/>
+                          <path d="M489.629,256.008c-10.813-0.138-19.954,7.977-21.099,18.731C458.35,391.953,355.076,478.721,237.861,468.54   c-50.715-4.405-98.176-26.825-133.789-63.199h66.603c11.782,0,21.333-9.551,21.333-21.333c0-11.782-9.551-21.333-21.333-21.333   H82.291c-21.868-0.012-39.604,17.706-39.616,39.573c0,0.014,0,0.028,0,0.043v88.384c0,11.782,9.551,21.333,21.333,21.333   s21.333-9.551,21.333-21.333v-44.331c104.893,94.467,266.505,86.015,360.972-18.878c36.97-41.05,59.645-92.973,64.628-147.992   c1.096-11.814-7.593-22.279-19.407-23.375C490.901,256.041,490.265,256.01,489.629,256.008z"/>
+                        </g>
+                      </svg>
+                    </div>
+                    <div>
+                      <input id="captcha_input_base" required type="text" name="captch" placeholder="Введите слова">
+                      <span>captcha powered by <a href="https://kodi.uz/captcha/">kodi.uz</a></span>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div class="ru_text">
+                        Нажимая на кнопку 'Отправить', вы соглашаетесь <a style="color:#36b1ea; text-decoration: underline;" target="_blank" href="/media/terms.pdf">с пользовательским соглашением</a> и <a style="color:#36b1ea; text-decoration: underline;" target="_blank" href="/media/privacy.pdf">обработкой персональных данных</a>
+                    </div>
+                    <div class="uz_text">
+                        "Yuborish" tugmasini bosish orqali siz <a style="color:#36b1ea; text-decoration: underline;" target="_blank" href="/media/privacy.pdf">foydalanuvchi shartnomasiga </a> va <a style="color:#36b1ea; text-decoration: underline;" target="_blank" href="/media/privacy.pdf">shaxsiy ma'lumotlarni  </a> olishga rozilik bildirasiz
+                    </div>
+                    <div class="en_text">
+                        By clicking the 'Submit' button, you agree to <a style="color:#36b1ea; text-decoration: underline;" target="_blank" href="/media/terms.pdf">the user agreement</a> and <a style="color:#36b1ea; text-decoration: underline;" target="_blank" href="/media/privacy.pdf">processing of personal data</a>
+                    </div>
+                  </div>
+
+                  <div class="alert alert-danger mt-4 d-none expert-error">
+                    <span class="uz_text mb-0">Tanlash uchun expert ustiga bosing</span>
+                    <span class="ru_text mb-0">Нажмите на эксперта, чтобы выбрать</span>
+                    <span class="en_text mb-0">Click on an expert to select</span>
+                  </div>
+              
+              </div>
+
+              <div class="modal-footer">
+                <button style="padding: 12px;" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                  <span class="uz_text">Bekor</span>
+                  <span class="ru_text">Закрыть</span>
+                  <span class="en_text"></span>
+                </button>
+                <button style="padding: 12px;" type="submit" class="btn btn-primary">
+                  <span class="uz_text">Yuborish</span>
+                  <span class="ru_text">Отправить</span>
+                  <span class="en_text"></span>
+                </button>
+              </div>
+            </form>
+
+            <div id="qfe_reg_success" class="d-none">
+              <div class="modal-body text-center">
+                <h2 class="uz_text">Xabaringiz muvafaqqiyatli yuborildi, bizning mutaxassislar siz bila tez orada aloqaga chiqishadi!</h2>
+                <h2 class="ru_text">Ваше сообщение успешно отправлено, наши специалисты свяжутся с вами в ближайшее время!</h2>
+              </div>
+              <div class="modal-footer">
+                <button style="padding: 12px;" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                  <span class="uz_text">Bekor</span>
+                  <span class="ru_text">Закрыть</span>
+                  <span class="en_text"></span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div> -->
+
+      <!-- <script>
+        let form_qfe = document.querySelector("#qfe_form");
+        let fio_qfe = document.querySelector("#qfe_input_name");
+        let phone_qfe = document.querySelector("#qfe_input_phone");
+        let message_qfe = document.querySelector("#qfe_input_message");
+        let reg_success_qfe = document.querySelector("#qfe_reg_success");
+        let expert_error = document.querySelector(".expert-error");
+        let expert_divs = document.querySelectorAll(".expert-div");
+        let s_expert_id = 0;
+
+
+        expert_divs.forEach(item => {
+          item.addEventListener("click", () => {
+            expert_divs.forEach(e => {e.style.border = "none"});
+            expert_error.classList.add("d-none");
+
+            item.style.border = "5px solid #5078FF";
+            s_expert_id = item.dataset.id;
+          })
+        })
+
+
+        form_qfe.addEventListener("submit", (e) => {
+            e.preventDefault();
+            if (s_expert_id){
+  
+              fetch("/qfe/", {
+                  method: "POST",
+                  headers: {"Content-Type": "application/json", "X-CSRFToken": csrftoken},
+                  body: JSON.stringify({
+                    fio: fio_qfe.value,
+                    phone: phone_qfe.value,
+                    s_id: s_expert_id,
+                    message: message_qfe.value,
+                    code: document.querySelector('#captcha_code_base').value,
+                    answer: document.querySelector('#captcha_input_base').value,
+                  })
+              }).then(resp => resp.json()).then(resp =>{
+                if (resp.status == 200) {
+                  form_qfe.classList.add("d-none");
+                  reg_success_qfe.classList.remove("d-none");
+                } else {
+                  document.querySelector('#captcha_error_base').classList.remove('d-none')
+                  document.querySelector('#captcha_img_base').setAttribute('src', resp.image)
+                  document.querySelector('#captcha_code_base').value = resp.code
+                }
+              })
+            } else{expert_error.classList.remove("d-none")}
+        })
+      
+      </script> -->
+
+      <!-- <script>
+        let captcha_btn_refresh = document.querySelector('#captcha_btn_refresh_base');
+        captcha_btn_refresh.addEventListener('click', ()=>{
+            fetch('/captcha/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
+                },
+                body: JSON.stringify({})
+            })
+            .then(resp => resp.json())
+            .then(resp =>{
+                document.querySelector('#captcha_img_base').setAttribute('src', resp.image)
+                document.querySelector('#captcha_code_base').value = resp.code
+            })
+        })
+      </script> -->
+
+      {% block content %}
+      {% endblock content %}
+
+      <section class="newslatter_section">
+        <div class="container">
+          <div class="newslatter_box" style="background-image: url('{% static 'pages/assets/images/shape/shape_img_6.svg' %}')">
+            <div class="row justify-content-center">
+              <div class="col col-lg-6">
+                <div class="section_heading text-center">
+                  <h2 class="heading_text text-white">
+                    <span class="uz_text">Sertifikatni yuklab olish</span>
+                    <span class="ru_text">Скачать сертификат</span>
+                  </h2>
+                </div>
+                <div class="alert alert-danger d-none" id="certificate_danger_alert">
+                  <span class="ru_text">Сертификат не найден. Введите правильный ID</span>
+                  <span class="uz_text">Sertifikat topilmadi. ID ni to'gri kiriting</span>
+                </div>
+                <div class="alert alert-success d-none" id="certificate_success_alert">
+                  <span class="ru_text">Сертификат создан. Повторно отправить ID</span>
+                  <span class="uz_text">Sertifikat yaratildi. ID ni qaytatdan jo'nating</span>
+                </div>
+                <form id="certificate_form">
+                  <div class="form_item m-0">
+                    <input style="border: none;" required type="number" id="certificate_input" placeholder="Sertifikat raqamini kiriting">
+                    <button type="submit" class="btn btn_white" id="certificate_btn">
+                      <span class="uz_text">
+                        <small>Yuklash</small>
+                        <small>Yuklash</small>
+                      </span>
+                      <span class="ru_text">
+                        <small>Скачать</small>
+                        <small>Скачать</small>
+                      </span>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="site_footer bg_dark text-white">
+        <div class="footer_widget_area">
+          <div class="container">
+            <div class="row">
+              <div class="col col-lg-5 col-md-6 col-sm-6">
+                <div class="footer_widget">
+                  <div class="site_logo">
+                    <a class="site_link" href="{% url 'pages_index' %}">
+                      <img src="{% static 'pages/assets/images/web_imgs/logo_white.svg' %}">
+                    </a>
+                  </div>
+                  <p style="text-align:  justify;" class="mb-3 uz_text">
+                    Mazkur o`quv kursining o'quv dasturlari xalqaro ta'lim standartlarini hisobga olgan holda tayyorlangan bo'lib, o'quv jarayoni ilg'or pedagogik va axborot-kommunikatsiya texnologiyalaridan keng foydalangan holda tashkil etiladi. O'quv ishlarini olib borish, maslahatlar berish uchun yuqori malakali xorijiy va mahalliy mutaxassislar shartnomalar asosida jalb etilgan.
+                  </p>
+                  <p style="text-align:  justify;" class="mb-3 ru_text">
+                    Образовательные программы данного курса подготовки подготовлены с учетом международных образовательных стандартов, а учебный процесс организован с широким использованием передовых педагогических и информационно-коммуникационных технологий. Для проведения образовательной работы и предоставления консультаций на основе договоров привлекаются высококвалифицированные иностранные и местные специалисты.
+                  </p>
+                  <p class="mb-0">
+                    <span class="ru_text">Адрес: </span>
+                    <span class="uz_text">Manzil: </span>
+                    <span class="en_text">Address: </span>
+                    <a>{{office.address_uz}}</a>
+                  </p>
+                  <p class="mb-0">
+                    <span class="ru_text">Телефон: </span>
+                    <span class="uz_text">Telefon: </span>
+                    <span class="en_text">Phone: </span>
+                    <a href="tel:{{office.phone}}">{{office.phone}}</a>
+                  </p>
+                  <p class="mb-4">
+                    <span class="ru_text">Эл. почта: </span>
+                    <span class="uz_text">Email: </span>
+                    <span class="en_text">Email: </span>
+                    <a href="mailto:{{office.email}}">{{office.email}}</a>
+                  </p>
+                  <ul class="social_links unordered_list">
+                    <li>
+                      <a href="{{ office.facebook }}"><i class="fab fa-facebook-f"></i></a>
+                    </li>
+                    <li>
+                      <a href="{{ office.youtube }}"><i class="fab fa-youtube"></i></a>
+                    </li>
+                    <li>
+                      <a href="{{ office.telegram }}"><i class="fab fa-telegram"></i></a>
+                    </li>
+                    <li>
+                      <a href="{{ office.instagram }}"><i class="fab fa-instagram"></i></a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col col-lg-3">
+                <div class="footer_widget">
+                  <h3 class="footer_widget_title">
+                    <span class="ru_text">Быстрые ссылки</span>
+                    <span class="uz_text">Havolalar</span>
+                    <span class="en_text">Quick links</span>
+                  </h3>
+                  <ul class="page_list unordered_list_block">
+                    <li>
+                      <a href="{% url 'pages_index' %}">
+                        <span class="item_icon"><i class="fas fa-caret-right"></i></span>
+                        <span class="item_text uz_text">Bosh sahifa</span>
+                        <span class="item_text ru_text">Главная</span>
+                        <span class="item_text en_text">Bosh sahifa</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{% url 'pages_about' %}">
+                        <span class="item_icon"><i class="fas fa-caret-right"></i></span>
+                        <span class="item_text uz_text">Biz haqimizda</span>
+                        <span class="item_text ru_text">О нас</span>
+                        <span class="item_text en_text">Biz haqimizda</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{% url 'pages_course' %}">
+                        <span class="item_icon"><i class="fas fa-caret-right"></i></span>
+                        <span class="item_text uz_text">O'quv dasturi</span>
+                        <span class="item_text ru_text">Программа обучения</span>
+                        <span class="item_text en_text">O'quv dasturi</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{% url 'pages_news_all' %}">
+                        <span class="item_icon"><i class="fas fa-caret-right"></i></span>
+                        <span class="item_text uz_text">Yangiliklar</span>
+                        <span class="item_text ru_text">Новости</span>
+                        <span class="item_text en_text">Yangiliklar</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{% url 'pages_videos' %}">
+                        <span class="item_icon"><i class="fas fa-caret-right"></i></span>
+                        <span class="item_text uz_text">Vide darslar</span>
+                        <span class="item_text ru_text">Видеокурсы</span>
+                        <span class="item_text en_text">Video courses</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{% url 'pages_qfe' %}">
+                        <span class="item_icon"><i class="fas fa-caret-right"></i></span>
+                        <span class="item_text uz_text">Expertlar</span>
+                        <span class="item_text ru_text">Эксперты</span>
+                        <span class="item_text en_text">Experts</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{% url 'pages_books_category' %}">
+                        <span class="item_icon"><i class="fas fa-caret-right"></i></span>
+                        <span class="item_text uz_text">Kitoblar</span>
+                        <span class="item_text ru_text">Книги</span>
+                        <span class="item_text en_text">Books</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{% url 'pages_contact' %}">
+                        <span class="item_icon"><i class="fas fa-caret-right"></i></span>
+                        <span class="item_text uz_text">Bog'lanish</span>
+                        <span class="item_text ru_text">Контакты</span>
+                        <span class="item_text en_text">Bog'lanish</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col col-lg-4 col-md-6 col-sm-6">
+                <div class="footer_widget">
+                  <h3 class="footer_widget_title">
+                    <span class="uz_text">So'ngi yangiliklar</span>
+                    <span class="ru_text">Последние новости</span>
+                  </h3>
+                  <ul class="blog_small_group unordered_list_block">
+                    {% for i in news %}
+                    <li>
+                      <a class="blog_small" href="{% url 'pages_news_detail' i.id %}">
+                        <span class="item_image">
+                          <img src="{{i.image.url}}">
+                        </span>
+                        <span class="item_content">
+                          <strong class="item_title">
+                            <span class="uz_text">{{i.title_uz}}</span>
+                            <span class="ru_text">{{i.title_ru}}</span>
+                          </strong>
+                          <small class="item_post_date">{{i.html_date}}</small>
+                        </span>
+                      </a>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="copyright_widget">
+          <div class="container">
+            <p class="copyright_text text-center mb-0 pb-2">
+              <span class="uz_text">2023 "Suvchilar maktabi" MChJ © Barcha huquqlar himoyalangan. Barcha xizmatlar litsenziyalangan.</span>
+              <span class="ru_text">2023 OOO "Suvchilar maktabi" © Все права защищены. Все услуги лицензированы.</span>
+            </p>
+            <p class="copyright_text text-center pt-0 mb-0" style="border: none;">Developed by <a href="https://kodi.uz">kodi.uz</a></p>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+
+    <script>
+      let ru_text = document.querySelectorAll('.ru_text');
+      let uz_text = document.querySelectorAll('.uz_text');
+      let en_text = document.querySelectorAll('.en_text');
+
+      let ru_btn = document.querySelector('#ru_btn');
+      let uz_btn = document.querySelector('#uz_btn');
+      let en_btn = document.querySelector('#en_btn');
+
+      ru_btn.addEventListener('click', ()=> {
+          uz_text.forEach(item => item.style.display = "none");
+          en_text.forEach(item => item.style.display = "none");
+          ru_text.forEach(item => item.style.display = "inline-block");
+          localStorage.setItem('lang', 'ru')
+      })
+
+      uz_btn.addEventListener('click', ()=> {
+          ru_text.forEach(item => item.style.display = "none");
+          en_text.forEach(item => item.style.display = "none");
+          uz_text.forEach(item => item.style.display = "inline-block");
+          localStorage.setItem('lang', 'uz')
+      })
+
+      en_btn.addEventListener('click', ()=> {
+          uz_text.forEach(item => item.style.display = "none");
+          ru_text.forEach(item => item.style.display = "none");
+          en_text.forEach(item => item.style.display = "inline-block");
+          localStorage.setItem('lang', 'en')
+      })
+
+      if (localStorage.getItem('lang') == 'ru') {
+          uz_text.forEach(item => item.style.display = "none");
+          en_text.forEach(item => item.style.display = "none");
+          ru_text.forEach(item => item.style.display = "inline-block");
+          
+      } else if (localStorage.getItem('lang') == 'uz') {
+          ru_text.forEach(item => item.style.display = "none");
+          en_text.forEach(item => item.style.display = "none");
+          uz_text.forEach(item => item.style.display = "inline-block");
+          
+      } else if (localStorage.getItem('lang') == 'en') {
+          uz_text.forEach(item => item.style.display = "none");
+          ru_text.forEach(item => item.style.display = "none");
+          en_text.forEach(item => item.style.display = "inline-block");
+      } else {
+          ru_text.forEach(item => item.style.display = "none");
+          en_text.forEach(item => item.style.display = "none");
+          uz_text.forEach(item => item.style.display = "inline-block");
+          localStorage.setItem('lang', 'uz');
+      }
+    </script>
+
+    <script>
+      let form = document.querySelector("#certificate_form");
+      let input = document.querySelector("#certificate_input");
+      let btn = document.querySelector("#certificate_btn");
+      let alert_danger = document.querySelector("#certificate_danger_alert");
+      let alert_success = document.querySelector("#certificate_success_alert");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        btn.setAttribute("disabled", "true");
+
+        fetch("/certificate/download/", {
+            method: "POST",
+            headers: {"Content-Type": "application/json", "X-CSRFToken": csrftoken},
+            body: JSON.stringify({c_id: input.value})
+        }).then(resp => resp.json()).then(data => {
+            btn.removeAttribute("disabled");
+            if (data.status == 404){
+              alert_danger.classList.remove("d-none");
+              alert_success.classList.add("d-none");
+            } else if (data.status == "redirected"){
+              window.open(data.pdf_url, '_blank');
+              alert_danger.classList.add("d-none");
+              alert_success.classList.add("d-none");
+            } else if (data.status == "pdf_created"){
+              alert_danger.classList.add("d-none");
+              alert_success.classList.remove("d-none");
+            }
+        })
+      })
+    </script>
+
+    <script src="{% static 'pages/assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'pages/assets/js/popper.min.js' %}"></script>
+    <script src="{% static 'pages/assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'pages/assets/js/bootstrap-dropdown-ml-hack.js' %}"></script>
+    <script src="{% static 'pages/assets/js/cursor.js' %}"></script>
+    <script src="{% static 'pages/assets/js/wow.min.js' %}"></script>
+    <script src="{% static 'pages/assets/js/tilt.min.js' %}"></script>
+    <script src="{% static 'pages/assets/js/parallax.min.js' %}"></script>
+    <script src="{% static 'pages/assets/js/parallax-scroll.js' %}"></script>
+    <script src="{% static 'pages/assets/js/slick.min.js' %}"></script>
+    <script src="{% static 'pages/assets/js/magnific-popup.min.js' %}"></script>
+    <script src="{% static 'pages/assets/js/waypoint.js' %}"></script>
+    <script src="{% static 'pages/assets/js/counterup.min.js' %}"></script>
+    <script src="{% static 'pages/assets/js/countdown.js' %}"></script>
+    <script src="{% static 'pages/assets/js/vanilla-calendar.min.js' %}"></script>
+    <script src="{% static 'pages/assets/js/main.js' %}"></script>
+
+    {% block js %}
+    {% endblock js %} 
+  </body>
+</html>

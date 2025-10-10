@@ -1,0 +1,76 @@
+{% extends 'pages/base.html' %}
+
+{% load static %}
+
+{% block title %}
+{% endblock title %}
+
+{% block content %}
+<main class="page_content">
+
+  <section class="page_banner">
+    <div class="container">
+      <div class="content_wrapper" style="background-image: url({% static 'pages/assets/images/web_imgs/gallery.jpg' %}); width: 100%">
+        <div class="row align-items-center">
+          <div class="col col-12">
+            <ul class="breadcrumb_nav unordered_list">
+              <li><a href="{% url 'pages_index' %}" class="text-white">
+                <span class="uz_text">Bosh sahifa</span>
+                <span class="ru_text">Главная</span>
+              </a></li>
+              <li class="text-white">
+                <span class="uz_text">Kitoblar</span>
+                <span class="ru_text">Книги</span>
+              </li>
+              <li class="text-white">
+                <span class="uz_text">{{category.title_uz}}</span>
+                <span class="ru_text">{{category.title_ru}}</span>
+              </li>
+            </ul>
+            <h1 class="page_title text-white">
+              <span class="uz_text">{{category.title_uz}}</span>
+              <span class="ru_text">{{category.title_ru}}</span>
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="blog_section section_space_lg">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          {% for i in books %}
+        <div class="card card-body mb-3">
+            <div class="d-flex align-items-center p-3">
+              <i class="fas fa-book" style="color: #5078ff; font-size: 40px;"></i>
+              <h4 class="mb-0">
+                <a class="text-dark px-2" href="{{i.pdf.url}}" target="blank">
+                  <span class="ru_text">{{i.title_ru}}</span>
+                  <span class="uz_text">{{i.title_uz}}</span>
+                  <span class="en_text">{{i.title_en}}</span>
+                </a>
+              </h4>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="card card-body mb-3">
+          <div class="d-flex align-items-center p-3">
+            <i class="fas fa-book" style="color: #36e32c; font-size: 40px;"></i>
+            <h4 class="mb-0">
+              <a class="text-dark px-2" href="https://edu.fermermaktab.uz/knowledge?index=video" target="blank">
+                <span class="ru_text">Видеоуроки (FermerMaktab)</span>
+                <span class="uz_text">Video darslar (FermerMaktab)</span>
+                <span class="en_text">Video lessons (FermerMaktab)</span>
+              </a>
+            </h4>
+          </div>
+      </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+</main>
+{% endblock %}

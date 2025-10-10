@@ -1,0 +1,72 @@
+{% extends 'control/base.html' %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <h4 class="page-title">Редактировать книга</h4>
+        </div>
+    </div>
+</div>     
+
+<div class="row">
+    <div class="col-12">
+        <form enctype="multipart/form-data" action="{% url 'control_book_edit' %}" method="POST">
+            {% csrf_token %}
+            <div class="card">
+                <div class="card-body">
+                    <input type="hidden" name="id" value="{{book.id}}">
+                    <label>Приоритет</label>
+                    <input type="number" required name="priority" class="form-control mb-2"  value="{{book.priority}}">
+                    <label>Категория</label>
+                    <select name="category_id" required class='form-select mb-2'>
+                      {% for i in categories %}
+                      <option {% if book.category.id == i.id %} selected {% endif %} value="{{i.id}}">{{i.title_ru}}</option>
+                      {% endfor %}
+                  </select>
+                    <label>Название (РУ) </label> 
+                    <input required type="text" name="title_ru" class="form-control mb-2" value="{{book.title_ru}}">
+
+                    <label>Название (O'Z) </label> 
+                    <input required type="text" name="title_uz" class="form-control mb-2" value="{{book.title_uz}}">
+
+                    <label>Название (EN) </label> 
+                    <input required type="text" name="title_en" class="form-control mb-2" value="{{book.title_en}}">
+
+                    <label>Файл</label> 
+                    <input type="file" name="file" class="form-control mb-3">
+
+                    <a href="{{book.pdf.url}}" target="blank" class="mb-3 btn btn-secondary">Показать файл</a>
+
+                    <div class="row">
+                        <div class="col-md-6"><button type="submit" class="btn btn-primary btn-lg w-100">Сохранить</button></div>
+                        <div class="col-md-6"><button type="button" data-bs-target="#book_delete" data-bs-toggle="modal" class="btn btn-danger btn-lg w-100">Удалить</button></div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div> 
+</div>
+
+<div class="modal" id="book_delete" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Удалить книга</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>После удаления вы не сможете вернуть обратно, вы действительно хотите удалить?</p>
+        </div>
+        <div class="modal-footer">
+          <form action="{% url 'control_book_remove' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" value="{{book.id}}" name="id">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+            <button type="submit" class="btn btn-danger">Да, удалить!</button>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock content %}

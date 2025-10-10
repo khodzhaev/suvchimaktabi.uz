@@ -1,0 +1,119 @@
+{% extends 'control/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <h4 class="page-title">Редактировать сотрудника</h4>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <form enctype="multipart/form-data" action="{% url 'control_staff_edit' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{staff.id}}">
+            <div class="card">
+                <div class="card-body">
+                    <label>Приоритет</label>
+                    <input type="number" required name="priority" class="form-control mb-2" value="{{staff.priority}}">
+                    <label>Фотография {{staff.image}}</label> 
+                    <input type="file" name="image" class="form-control mb-2" accept="image/png, image/jpg, image/jpeg">
+                    <img src="{{staff.image.url}}" width="300px" alt="">
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="btn-group mb-3 w-100" role="group" aria-label="Basic radio toggle button group">
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                        <label class="btn btn-outline-dark" for="btnradio1">Блок: RU</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                        <label class="btn btn-outline-dark" for="btnradio2">Блок: EN</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+                        <label class="btn btn-outline-dark" for="btnradio3">Блок: UZ</label>
+                    </div>
+
+                    <div id="block_ru">
+                        <label>ФИО (RU)</label>
+                        <input required type="text" name="title_ru" class="form-control mb-2" value="{{staff.fio_ru}}">
+                        <label>Должность (RU)</label>
+                        <input required type="text" name="profession_ru" class="form-control mb-2" value="{{staff.profession_ru}}">
+                    </div>
+
+                      <div id="block_en" class="d-none">
+                          <label>ФИО (EN)</label>
+                          <input required type="text" name="title_en" class="form-control mb-2" value="{{staff.fio_en}}">
+                          <label>Должность (EN)</label>
+                          <input required type="text" name="profession_en" class="form-control mb-2" value="{{staff.profession_en}}">
+                      </div>
+
+                      <div id="block_uz" class="d-none">
+                        <label>ФИО (UZ)</label>
+                        <input required type="text" name="title_uz" class="form-control mb-2" value="{{staff.fio_uz}}">
+                        <label>Должность (UZ)</label>
+                        <input required type="text" name="profession_uz" class="form-control mb-2" value="{{staff.profession_uz}}">
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-6"><button type="submit" class="btn btn-primary btn-lg w-100 mt-3">Сохранить</button></div>
+                        <div class="col-md-6"><button type="button" data-bs-target="#modal_delete" data-bs-toggle="modal" class="btn btn-danger btn-lg w-100 mt-3">Удалить</button></div>
+                      </div>
+
+                </div>
+            </div> 
+        </form>
+    </div> 
+</div>
+
+<div class="modal" id="modal_delete" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Удалить сотрудника</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>После удаления вы не сможете вернуть обратно, вы действительно хотите удалить?</p>
+        </div>
+        <div class="modal-footer">
+          <form action="{% url 'control_staff_remove' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" value="{{staff.id}}" name="id">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+            <button type="submit" class="btn btn-danger">Да, удалить!</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}
+
+
+{% block script %}
+<script>
+   
+
+    document.querySelector('#btnradio1').addEventListener('click', ()=> {
+        document.querySelector('#block_ru').classList.remove('d-none')
+        document.querySelector('#block_en').classList.add('d-none')
+        document.querySelector('#block_uz').classList.add('d-none')
+    })
+
+    document.querySelector('#btnradio2').addEventListener('click', ()=> {
+        document.querySelector('#block_ru').classList.add('d-none')
+        document.querySelector('#block_en').classList.remove('d-none')
+        document.querySelector('#block_uz').classList.add('d-none')
+    })
+
+    document.querySelector('#btnradio3').addEventListener('click', ()=> {
+        document.querySelector('#block_ru').classList.add('d-none')
+        document.querySelector('#block_en').classList.add('d-none')
+        document.querySelector('#block_uz').classList.remove('d-none')
+    })
+</script>
+{% endblock %}

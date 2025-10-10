@@ -1,0 +1,778 @@
+{% extends 'pages/base.html' %}
+
+{% load static %}
+
+{% block title %}
+{% endblock title %}
+
+{% block content %}
+<style>
+  ul, ol {
+    list-style: none;
+  }
+  .slider_img img {
+    border-radius: 10px;
+  }
+  @media (max-width: 550px) {
+    .d-flex {
+      display: block !important;
+    }
+    .d-flex img {
+      margin-bottom: 20px;
+    }
+    .details_content{
+      padding-right: 0 !important;
+    }
+  }
+</style>
+<main class="page_content">
+
+  <section class="page_banner">
+    <div class="container">
+      <div class="content_wrapper bg_light">
+        <div class="row align-items-center">
+          <div class="col col-lg-7">
+            <ul class="breadcrumb_nav unordered_list">
+              <li class="text-dark"><a href="{% url 'pages_index' %}">
+                  <span class="uz_text">Bosh sahifa</span>
+                  <span class="ru_text">Главная</span>
+              </a></li>
+              <li class="text-dark">
+                <span class="uz_text">“Loyihachi” o‘quv kursi                </span>
+                  <span class="ru_text">Учебный курс "Фермер и агрокластеры"
+                  </span>
+              </li>
+            </ul>
+            <h1 class="page_title">
+              
+              <span class="uz_text">“Loyihachi” o‘quv kursi              </span>
+                  <span class="ru_text">Курсы обучения «Suvchilar maktabi» продолжаются!</span>
+            </h1>
+          </div>
+          <div class="col col-lg-5">
+            <div class="image_widget page_banner_image">
+              <img src="{% static 'pages/assets/images/loyihachi/main.jpg' %}">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="details_section mentor_details_section section_space_lg pb-0 mt-5" style="padding-bottom: 0; margin-bottom: 0;">
+    <div class="container">
+      <div class="section_space_md pt-0">
+        <div class="row align-items-center">
+          <div class="col col-lg-6">
+            <div class="details_image image_widget border border-primary border-3">
+              <img src="{% static 'pages/assets/images/loyihachi/second.jpg' %}">
+            </div>
+          </div>
+          <div class="col col-lg-6">
+            <div class="details_content ps-lg-5">
+              <h3 class="mentor_name">
+                <span class="uz_text">Suv resurslari va ulardan foydalanish, suvni tejaydigan texnologiyalarni joriy qilish ishlari</span>
+                <span class="ru_text">Что вы получите после прохождения нашего курса</span>
+              </h3>
+              <p style="text-align: justify;" class="ru_text">
+                <b>Знания и Навыки:</b> Вы усвоите современные методы и техники управления водными ресурсами, научитесь оптимизировать и эффективно использовать воду в сельском хозяйстве. Эти знания помогут вам добиваться лучших результатов в ваших агропроектах.
+                <br>
+                <b>Сертификация:</b> По завершении курсов вы получите официальный сертификат, подтверждающий вашу квалификацию в области бережливого использования водных ресурсов. Это документ, который подтвердит ваши знания и навыки перед вашими партнерами и работодателями.
+                <br>
+                <b>Поддержка и Сеть:</b> Вы становитесь частью сообщества "Suvchilar maktabi", где можно обмениваться опытом, получать дополнительную поддержку и консультации от экспертов. Эта сеть связей может стать ценным ресурсом для дальнейшего развития.
+              </p>
+              <p style="text-align: justify;" class="uz_text">
+                <b>Tuproqning mexanik va meliorativ ko‘rsatkichlari,</b> ekinlarni sug‘orish rejimi va an’anaviy usullari, suvning samaradorligi.
+                <br> <br>
+                <b>Suvni tejaydigan sug‘orish texnologiyalari,</b> ularni loyihalash. Loyihaning asosiy tarkibi. Loyihalovchi va quruvchi tashkilotlarning shartnomaviy majburiyatlari.
+                <br> <br>
+                <b>Tomchilatib, yomg‘irlatib,</b> diskret sug‘orish texnologiyasini joriy qilish shart-sharoitlari, yerlarni lazerli tekislash, sug‘orish sxemalari, magistral, suv tarqatuvchi quvurlar va suvni joylashtirish, ularga qo‘yiladigan talablar.
+
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="details_section mentor_details_section section_space_lg pb-0 mt-0">
+    <div class="container">
+      <div class="section_space_md pt-0">
+        <div class="row align-items-center">
+
+          <div class="col-md-4">
+            <img src="{% static 'pages/assets/images/loyihachi/a1.jpg' %}" alt="" class="w-">
+          </div>
+          <div class="col-md-4">
+            <img src="{% static 'pages/assets/images/loyihachi/a2.jpg' %}" alt="" class="w-">
+          </div>
+          <div class="col-md-4">
+            <img src="{% static 'pages/assets/images/loyihachi/a3.jpg' %}" alt="" class="w-">
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section_space_lg pt-0 pb-5">
+    <div class="container">
+      <div class="section_heading text-center">
+        <h2 class="heading_text mb-0">
+          <span class="uz_text">O'quv dasturi</span>
+          <span class="ru_text">Программа обучения</span>
+        </h2>
+      </div>
+      
+      <div class="container mt-5">
+        <h1 class="fw-bold fs-1 text-start">1 - KUN</h1>
+        <div class="container mt-1">
+          <div
+            class="swiffy-slider d-flex justify-content-center slider-item-show6 slider-item-show2-sm slider-item-snapstart slider-nav-caretfill slider-nav-autopause slider-indicators-square slider-indicators-outside slider-nav-animation-slow"
+          >
+            <ul class="slider-container py-5 d-flex gap-5">
+              <li class="slide-visible">
+                <div id="slide1">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/loyihachi/1.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+              <li class="slide-visible">
+                <div d="slide2">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/loyihachi/2.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+              <li class="slide-visible">
+                <div id="slide3">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/loyihachi/3.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+              <li class="slide-visible">
+                <div id="slide4">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/loyihachi/4.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+            </ul>
+  
+            <!-- <button type="button" class="slider-nav"></button>
+            <button type="button" class="slider-nav slider-nav-next"></button> -->
+          </div>
+        </div>
+        <div
+          class="mt-1 d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">
+            Suv resurslari va ulardan foydalanish, suvni tejaydigan texnologiyalarni joriy qilish
+            ishlari, mavjud muammo va dolzarb vazifalar.
+          </h6>
+          <h3 class="fw-bold text-start">9:30 - 10:30</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">Kofe-breyk</h6>
+          <h3 class="fw-bold">10:30 - 11:45</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">
+            Tuproqning mexanik va meliorativ ko'rsatkichlari, ekinlarni sug'orish rejimi an'anaviy
+            usullari, suvning samaradorligi.
+          </h6>
+          <h3 class="fw-bold">10:45 - 11:45</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">
+            Suvni tejaydigan sug'orish texnologiyalari, ularni loyihalash. Loyihaning asosiy tarkibi.
+            Loyihalovchi va quruvchi tashkilotlarning shartnomaviy majburiyatlari.
+          </h6>
+          <h3 class="fw-bold">14:00 - 15:00</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">Tushlik</h6>
+          <h3 class="fw-bold">13:00 - 14:00</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">Tinglovchilar bilan muloqot</h6>
+          <h3 class="fw-bold">14:00 - 16:00</h3>
+        </div>
+      </div>
+  
+      <div class="container mt-5">
+        <h1 class="fw-bold fs-1 text-start">2 - KUN</h1>
+        <div class="container mt-1">
+          <div
+            class="swiffy-slider d-flex justify-content-center slider-item-show6 slider-item-show2-sm slider-item-snapstart slider-nav-caretfill slider-nav-autopause slider-indicators-square slider-indicators-outside slider-nav-animation-slow"
+          >
+            <ul class="slider-container py-5 d-flex gap-5">
+              <li class="slide-visible">
+                <div id="slide1">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/loyihachi/5.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+              <li class="slide-visible">
+                <div d="slide2">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/loyihachi/6.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+              <li class="slide-visible">
+                <div id="slide3">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/loyihachi/7.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+              <li class="slide-visible">
+                <div id="slide4">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/loyihachi/8.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+            </ul>
+  
+            <!-- <button type="button" class="slider-nav"></button>
+            <button type="button" class="slider-nav slider-nav-next"></button> -->
+          </div>
+        </div>
+        <div
+          class="mt-1 d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">
+            Tomchilatib sug'orish texnologiyasini joriy qilish shart-sharoitlari, sug'orish sxemalari,
+            magistral, suv tarqatuvchi va tomizgichli quvurlarni joylashtirish, ularga qo'yiladigan
+            talablar.
+          </h6>
+          <h3 class="fw-bold text-start">9:30 - 10:30</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">Kofe-breyk</h6>
+          <h3 class="fw-bold">10:30 - 10:45</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">
+            Tomchilatib sug'orish texnologiyasi tizimlarining gidravlik hisobi va loyihalash tartibi.
+          </h6>
+          <h3 class="fw-bold">10:45 - 11:45</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">
+            Tomchilatib sug'orish texnologiyasi tizimlarining bo'g'lovchi qismlarini tanlash.
+          </h6>
+          <h3 class="fw-bold">12:00 - 13:00</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">Tushlik</h6>
+          <h3 class="fw-bold">13:00 - 14:00</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">
+            Tomchilatib sug'orish texnologiyasi tizimlarini ko'rish tartibi va qurilish sifatiga
+            qo'yiladigan talablar.
+          </h6>
+          <h3 class="fw-bold">14:00 - 15:00</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">Tinglovchilar bilan muloqot</h6>
+          <h3 class="fw-bold">15:15 - 16:00</h3>
+        </div>
+      </div>
+  
+      <div class="container mt-5">
+        <h1 class="fw-bold fs-1 text-start">3 - KUN</h1>
+        <div class="container mt-1">
+          <div
+            class="swiffy-slider d-flex justify-content-center slider-item-show6 slider-item-show2-sm slider-item-snapstart slider-nav-caretfill slider-nav-autopause slider-indicators-square slider-indicators-outside slider-nav-animation-slow"
+          >
+            <ul class="slider-container py-5 d-flex gap-5">
+              <li class="slide-visible">
+                <div id="slide1">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/loyihachi/9.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+              <li class="slide-visible">
+                <div d="slide2">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/loyihachi/10.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+              <li class="slide-visible">
+                <div id="slide3">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/loyihachi/11.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+              <li class="slide-visible">
+                <div id="slide4">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/loyihachi/12.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+            </ul>
+  
+            <!-- <button type="button" class="slider-nav"></button>
+            <button type="button" class="slider-nav slider-nav-next"></button> -->
+          </div>
+        </div>
+        <div
+          class="mt-1 d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">
+            Yomg'irlatib sug'orish texnologiyasini joriy qilish shart-sharoitlari. Sug'orish
+            sxemalari, magistral, suv tarqatuvchi quvurlar va suvni joylashtirish, ularga qo'yiladigan
+            talablar.
+          </h6>
+          <h3 class="fw-bold text-start">9:30 - 10:30</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">Kofe-breyk</h6>
+          <h3 class="fw-bold">10:30 - 10:45</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">
+            Yomg'irlatib sug'orish texnologiyasi tizimlarining gidravlik hisobi va loyihalash tartibi.
+          </h6>
+          <h3 class="fw-bold">10:45 - 11:45</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">
+            Yomg'irlatib sug'orish texnologiyasi tizimlarining bo'g'lovchi qismlarini tanlash.
+          </h6>
+          <h3 class="fw-bold">12:00 - 13:00</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">Tushlik</h6>
+          <h3 class="fw-bold">13:00 - 14:00</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">
+            Yomg'irlatib sug'orish texnologiyasi tizimlarini qurish tartibi va qurilish sifatiga
+            qo'yiladigan talablar.
+          </h6>
+          <h3 class="fw-bold">14:00 - 15:00</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">Tinglovchilar bilan muloqot</h6>
+          <h3 class="fw-bold">15:15 - 16:00</h3>
+        </div>
+      </div>
+  
+      <div class="container mt-5">
+        <h1 class="fw-bold fs-1 text-start">4 - KUN</h1>
+        <div class="container mt-1">
+          <div
+            class="swiffy-slider d-flex justify-content-center slider-item-show6 slider-item-show2-sm slider-item-snapstart slider-nav-caretfill slider-nav-autopause slider-indicators-square slider-indicators-outside slider-nav-animation-slow"
+          >
+            <ul class="slider-container py-5 d-flex gap-5">
+              <li class="slide-visible">
+                <div id="slide1">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/loyihachi/13.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+              <li class="slide-visible">
+                <div d="slide2">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/loyihachi/14.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+              <li class="slide-visible">
+                <div id="slide3">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/loyihachi/15.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+              <li class="slide-visible">
+                <div id="slide4">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/loyihachi/16.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+            </ul>
+  
+            <!-- <button type="button" class="slider-nav"></button>
+            <button type="button" class="slider-nav slider-nav-next"></button> -->
+          </div>
+        </div>
+        <div
+          class="mt-1 d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">
+            Diskret sug'orish texnologiyasini joriy qilish shart-sharoitlari, yerlarni lazerli
+            tekislash, sug'orish sxemalari, magistral, tarqatuvchi va egiluvchan quvurlarni
+            joylashtirish, ularga qo'yiladigan talablar.
+          </h6>
+          <h3 class="fw-bold text-start">9:30 - 10:30</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">Kofe-breyk</h6>
+          <h3 class="fw-bold">10:30 - 10:45</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">
+            Diskret sug'orish texnologiyasi tizimlarining gidravlik hisobi va loyihalash tartibi.
+          </h6>
+          <h3 class="fw-bold">10:45 - 11:45</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">
+            Diskret sug'orish texnologiyasi tizimlarining bo'g'lovchi qismlarini tanlash.
+          </h6>
+          <h3 class="fw-bold">12:00 - 13:00</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">Tushlik</h6>
+          <h3 class="fw-bold">13:00 - 14:00</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">
+            Diskret va tuproq ostidan sug'orish texnologiyalari tizimlarini ko'rish tartibi va
+            qurilish sifatiga qo'yiladigan talablar.
+          </h6>
+          <h3 class="fw-bold">14:00 - 15:00</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">Tinglovchilar bilan muloqot</h6>
+          <h3 class="fw-bold">15:15 - 16:00</h3>
+        </div>
+      </div>
+  
+      <div class="container mt-5">
+        <h1 class="fw-bold fs-1 text-start">5 - KUN</h1>
+        <div class="container mt-1">
+          <div
+            class="swiffy-slider d-flex justify-content-center slider-item-show6 slider-item-show2-sm slider-item-snapstart slider-nav-caretfill slider-nav-autopause slider-indicators-square slider-indicators-outside slider-nav-animation-slow"
+          >
+            <ul class="slider-container py-5 d-flex gap-5">
+              <li class="slide-visible">
+                <div id="slide1">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/loyihachi/17.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+              <li class="slide-visible">
+                <div d="slide2">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/loyihachi/18.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+              <li class="slide-visible">
+                <div id="slide3">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/loyihachi/19.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+            </ul>
+  
+            <!-- <button type="button" class="slider-nav"></button>
+            <button type="button" class="slider-nav slider-nav-next"></button> -->
+          </div>
+        </div>
+        <div
+          class="mt-1 d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">
+            " Toshkent irrigatsiya va qishloq xoʻjaligini mexanizatsiyalash muhandislari instituti”
+            milliy tadqiqot universitetining oʻquv tajriba xo'jaligida tinglovchilar uchun amaliyot
+            oʻtkazish
+          </h6>
+          <h3 class="fw-bold text-start">9:30 - 10:00</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">Tomchilatib sug'orish texnologiyasidan foydalanish</h6>
+          <h3 class="fw-bold">10:00 - 11:00</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">“Sprinkler” yordamida yomg'irlatib sug'orish tizimidan foydalanish</h6>
+          <h3 class="fw-bold">11:00 - 11:30</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">Tuproq ostidan sug'orish tizimidan foydalanish</h6>
+          <h3 class="fw-bold">11:30 - 12:00</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">Diskret sug'orish tizimidan foydalanish</h6>
+          <h3 class="fw-bold">12:00 - 12:30</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">
+            Keng qamrovli aylanma harakatlanuvchi agregat yordamida yomg'irlatib sug'orish tizimidan
+            foydalanish
+          </h6>
+          <h3 class="fw-bold">12:30 - 13:00</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">Tushlik</h6>
+          <h3 class="fw-bold">13:00 - 14:00</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">Amaliyot yakuni bo'yicha tinglovchilar bilan mashg'ulot</h6>
+          <h3 class="fw-bold">14:00 - 16:00</h3>
+        </div>
+      </div>
+  
+      <div class="container mt-5">
+        <h1 class="fw-bold fs-1 text-start">6 - KUN</h1>
+        <div class="container mt-1">
+          <div
+            class="swiffy-slider d-flex justify-content-center slider-item-show6 slider-item-show2-sm slider-item-snapstart slider-nav-caretfill slider-nav-autopause slider-indicators-square slider-indicators-outside slider-nav-animation-slow"
+          >
+            <ul class="slider-container py-5 d-flex gap-5">
+              <li class="slide-visible">
+                <div id="slide1">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/loyihachi/7.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+              <li class="slide-visible">
+                <div d="slide2">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/loyihachi/13.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+              <li class="slide-visible">
+                <div id="slide3">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/loyihachi/2.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+              <li class="slide-visible">
+                <div id="slide4">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/loyihachi/14.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+            </ul>
+  
+            <!-- <button type="button" class="slider-nav"></button>
+            <button type="button" class="slider-nav slider-nav-next"></button> -->
+          </div>
+        </div>
+        <div
+          class="mt-1 d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">
+            Tinglovchilar tomonidan tayyorlangan suvni tejaydigan sug'orish texnologiyalari
+            loyihalarining taqdimotlari
+          </h6>
+          <h3 class="fw-bold text-start">9:00 - 13:00</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">Tushlik</h6>
+          <h3 class="fw-bold">13:00 - 14:00</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">
+            Tinglovchilar tomonidan tayyorlangan suvni tejaydigan sug'orish texnologiyalari
+            loyihalarning taqdimotlari
+          </h6>
+          <h3 class="fw-bold">14:00 - 16:00</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">Sertifikatlarni topshirish</h6>
+          <h3 class="fw-bold">16:00 - 16:45</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">Tinglovchilarni kuzatish</h6>
+          <h3 class="fw-bold">16:45 - 17:15</h3>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <section class="testimonial_section section_space_lg pt-0">
+    <div class="container">
+      <div class="section_heading">
+        <div class="row align-items-center">
+          <div class="col col-12">
+            <h2 class="heading_text mb-0">
+              <span class="ru_text">Наши наставники</span>
+              <span class="uz_text">Bizning Ustozlar</span>
+              <span class="en_text">Our mentors</span>
+            </h2>
+          </div>
+        </div>
+      </div>
+      <div>
+        <style>
+          .grid-4 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-gap: 20px;
+            text-align: center;
+            justify-content: space-between;
+            align-items: space-between;
+          }
+          .mentor_item img{
+            border-radius: 8px;
+          }
+          @media screen and (max-width: 991px) {
+            .grid-4{
+              grid-template-columns: 1fr 1fr 1fr;
+            }
+            .mentor_item {
+              padding: 10px
+            }
+          }
+          @media screen and (max-width: 740px) {
+            .grid-4{
+              grid-template-columns: 1fr 1fr;
+            }
+          }
+          @media screen and (max-width: 550px) {
+            .grid-4{
+              grid-template-columns: 1fr;
+            }
+          }
+        </style>
+        <div class="grid-4">
+          {% for i in experts %}
+            <div class="mentor_item">
+              <div class="mentor_image">
+                <img src="{{ i.image.url }}">
+              </div>
+              <div class="mentor_content">
+                <h3 class="mentor_name ru_text">{{i.fio_ru}}</h3>
+                <h3 class="mentor_name uz_text">{{i.fio_uz}}</h3>
+                <h3 class="mentor_name en_text">{{i.fio_en}}</h3>
+                <p class="mentor_designation ru_text">{{i.profession_ru}}</p>
+                <p class="mentor_designation uz_text">{{i.profession_uz}}</p>
+                <p class="mentor_designation en_text">{{i.profession_en}}</p>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  
+</main>
+
+<script>
+  let courses = document.querySelectorAll('.orderz')
+  courses.forEach((item, i) => {
+    if (i % 2 == 0) {
+      item.classList.add('order-2')
+    } 
+  })
+</script>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'control/base.html' %}
+
+{% block content %}
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <h4 class="page-title">Обратная связь</h4>
+        </div>
+    </div>
+</div>     
+<!-- end page title --> 
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                {% if base.code == 'remove' %}
+                <div class="alert alert-info">
+                    Сообщение была успешно удалена!
+                </div>
+                {% elif base.code == 'error' %}
+                <div class="alert alert-danger">
+                    Что-то пошло не так!
+                </div>
+                {% endif %}
+                <div class="table-responsive">
+                    <table class="table m-0">
+                        <thead>
+                            <tr>
+                                <th>Дата</th>
+                                <th>ФИО</th>
+                                <th>Телефон</th>
+                                <th>Почта</th>
+                                <th>Сообщение</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for f in feedbacks %}
+                            <tr>
+                                <th>{{f.date_created}} <br> <a class="text-danger" href="#f{{f.id}}" data-bs-toggle="modal"><small>Удалить</small></a></th>
+                                <td>{{f.fio}}</td>
+                                <td>{{f.phone}}</td>
+                                <td>{{f.email}}</td>
+                                <td>{{f.message}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% for f in feedbacks %}
+<div class="modal" id="f{{f.id}}" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Удалить сообщение</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>После удаления вы не сможете вернуть обратно, вы действительно хотите удалить?</p>
+        </div>
+        <div class="modal-footer">
+          <form action="{% url 'control_feedback_remove' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" value="{{f.id}}" name="id">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+            <button type="submit" class="btn btn-danger">Да, удалить!</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+{% endblock content %}

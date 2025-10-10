@@ -1,0 +1,43 @@
+{% extends 'control/base.html' %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <h4 class="page-title">Добавить район</h4>
+        </div>
+    </div>
+</div>     
+
+<div class="row">
+    <div class="col-12">
+        <form action="{% url 'control_district_create' %}" method="POST">
+            {% csrf_token %}
+            <div class="card">
+                <div class="card-body">
+
+                    {% if base.code == 'exist' %}
+                    <div class="alert alert-danger">
+                        Это название уже использовалось!
+                    </div>
+                    {% endif %}
+
+                    <label>Регион</label>
+                    <select name="region_id" class="form-control mb-3" required>
+                        <option value=""></option>
+                        {% for r in regions %}
+                            <option value="{{r.id}}">{{r.title}}</option>
+                        {% endfor %}
+                    </select>
+
+                    <label>Название</label> 
+                    <input required type="text" name="title" class="form-control mb-3">
+
+                    <button type="submit" class="btn btn-primary btn-lg w-100 ">Добавить</button>
+                </div>
+            </div>
+        
+    </form>
+    </div> 
+</div>
+{% endblock content %}

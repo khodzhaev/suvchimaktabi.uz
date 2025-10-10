@@ -1,0 +1,393 @@
+{% extends 'pages/base.html' %}
+
+{% load static %}
+
+{% block title %}
+{% endblock title %}
+
+{% block content %}
+<main class="page_content">
+
+    <section class="page_banner">
+      <div class="container">
+        <div class="content_wrapper" style="background-image: url({% static 'pages/assets/images/web_imgs/about_main.jpeg' %}); width: 100%">
+          <div class="row align-items-center">
+            <div class="col col-12">
+              <ul class="breadcrumb_nav unordered_list">
+                <li><a href="{% url 'pages_index' %}" class="text-white">
+                  <span class="uz_text">Bosh sahifa</span>
+                  <span class="ru_text">Главная</span>
+                </a></li>
+                <li class="text-white">
+                  <span class="uz_text">Biz haqimizda</span>
+                  <span class="ru_text">О нас</span>
+                </li>
+              </ul>
+              <h1 class="page_title text-white">
+                <span class="uz_text">Biz Haqimizda</span>
+                <span class="ru_text">О нас</span>
+              </h1>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- <section class="testimonial_section section_space_lg pb-0">
+      <div class="container">
+        <div class="testimonial_carousel">
+          <div class="common_carousel_1col" data-slick='{"dots":false}'>
+            <div class="carousel_item">
+              <div class="testimonial_item_2">
+                <div class="testimonial_image image_widget order-last me-0" style="background-image: url('{% static 'pages/assets/images/shape/shape_img_6.svg' %}');">
+                  <img src="{% static 'pages/assets/images/web_imgs/director.jpg' %}">
+                </div>
+                <div class="testimonial_content">
+                  <h3 class="testimonial_title">
+                    <span class="ru_text">От всего сердца благодарим тех, кто придает большое значение водным ресурсам и понимает их ценность. Ваше участие в нашем обучающем курсе "Бережливое использование воды" имеет важное значение. Вы становитесь инициаторами позитивных изменений, способствующих сохранению воды и поддержанию экологической устойчивости.</span>
+                    <span class="uz_text">Suv resurslariga katta ahamiyat berib, uning qadr-qimmatini tushunib yetayotganlarga chin yurakdan minnatdorchilik bildiramiz. 
+                      "Suvdan tejamkorlik bilan foydalanish" o'quv kursimizda ishtirok etishingiz muhim. Siz suvni tejash va ekologik barqarorlikni ta'minlaydigan ijobiy o'zgarishlar tashabbuskori bo'lasiz.</span>
+                    
+                  </h3>
+                  <div class="testimonial_admin">
+                    <div class="admin_content">
+                      <h5 class="pt-3">Baxriddinov Kamoliddin Baxriddin o'g'li</h5>
+                      <span class="testimonial_designation uz_text">Bosh Director</span>
+                      <span class="testimonial_designation ru_text">Глав Директор</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> -->
+
+
+    <section class="policy_section section_space_lg">
+      <div class="container position-relative">
+        <div class="section_heading">
+          <div class="row align-items-center justify-content-lg-between">
+            <div class="col">
+              <h2 class="heading_text mb-lg-0">
+                <span class="uz_text">Onlayn platformalar</span>
+                <span class="ru_text">Наши преимущества</span>
+              </h2>
+            </div>
+          </div>
+        </div>
+        <style>
+          .iconbox_item h3{
+            font-size: 20px !important;
+          }
+        </style>
+        <div class="row">
+          <div class="col col-lg-3 col-md-6">
+            <div class="iconbox_item">
+              <div class="title_wrap">
+                <div class="item_icon bg_dark text-white bg-primary">
+                  <i class="fas fa-book-open"></i>
+                </div>
+                <h3 class="item_title mb-0 ru_text">Экологическое Сознание</h3>
+                <h3 class="item_title mb-0 uz_text"> “Tomchi” mobil ilovasi </h3>
+              </div>
+              <p class="mb-0 uz_text">
+                “Tomchi” mobil ilovasi sug‘orishda tejamkorlik usullari haqidagi axborotlarga tezkorlik bilan ega bo‘lish, ularning afzalliklarini tushuntirish hamda suvni tejaydigan texnologiyalarni joriy etishning taxminiy bahosini hisoblash imkonini beradi.
+              </p>
+              <p class="mb-0 ru_text">
+                Мы активно содействуем экологическому образу жизни, обучая и внедряя инновационные методы для бережного отношения к природе. Наши клиенты не только экономят ресурсы, но и оказывают позитивное влияние на окружающую среду.
+              </p>
+            </div>
+          </div>
+          <div class="col col-lg-3 col-md-6">
+            <div class="iconbox_item">
+              <div class="title_wrap">
+                <div class="item_icon bg_dark text-white bg-primary">
+                  <i class="fas fa-code-branch"></i>
+                </div>
+                <h3 class="item_title mb-0 ru_text">Индивидуальный Подход</h3>
+                <h3 class="item_title mb-0 uz_text"> “Tomchi-reestr” YaER</h3>
+              </div>
+              <p class="mb-0 uz_text">“Tomchi-reestr” pudrat korxonalarining yagona elektron reestrining amaliyotga tatbiq etilishi suvni tejaydigan texnologiyalarni joriy etish ishlarini sifatli amalga oshirilishi bilan bir qatorda bozor iqtisodiyotida erkin raqobatni shakllantirish hamda shaffofikni ta’minlash imkonini bermoqda.
+              </p>
+              <p class="mb-0 ru_text">
+                Мы прислушиваемся к потребностям каждого клиента и разрабатываем решения, соответствующие их уникальным требованиям. Наша цель – предоставить наилучшее решение, учитывая конкретные обстоятельства.
+              </p>
+            </div>
+          </div>
+          <div class="col col-lg-3 col-md-6">
+            <div class="iconbox_item">
+              <div class="title_wrap">
+                <div class="item_icon bg_dark text-white bg-primary">
+                  <i class="fas fa-comment-smile"></i>
+                </div>
+                <h3 class="item_title mb-0 ru_text">Профессиональные Эксперты</h3>
+                <h3 class="item_title mb-0 uz_text">“Agro-subsidiya” YaAT</h3>
+              </div>
+              <p class="mb-0 uz_text">“Agro-subsidiya” yagona axborot tizimining joriy etilishi ortiqcha qog‘ozbozlikni kamaytirish bilan birga, suvni tejaydigan texnologiyalarni joriy qilgan qishloq xo‘jaligi mahsulotlari ishlab chiqaruvchilari tomonidan subsidiya olish bo‘yicha onlayn topshirilgan arizalarning holatini kunlik nazorat qilib borish imkoniyati yaratildi. 
+              </p>
+              <p class="mb-0 ru_text">
+                Наша команда состоит из опытных экспертов, готовых предоставить клиентам высококачественные услуги и консультации. Мы всегда на пульсе последних тенденций и передовых методов в области устойчивости.
+              </p>
+            </div>
+          </div>
+          <div class="col col-lg-3 col-md-6">
+            <div class="iconbox_item">
+              <div class="title_wrap">
+                <div class="item_icon bg_dark text-white bg-primary">
+                  <i class="fas fa-user-graduate"></i>
+                </div>
+                <h3 class="item_title mb-0 ru_text">Социальная Ответственность</h3>
+                <h3 class="item_title mb-0 uz_text">Ijtimoiy javobgarlik</h3>
+              </div>
+              <p class="mb-0 uz_text">
+                Kompaniyamiz jamiyat bilan faol hamkorlik qiladi va jamiyat hayotini yaxshilashga hissa qo'shadi. Biz barqaror va uyg'un ijtimoiy munosabatlarni yaratishga hissa qo'shadigan ijtimoiy va ekologik tashabbuslarni qo'llab-quvvatlaymiz.
+              </p>
+              <p class="mb-0 ru_text">
+                Наше предприятие активно взаимодействует с обществом и вносит вклад в улучшение жизни сообщества. Мы поддерживаем социальные и экологические инициативы, способствуя созданию устойчивых и гармоничных общественных связей.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- <section class="testimonial_section section_space_lg">
+      <div class="container">
+        <div class="section_heading">
+          <div class="row align-items-center">
+            <div class="col col-lg-7">
+              <h2 class="heading_text mb-0">
+                <span class="uz_text">Bizning Jamoa</span>
+                <span class="ru_text">Наша команда</span>
+              </h2>
+            </div>
+            <div class="col col-lg-5 d-lg-flex d-none justify-content-end">
+              <div class="carousel_arrow">
+                <button type="button" class="cc2c_left_arrow">
+                  <i class="far fa-arrow-left"></i>
+                  <i class="far fa-arrow-left"></i>
+                </button>
+                <button type="button" class="cc2c_right_arrow">
+                  <i class="far fa-arrow-right"></i>
+                  <i class="far fa-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial_carousel">
+          <div class="common_carousel_3col" data-slick='{"dots":false}'>
+            {% for i in staffs %}
+            <div class="carousel_item" >
+              <div class="mentor_item">
+                <div class="mentor_image">
+                  <a href="javascript:;" style="cursor: default;">
+                    <img src="{{i.image.url}}" >
+                  </a>
+                </div>
+                <div class="mentor_content">
+                  <h3 class="mentor_name uz_text">{{i.fio_uz}}</h3>
+                  <h3 class="mentor_name ru_text">{{i.fio_ru}}</h3>
+                  <p class="mentor_designation uz_text">{{i.profession_uz}}</p>
+                  <p class="mentor_designation ru_text">{{i.profession_ru}}</p>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="carousel_arrow d-lg-none d-flex justify-content-center">
+            <button type="button" class="cc2c_left_arrow">
+              <i class="far fa-arrow-left"></i>
+              <i class="far fa-arrow-left"></i>
+            </button>
+            <button type="button" class="cc2c_right_arrow">
+              <i class="far fa-arrow-right"></i>
+              <i class="far fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section> -->
+
+    <section class="testimonial_section section_space_lg">
+      <div class="container">
+        <div class="section_heading">
+          <div class="row align-items-center">
+            <div class="col col-lg-7">
+              <h2 class="heading_text mb-0">
+                <span class="uz_text">Bizning Jamoa</span>
+                <span class="ru_text">Наша команда</span>
+              </h2>
+            </div>
+          </div>
+        </div>
+        {% for i in staffs %}
+        <div class="card card-body mb-2" style="cursor: pointer;">
+          <h3 class="mentor_name uz_text">{{i.fio_uz}}</h3>
+          <h3 class="mentor_name ru_text">{{i.fio_ru}}</h3>
+          <p class="mentor_designation uz_text mb-0">{{i.profession_uz}}</p>
+          <p class="mentor_designation ru_text mb-0">{{i.profession_ru}}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="counter_section bg_primary section_space_md" style="color: #fff;">
+      <div class="container">
+        <div class="row">
+          <div class="col col-lg-3 col-md-6">
+            <div class="counter_item border-white" style="padding-right: 0;">
+              <h3 class="counter_value text-white">
+                <span class="counter_value_text">77582</span>
+                <span>+</span>
+              </h3>
+              <p class="mb-0 uz_text">
+                O`quv kursi ishtirokchilari
+              </p>
+              <p class="ru_text mb-0">
+                Участники нашего курса
+              </p>
+            </div>
+          </div>
+
+          <div class="col col-lg-3 col-md-6">
+            <div class="counter_item border-white">
+              <h3 class="counter_value text-white">
+                <span class="counter_value_text">195</span>
+                <span>+</span>
+              </h3>
+              <p class="mb-0 uz_text">
+                Malakali o'qituvchilar
+              </p>
+              <p class="ru_text mb-0">
+                Квалифицированные преподаватели
+              </p>
+            </div>
+          </div>
+
+          <div class="col col-lg-3 col-md-6">
+            <div class="counter_item border-white">
+              <h3 class="counter_value text-white">
+                <span class="counter_value_text">50</span>
+                <span>+</span>
+              </h3>
+              <p class="mb-0 uz_text">
+                Xorijiy mutaxassislar va ekspertlar
+              </p>
+              <p class="ru_text mb-0">
+                Зарубежные специалисты и эксперты
+              </p>
+            </div>
+          </div>
+
+          <div class="col col-lg-3 col-md-6">
+            <div class="counter_item border-white">
+              <h3 class="counter_value text-white">
+                <span class="counter_value_text">2</span>
+                <span>+</span>
+              </h3>
+              <p class="mb-0 uz_text">
+                Ispaniya davlatidan jalb etilgan mutaxassislar
+              </p>
+              <p class="ru_text mb-0">
+                Специалисты эксперты из Испании
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="brands_section section_space_lg pb-0">
+      <div class="container">
+        <div class="section_heading text-center">
+          <h2 class="heading_text mb-0">
+            <span class="ru_text">Партнеры</span>
+            <span class="uz_text">Hamkorlar</span>
+          </h2>
+        </div>
+        <ul class="brands_logo_list unordered_list">
+          <li>
+            <a href="#!">
+              <img src="{% static 'pages/assets/images/web_imgs/agrobank.svg' %}" alt="Microsoft">
+            </a>
+          </li>
+          <li>
+            <a href="#!">
+              <img src="{% static 'pages/assets/images/web_imgs/suv_hamkor.png' %}" alt="Alphabet">
+            </a>
+          </li>
+          <li>
+            <a href="#!">
+              <img src="{% static 'pages/assets/images/web_imgs/OzRes.png' %}" alt="Intel">
+            </a>
+          </li>
+          <li>
+            <a href="#!">
+              <img src="{% static 'pages/assets/images/web_imgs/mtu.png' %}" alt="Cisco">
+            </a>
+          </li>
+          <li>
+            <a href="#!">
+              <img src="{% static 'pages/assets/images/web_imgs/ozFarmpng.png' %}" alt="Verizon Communications">
+            </a>
+          </li>
+          <li>
+            <a href="#!">
+              <img src="{% static 'pages/assets/images/web_imgs/farm-school.svg' %} " alt="Infopulse.png' %}">
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+
+    <section class="faq_section section_space_lg ">
+      <div class="container">
+        <div class="section_heading text-center mb-3">
+          <div class="row justify-content-center">
+            <div class="col col-lg-7">
+              <h2 class="heading_text mb-0">
+                <span class="uz_text">Ko'p beriladigan savollarga javoblar</span>
+                <span class="ru_text">Часто задаваемые вопросы</span>
+                <span class="en_text">Frequently Asked Questions</span>
+              </h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col col-lg-10">
+            <div class="accordion" id="faq_accordion">
+              {% for i in qas %}
+                <div class="accordion-item">
+                <div class="accordion-button collapsed" role="button" data-bs-toggle="collapse" data-bs-target="#collapse_{{i.id}}" aria-expanded="">
+                  <span class="ru_text">{{ i.title_ru }}</span>
+                  <span class="uz_text">{{ i.title_uz }}</span>
+                  <span class="en_text">{{ i.title_en }}</span>
+                </div>
+                <div id="collapse_{{i.id}}" class="accordion-collapse collapse" data-bs-parent="#faq_accordion">
+                  <div class="accordion-body">
+                    <p class="mb-0 ru_text">
+                      {{ i.content_ru }}
+                    </p>
+                    <p class="mb-0 uz_text">
+                      {{ i.content_uz }}
+                    </p>
+                    <p class="mb-0 en_text">
+                      {{ i.content_en }}
+                    </p>
+                  </div>
+                </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+{% endblock %}

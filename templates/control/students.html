@@ -1,0 +1,787 @@
+{% extends 'control/base.html' %}
+
+{% load static %}
+
+{% block style %}
+<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script> -->
+<script src="{% static 'pages/assets/js/vue.js' %}"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{% endblock style %}
+
+{% block content %}
+<div id="root">
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex my-2 align-items-center justify-content-between">
+                <h4 class="page-title">Все участники</h4>
+                <div class="d-flex">
+                    <!-- <a href="#excelModal" data-bs-toggle="modal" class="btn btn-primary mx-2 excel-modal-btn" @click="detail = {method: '', from: '', to: ''}">Экспорт в Excel</a> -->
+                    <a href="#excelModal" data-bs-toggle="modal" class="btn btn-primary excel-modal-btn" @click="detail = {from: ''}">Экспорт в Excel</a>
+
+                    <a href="{% url 'control_students' %}" class="btn btn-primary reload-btn mx-2">Перезагрузить</a>
+
+                    <form action="{% url 'control_students' %}" method="get" id="status_form">
+                        {% if search %}
+                            <input type="hidden" name="search" value="{{search}}">
+                        {% endif %}
+                        <select name="status" id="status_select" required class="form-control" @change="status_filter_submit()">
+                            <option value="all" {% if status == "all" %} selected {% endif %}>Все</option>
+                            <option value="completed" {% if status == "completed" %} selected {% endif %}>Сертификат тайёр</option>
+                            <option value="registered" {% if status == "registered" %} selected {% endif %}>Сўровнома тўлдирилди</option>
+                            <option value="registering" {% if status == "registering" %} selected {% endif %}>Рўйхатдан ўтмоқда</option>
+                        </select>
+                    </form>
+
+                    <form action="{% url 'control_students' %}" method="get" @submit="search_submit()">
+                        <div class="d-flex">
+                            <input
+                                type="text"
+                                name="search"
+                                required
+                                placeholder="ФИО, телефон"
+                                class="mx-2 form-control"
+                                {% if search %} value="{{search}}" {% endif %}>
+                            {% if status %}
+                                <input type="hidden" name="status" value="{{status}}">
+                            {% endif %}
+                            <button class="btn btn-primary search-btn" type="submit">Найти</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end page title --> 
+
+    <div class="row">
+        <div class="col-12">
+            <div class="row mt-2">
+                <div class="col-lg-3 col-6">
+                    <div class="card card-body text-center">
+                        <h5 class="mt-0">Все участники</h5>
+                        <h3 class="mb-0">[[all_s]]</h3>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <div class="card card-body text-center">
+                        <h5 class="mt-0">Завершенные участники</h5>
+                        <h3 class="mb-0">[[completed_s]]</h3>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <div class="card card-body text-center">
+                        <h5 class="mt-0">Зарегистрированные участники</h5>
+                        <h3 class="mb-0">[[registered_s]]</h3>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-6">
+                    <div class="card card-body text-center">
+                        <h5 class="mt-0">Регистрация участников</h5>
+                        <h3 class="mb-0">[[registering_s]]</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    {% if status == 'not_allowed' %}
+                        <div class="alert alert-danger">
+                            Вы не увидите ни одного участника!
+                        </div>
+                    {% endif %}
+
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered m-0">
+                            <thead>
+                                <tr style="vertical-align: middle">
+                                    <th>ID</th>
+                                    <th>ФИО</th>
+                                    <th>Организация</th>
+                                    <th>Телефон</th>
+                                    <th>Тип активности</th>
+                                    <th>Позиция</th>
+                                    <th>Регион</th>
+                                    <th>Район</th>
+                                    <th>Дата регистрации</th>
+                                    <th>Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="i in students" style="vertical-align: middle">
+                                    <td>[[i.id]]
+
+                                    </td>
+                                    <td>
+                                        [[i.fio]] <br>
+                                        <span class="badge bg-primary">[[i.birthday]]</span>
+                                    </td>
+                                    <td>
+                                        [[i.company]]
+                                        <span class="badge bg-primary">[[i.inn]]</span>
+                                    </td>
+                                    <td>
+                                        [[i.phone]] <br>
+                                        <span class="badge bg-primary">[[i.platform]]</span>
+                                    </td>
+                                    <td>[[i.activity]]</td>
+                                    <td>
+                                        [[i.job]] <br>
+                                        <span class="badge bg-primary">[[i.gender]]</span>
+                                    </td>
+                                    <td>
+                                        <span v-for="reg in all_regions" v-if="reg.id == i.region_id">[[reg.title]]</span>
+                                    </td>
+                                    <td>
+                                        <span v-for="dis in all_districts" v-if="dis.id == i.district_id">[[dis.title]]</span>
+                                    </td>
+                                    <td>
+                                        [[i.date_created]] <br>
+                                        <span class="badge bg-primary">[[i.status]]</span>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <button style="margin: 0 1px;" class="btn btn-sm btn-outline-primary" @click="student_detail(i.id)"
+                                            data-bs-target="#editModal" data-bs-toggle="modal">
+                                                <i class="fa-regular fa-pen-to-square fa-lg"></i>
+                                            </button>
+
+                                            <button v-if="i.status != 'Сертификат тайёр'" style="margin: 0 1px;" class="btn btn-sm btn-outline-primary"
+                                            @click="status_id = i.id" data-bs-target="#statusModal" data-bs-toggle="modal">
+                                                <i class="fa-regular fa-circle-check fa-lg"></i>
+                                            </button>
+
+                                            <button v-if="i.status == 'Сертификат тайёр'" style="margin: 0 1px;" class="btn btn-sm btn-outline-primary"
+                                            @click="sms_id = i.id" data-bs-target="#smsModal" data-bs-toggle="modal">
+                                                <i class="fa-regular fa-envelope fa-lg"></i>
+                                            </button>
+
+                                            <button v-if="i.file && i.status == 'Сертификат тайёр'" style="margin: 0 1px;"
+                                            class="btn btn-sm btn-outline-primary download_btn" :data-btn-id="i.id" @click="download_certificate(i.id)">
+                                                <i class="fa-solid fa-download fa-lg"></i>
+                                            </button>
+
+                                            <button style="margin: 0 1px;" class="btn btn-sm btn-outline-primary" @click="delete_id = i.id"
+                                            data-bs-target="#deleteModal" data-bs-toggle="modal">
+                                            <i class="fa-regular fa-trash-can fa-lg"></i>
+                                            </button>
+
+                                            <a v-if="i.file" :href="'/media/' + i.file" class="btn btn-success" target="_blank"><i class="fa-regular fa-file fa-lg"></i></a>
+
+                                        </div>
+                                        <span v-if="i.pdf_created" class="badge bg-primary mt-2" style="font-size: 11px;">
+                                            Сертификат добавлен. <br> Нажмите кнопку еще раз
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {% if is_paginated %}
+                        <nav class="mt-4">
+                            <ul class="pagination justify-content-end">
+
+                                <li class="page-item {% if not current_page.has_previous %} disabled {% endif %}">
+                                    <a class="page-link" href="
+?page=1{% if search %}&search={{search}}{% endif %}{% if status %}&status={{status}}{% endif %}">
+                                        ПЕРВЫЙ
+                                    </a>
+                                </li>
+
+                                <li class="page-item {% if not current_page.has_previous %} disabled {% endif %}">
+                                    <a class="page-link" href="
+                                        {% if current_page.has_previous %}
+?page={{ current_page.previous_page_number }}{% if search %}&search={{search}}{% endif %}{% if status %}&status={{status}}{% endif %}
+                                        {% endif %}">
+                                        Предыдущий
+                                    </a>
+                                </li>
+
+                                {% if current_page.number|add:'-4' > 1 %}
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="
+?page={{ current_page.number|add:'-5' }}{% if search %}&search={{search}}{% endif %}{% if status %}&status={{status}}{% endif %}">
+                                            &hellip;
+                                        </a>
+                                    </li>
+                                {% endif %}
+
+                                {% for i in current_page.paginator.page_range %}  
+                                    {% if current_page.number == i %}
+                                        <li class="page-item disabled">
+                                            <a class="text-white bg-primary page-link" href="
+?page={{ i }}{% if search %}&search={{search}}{% endif %}{% if status %}&status={{status}}{% endif %}">
+                                                {{ i }}
+                                            </a>
+                                        </li>
+                                    {% elif i > current_page.number|add:'-5' and i < current_page.number|add:'5' %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="
+?page={{ i }}{% if search %}&search={{search}}{% endif %}{% if status %}&status={{status}}{% endif %}">
+                                                {{ i }}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% if current_page.paginator.num_pages > current_page.number|add:'4' %}
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="
+?page={{ current_page.number|add:'5' }}{% if search %}&search={{search}}{% endif %}{% if status %}&status={{status}}{% endif %}">
+                                            &hellip;
+                                        </a>
+                                    </li>
+                                {% endif %}
+
+                                <li class="page-item {% if not current_page.has_next %} disabled {% endif %}">
+                                    <a class="page-link" href="
+                                        {% if current_page.has_next %}
+?page={{current_page.next_page_number}}{% if search %}&search={{search}}{% endif %}{% if status %}&status={{status}}{% endif %}
+                                        {% endif %}">
+                                        Следующий
+                                    </a>
+                                </li>
+
+                                <li class="page-item {% if not current_page.has_next %} disabled {% endif %}">
+                                    <a class="page-link" href="
+                                        {% if current_page.has_next %}
+?page={{current_page.paginator.num_pages}}{% if search %}&search={{search}}{% endif %}{% if status %}&status={{status}}{% endif %}
+                                        {% endif %}">
+                                        ПОСЛЕДНИЙ
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </nav>  
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-none all-students-none-div">
+        <span id="all_s">{{all_s}}</span>
+        <span id="completed_s">{{completed_s}}</span>
+        <span id="registered_s">{{registered_s}}</span>
+        <span id="registering_s">{{registering_s}}</span>
+        {% for i in current_page %}
+        <div class="student-none-div student-{{forloop.counter}}">
+            <span class="id">{{i.id}}</span>
+            <span class="fio">{{i.fio}}</span>
+            <span class="inn">{{i.inn}}</span>
+            <span class="phone">{{i.phone}}</span>
+            <span class="region_id">{{i.region_id}}</span>
+            <span class="district_id">{{i.district_id}}</span>
+            <span class="birthday">{{i.birthday}}</span>
+            <span class="gender">{{i.gender}}</span>
+            <span class="company">{{i.company}}</span>
+            <span class="activity">{{i.activity}}</span>
+            <span class="job">{{i.job}}</span>
+            <span class="date_created">{{i.date_created|date:"d M Y H:i"}}</span>
+            <span class="platform">{{i.platform}}</span>
+            <span class="status">{{i.status}}</span>
+            <span class="certificate_id">{{i.certificate_id}}</span>
+            <span class="filez">{{i.file}}</span>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="modal" id="editModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="" @submit.prevent="student_edit()">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Изменить участник</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <label for="phone_num">Телефон</label>
+                        <input type="number" id="phone_num" class="form-control mb-3" v-model="detail.phone" required>
+
+                        <label for="fio_in">ФИО</label>
+                        <input type="text" id="fio_in" class="form-control mb-3" v-model="detail.fio" required>
+
+                        <label for="birthday_in">День рождения</label>
+                        <input type="date" id="birthday_in" class="form-control mb-3" v-model="detail.birthday" required>
+
+                        <label for="comp_in">Организация</label>
+                        <input type="text" id="comp_in" class="form-control mb-3" v-model="detail.company" required>
+
+                        <label for="fio_in">ИНН</label>
+                        <input type="text" id="inn_in" class="form-control mb-3" v-model="detail.inn" required>
+
+
+                        <label for="activ_in">Тип активности</label>
+                        <select id="activ_in" class="form-control mb-3" v-model="detail.activity" required>
+                            <option value="Пахтачилик/Ғаллачилик">Пахтачилик/Ғаллачилик</option>
+                            <option value="Боғдорчилик/Узумчилик">Боғдорчилик/Узумчилик</option>
+                            <option value="Сабзавотлар/Илдиз сабзавотлари">Сабзавотлар/Илдиз сабзавотлари</option>
+                            <option value="Сабзавотлар/Ғаллачилик">Сабзавотлар/Ғаллачилик</option>
+                            <option value="Бошқа">Бошқа</option>
+                        </select>
+
+                        <label for="region_in">Регион</label>
+                        <select id="region_in" class="form-control mb-3" v-model="detail.region_id" required>
+                            <option v-for="i in all_regions" :value="i.id">[[i.title]]</option>
+                        </select>
+
+                        <label for="dis_in">Район</label>
+                        <select id="dis_in" class="form-control mb-3" v-model="detail.district_id" required>
+                            <option v-for="i in all_districts" v-if="i.r_id == detail.region_id" :value="i.id">[[i.title]]</option>
+                        </select>
+
+                        <label for="job_in">Позиция</label>
+                        <select id="job_in" class="form-control mb-3" v-model="detail.job" required>
+                            <option value="Хўжалик раҳбари">Хўжалик раҳбари</option>
+                            <option value="Ишчи">Ишчи</option>
+                            <option value="Ирригатор">Ирригатор</option>
+                            <option value="Банк ходими">Банк ходими</option>
+                        </select>
+
+                        <label for="gender_in">Пол</label>
+                        <select id="gender_in" class="form-control  mb-3" v-model="detail.gender" required>
+                            <option value="Erkak">Erkak</option>
+                            <option value="Ayol">Ayol</option>
+                        </select>
+                        <small class="text-danger d-block" v-if="another_document_file_limit_flag">Изображение должно быть менее 2 МБ</small>
+                        <label for="fio_in">Трудовая книжка</label>
+                        <input @change="fileCheckerSizeForAnotherDocument" type="file" id="inn_file" class="form-control mb-3" accept=".pdf, .jpeg, .jpg, .png">
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                        <button :disabled="btn_disabled" type="submit" class="btn btn-primary">Изменить</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="deleteModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title">Удалить участник</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                <p>После удаления вы не сможете вернуть обратно, вы действительно хотите удалить?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-danger" @click="student_delete(delete_id)">Да, удалить!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="statusModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title">Изменить статус</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                <p>Вы действительно хотите изменить статус участника?</p>
+                <div class="alert alert-primary mb-0">
+                    <p class="mb-0">После нажатия кнопки изменить SMS будет отправлено автоматически!</p>
+                </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-primary" @click="status_change(status_id)">Да, изменить!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="smsModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title">Отправить SMS</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                <p>Вы действительно хотите отправить SMS?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-primary" @click="sms_send(sms_id)">Да, отправить!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="excelModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="" @submit.prevent="excel()">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Экспорт в Excel</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <!-- <div class="modal-body">
+                        <label for="export_method_in">Выберите метод экспорта</label>
+                        <select id="export_method_in" class="form-control mb-3" v-model="detail.method" required>
+                            <option value=""></option>
+                            <option value="date">Выберите дату</option>
+                            <option value="all">Экспортировать все</option>
+                        </select>
+                        <div class="alert alert-primary" v-if="detail.method == 'all'">
+                            <span>Все участники будут экспортированы</span>
+                        </div>
+                        <div v-else-if="detail.method == 'date'" class="row">
+                            <div class="col-6">
+                                <label for="from_in">От</label>
+                                <input type="date" id="from_in" class="form-control mb-3" v-model="detail.from" required>
+                            </div>
+                            <div class="col-6">
+                                <label for="to_in">До</label>
+                                <input type="date" id="to_in" class="form-control mb-3" v-model="detail.to" required>
+                            </div>
+                        </div>
+                        <div id="loader_excel" class="alert alert-info mb-0 d-flex align-items-center d-none">
+                            <div class="spinner-border text-info" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <div class="px-1"></div>
+                            <div>Пожалуйста ждите несколько минут, формируется большой отчет. <br><b>Не обновляйте браузер!</b></div>  
+                        </div>
+                    </div> -->
+                    <div class="modal-body">
+                        
+                        <div class="row">
+                            <div class="col-12">
+                                <label for="from_in">Выберите дату</label>
+                                <input type="date" id="from_in" class="form-control mb-3" v-model="detail.from" required>
+                            </div>
+                        </div>
+                        <div id="loader_excel" class="alert alert-info mb-0 d-flex align-items-center d-none">
+                            <div class="spinner-border text-info" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <div class="px-1"></div>
+                            <div>Пожалуйста ждите несколько минут, формируется большой отчет. <br><b>Не обновляйте браузер!</b></div>  
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                        <button type="submit" class="btn btn-primary excel-modal-btn " id="excel_disabled">Экспорт в Excel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}
+
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+
+<script>
+    window.onload = function() {
+        document.querySelector(".button-menu-mobile").click();
+    }
+
+    var app = new Vue({
+        delimiters: ["[[", "]]"],
+        el: '#root',
+        data: {
+            students: [],
+            all_regions: [],
+            all_districts: [],
+            detail: {},
+            delete_id: 0,
+            status_id: 0,
+            sms_id: 0,
+            all_s: 0,
+            completed_s: 0,
+            registered_s: 0,
+            registering_s: 0,
+            btn_disabled: false,
+
+            another_document_file: "",
+            another_document_file_limit_flag: false
+        },
+        mounted() {
+            fetch("/control/users/districts/", {
+                method: "POST",
+                headers: {"Content-Type": "application/json", "X-CSRFToken": csrftoken},
+            }).then(resp => resp.json()).then(data => {
+                if (data.status == 200){
+                    this.all_regions = data.all_reg;
+                    data.all_reg.forEach(reg => {
+                        reg.districts.forEach(item => {
+                            this.all_districts.push(item)
+                        })
+                    })
+                }
+            });
+
+            this.all_s = Number(document.querySelector("#all_s").innerText)
+            this.completed_s = Number(document.querySelector("#completed_s").innerText)
+            this.registered_s = Number(document.querySelector("#registered_s").innerText)
+            this.registering_s = Number(document.querySelector("#registering_s").innerText)
+
+            let none_student_divs = document.querySelectorAll(".student-none-div");
+
+            none_student_divs.forEach((div, c) => {
+                let count = c += 1;
+                let none_students = document.querySelector(`.student-${count}`);
+                let s_birthday = none_students.querySelector(".birthday").innerText.replaceAll("/", "-");
+                let s_b_arr = s_birthday.split("-");
+
+                if (s_b_arr[0].length < 4){
+                    let year = s_b_arr[2]
+                    let month = s_b_arr[0]
+                    let day = s_b_arr[1]
+
+                    if (month.length == 1){month = `0${month}`}
+                    if (day.length == 1){day = `0${day}`}
+
+                    s_birthday = `${year}-${month}-${day}`
+                } else if (s_birthday.includes(".")){
+                    let s_b_arr = s_birthday.split(".");
+
+                    let year = s_b_arr[2]
+                    let month = s_b_arr[1]
+                    let day = s_b_arr[0]
+
+                    if (month.length == 1){month = `0${month}`}
+                    if (day.length == 1){day = `0${day}`}
+
+                    s_birthday = `${year}-${month}-${day}`
+                }
+
+                this.students.push({
+                    id: +none_students.querySelector(".id").innerText,
+                    fio: none_students.querySelector(".fio").innerText,
+                    inn: none_students.querySelector(".inn").innerText,
+                    phone: none_students.querySelector(".phone").innerText,
+                    region_id: none_students.querySelector(".region_id").innerText,
+                    district_id: none_students.querySelector(".district_id").innerText,
+                    birthday: s_birthday,
+                    gender: none_students.querySelector(".gender").innerText,
+                    company: none_students.querySelector(".company").innerText,
+                    activity: none_students.querySelector(".activity").innerText,
+                    job: none_students.querySelector(".job").innerText,
+                    date_created: none_students.querySelector(".date_created").innerText,
+                    platform: none_students.querySelector(".platform").innerText,
+                    status: none_students.querySelector(".status").innerText,
+                    certificate_id: none_students.querySelector(".certificate_id").innerText,
+                    pdf_created: false,
+                    file: none_students.querySelector(".filez").innerText
+                })
+            });
+
+            document.querySelector(".all-students-none-div").remove();
+        },
+        methods: {
+            student_detail(id) {
+                let s = this.students.find(item => item.id == id);
+
+                if (s.job == "Xo'jalik raxbari"){s.job = "Хўжалик раҳбари"}
+                else if (s.job == "Ishchisi"){s.job = "Ишчи"}
+                else if (s.job == "Irrigator"){s.job = "Ирригатор"}
+                else if (s.job == "Bank xodimi"){s.job = "Банк ходими"}
+
+                if (s.gender == "Еркак"){s.gender = "Erkak"}
+                else if (s.gender == "Аёл"){s.gender = "Ayol"}
+
+                if (s.activity == "Пахтачилик/ғаллачилик"){s.activity = "Пахтачилик/Ғаллачилик"}
+                else if (s.activity == "Сабзавотлар/ғаллачилик"){s.activity = "Сабзавотлар/Ғаллачилик"}
+                else if (s.activity == "Бошқа ёналиш"){s.activity = "Бошқа"}
+
+                this.detail = {
+                    id: id, fio: s.fio, gender: s.gender,
+                    phone: s.phone, company: s.company,
+                    region_id: s.region_id, district_id: s.district_id,
+                    activity: s.activity, birthday: s.birthday,
+                    job: s.job,
+                    inn: s.inn,
+                    another_document_file: ""
+                }
+            },
+
+            fileCheckerSizeForAnotherDocument(event) {
+                if (!event.target.files || event.target.files.length === 0) {
+                    this.another_document_file = "";
+                    this.another_document_file_limit_flag = false;
+                    return;
+                }
+                const file = event.target.files[0];
+                if (!(file instanceof Blob)) {
+                    this.another_document_file = "";
+                    this.another_document_file_limit_flag = true;
+                    return;
+                }
+                const reader = new FileReader();
+                reader.onload = () => {
+                    this.another_document_file_limit_flag = false;
+                    if (reader.result.length <= 2197152) {
+                        this.another_document_file = reader.result;
+                    } else {
+                        this.another_document_file_limit_flag = true;
+                    }
+                };
+                reader.onerror = (error) => {
+                    this.another_document_file = "";
+                    this.another_document_file_limit_flag = true;
+                };
+                reader.readAsDataURL(file);
+            },
+            status_change(id) {
+                let s = this.students.find(item => item.id == id);
+                $("#statusModal").modal("hide");
+
+                if (s.status == "Сўровнома тўлдирилди"){this.registered_s--}
+                else if (s.status == "Рўйхатдан ўтмоқда"){this.registering_s--}
+
+                this.completed_s++;
+                s.status = "Сертификат тайёр";
+
+                fetch("/control/students/status_change/", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json", "X-CSRFToken": csrftoken},
+                    body: JSON.stringify({id: id, status: "Сертификат тайёр"})
+                })
+            },
+
+
+            student_delete(id) {
+                let s = this.students.find(item => item.id == id);
+                this.students = this.students.filter(item => item.id != id);
+                $("#deleteModal").modal("hide");
+
+                if (s.status == "Сўровнома тўлдирилди"){this.registered_s--}
+                else if (s.status == "Рўйхатдан ўтмоқда"){this.registering_s--}
+                else if (s.status == "Сертификат тайёр"){this.completed_s--}
+                this.all_s--;
+
+                fetch("/control/students/delete/", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json", "X-CSRFToken": csrftoken},
+                    body: JSON.stringify({id: id})
+                })
+            },
+
+
+            student_edit() {
+                let d = this.detail;
+                let s = this.students.find(item => item.id == d.id);
+
+                s.phone = d.phone; s.fio = d.fio; s.company = d.company; s.activity = d.activity;
+                s.region_id = d.region_id; s.district_id = d.district_id; s.birthday = d.birthday;
+                s.gender = d.gender; s.job = d.job; s.inn = d.inn; 
+                d.filez = this.another_document_file
+
+                
+                this.btn_disabled = true
+                fetch("/control/students/edit/", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json", "X-CSRFToken": csrftoken},
+                    body: JSON.stringify(d)
+                }).then(e=>e.json())
+                .then((e)=> {
+                    console.log(e);
+                    this.btn_disabled = false
+                    $("#editModal").modal("hide");
+                })
+            },
+
+
+            download_certificate(id) {
+                let download_btn = document.querySelector(`[data-btn-id="${id}"]`);
+                this.students.find(item => item.id == id).pdf_created = false;
+
+                download_btn.setAttribute("disabled", "true");
+
+                fetch("/control/students/certificate/", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json", "X-CSRFToken": csrftoken},
+                    body: JSON.stringify({id: id})
+                }).then(resp => resp.json()).then(data => {
+                    download_btn.removeAttribute("disabled");
+                    if (data.status == "redirected") {
+                        window.open(data.pdf_url, '_blank');
+                    } else if (data.status == "pdf_created") {
+                        this.students.find(item => item.id == id).pdf_created = true;
+                    }
+                })
+            },
+
+
+            search_submit() {
+                document.querySelector(".search-btn").setAttribute("disabled", "true");
+            },
+
+
+            status_filter_submit() {
+                document.querySelector("#status_form").submit();
+                document.querySelector("#status_select").setAttribute("disabled", "true");
+            },
+
+
+            sms_send(id) {
+                $("#smsModal").modal("hide");
+
+                fetch("/control/students/sms/send/", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json", "X-CSRFToken": csrftoken},
+                    body: JSON.stringify({id: id})
+                })
+            },
+
+
+            excel() {
+                document.querySelector('#loader_excel').classList.remove('d-none')
+
+                let d = this.detail;
+                let btn = document.querySelector(".excel-modal-btn");
+
+                document.querySelector('#excel_disabled').setAttribute("disabled", "true");
+                btn.setAttribute("disabled", "true");
+
+                // $("#excelModal").modal("hide");
+
+                fetch("/control/students/excel/", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json", "X-CSRFToken": csrftoken},
+                    body: JSON.stringify(d)
+                }).then(resp => resp.json()).then(data => {
+                    document.querySelector('#loader_excel').classList.add('d-none')
+
+                    if (data.status == 200){
+                        var wb = XLSX.utils.book_new();
+
+                        // Затем создайте новый лист
+                        var ws_name = "SheetJS";
+
+                        // Сформируйте данные в массиве (вам нужно будет заменить это своими данными)
+                        var data = data.data;
+
+                        // Создайте лист с этими данными
+                        var ws = XLSX.utils.aoa_to_sheet(data);
+
+                        // Добавьте лист в книгу
+                        XLSX.utils.book_append_sheet(wb, ws, ws_name);
+
+                        // Используйте библиотеку XLSX для создания Excel-файла и предложите пользователю его сохранить
+                        XLSX.writeFile(wb, "sheetjs.xlsx");
+
+                        btn.removeAttribute("disabled");
+                        document.querySelector('#excel_disabled').removeAttribute("disabled");
+
+                        this.detail = {method: '', from: '', to: ''}
+                    }
+                })
+            },
+        }
+    })
+</script>
+{% endblock script %}

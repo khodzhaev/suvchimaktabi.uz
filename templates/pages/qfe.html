@@ -1,0 +1,236 @@
+{% extends 'pages/base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Эксперты | Получить совет</title>
+{% endblock title %}
+
+{% block content %}
+<main class="page_content">
+  <section class="blog_section mt-3 mb-5">
+    <div class="container">
+
+      <!-- ====== CURRENT EXPERTS ====== -->
+      <div class="mb-5">
+        <h2 class="text-center mb-5 pb-4">
+          <span class="ru_text">Наши текущие эксперты</span>
+          <span class="uz_text">Bizning joriy ekspertlarimiz</span>
+          <span class="en_text">Our Current Experts</span>
+        </h2>
+        <div class="row">
+          {% for i in current_experts %}
+          <div class="col-md-6 col-lg-6 mb-4">
+            <div class="card expert-div h-100 p-3 shadow-sm" style="cursor:pointer;" data-id="{{i.id}}">
+              <div class="d-flex align-items-center">
+                <img src="{{ i.image.url }}" alt="{{ i.fio_ru }}" class="rounded me-3" style="width:120px;height:120px;object-fit:cover;">
+                <div>
+                  <h5 class="mb-1">
+                    <span class="uz_text">{{i.fio_uz}}</span>
+                    <span class="ru_text">{{i.fio_ru}}</span>
+                  </h5>
+                  <p class="mb-0 text-muted">
+                    <span class="uz_text">{{i.profession_uz}}</span>
+                    <span class="ru_text">{{i.profession_ru}}</span>
+                  </p>
+                  <p class="mb-0">
+                    <span class="uz_text">{{i.direction_uz}}</span>
+                    <span class="ru_text">{{i.direction_ru}}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- ====== PREVIOUS EXPERTS ====== -->
+      <div class="mb-5">
+        <h2 class="text-center mb-5 pb-4">
+          <span class="ru_text">Наши бывшие эксперты</span>
+          <span class="uz_text">Bizning sobiq ekspertlarimiz</span>
+          <span class="en_text">Our Previous Experts</span>
+        </h2>
+        <div class="row">
+          {% for i in previous_experts %}
+          <div class="col-md-6 col-lg-6 mb-4">
+            <div class="card expert-div h-100 p-3 shadow-sm" style="cursor:pointer;" data-id="{{i.id}}">
+              <div class="d-flex align-items-center">
+                <img src="{{ i.image.url }}" alt="{{ i.fio_ru }}" class="rounded me-3" style="width:120px;height:120px;object-fit:cover;">
+                <div>
+                  <h5 class="mb-1">
+                    <span class="uz_text">{{i.fio_uz}}</span>
+                    <span class="ru_text">{{i.fio_ru}}</span>
+                  </h5>
+                  <p class="mb-0 text-muted">
+                    <span class="uz_text">{{i.profession_uz}}</span>
+                    <span class="ru_text">{{i.profession_ru}}</span>
+                  </p>
+                  <p class="mb-0">
+                    <span class="uz_text">{{i.direction_uz}}</span>
+                    <span class="ru_text">{{i.direction_ru}}</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- ====== CONTACT FORM ====== -->
+      <div class="contact-form card p-4 shadow-sm">
+        <h4 class="text-center mb-3">
+          <span class="uz_text">Ekspertlarimizdan bepul maslahat oling</span>
+          <span class="ru_text">Получить совет от наших экспертов</span>
+          <span class="en_text">Get advice from our experts</span>
+        </h4>
+
+        <form id="qfe_form">
+          <div class="mb-3">
+            <label>
+              <span class="uz_text">Ismingiz</span>
+              <span class="ru_text">ФИО</span>
+            </label>
+            <input id="qfe_input_name" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label>
+              <span class="uz_text">Telefon raqamingiz</span>
+              <span class="ru_text">Номер телефона</span>
+            </label>
+            <input id="qfe_input_phone" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label>
+              <span class="uz_text">Savolingiz kiriting</span>
+              <span class="ru_text">Введите Ваш вопрос</span>
+            </label>
+            <textarea id="qfe_input_message" class="form-control" rows="3" required></textarea>
+          </div>
+
+          <input id="captcha_code_base" type="hidden" value="{{captcha.code}}">
+
+          <div id="captcha_error_base" class="alert alert-danger d-none">
+            <span class="ru_text">Captcha введена неправильно.</span>
+            <span class="uz_text">Captcha xato kiritildi.</span>
+          </div>
+
+          <div class="captcha_block mb-3">
+            <div>
+              <img class="img" id="captcha_img_base" src="{{captcha.image.url}}" alt="">
+              <svg id="captcha_btn_refresh_base" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.016 512.016" width="18px" height="18px">
+                <g>
+                    <path d="M256.008,42.675c57.16,0.188,111.87,23.233,151.936,64h-66.603c-11.782,0-21.333,9.551-21.333,21.333   s9.551,21.333,21.333,21.333h88.384c21.874-0.012,39.604-17.742,39.616-39.616V21.341c0-11.782-9.551-21.333-21.333-21.333   s-21.333,9.551-21.333,21.333v44.331C321.782-28.795,160.169-20.343,65.702,84.55C28.733,125.6,6.058,177.523,1.075,232.541   c-1.096,11.814,7.593,22.279,19.407,23.375c0.64,0.059,1.283,0.09,1.927,0.092c10.813,0.138,19.954-7.977,21.099-18.731   C53.35,127.213,145.505,42.82,256.008,42.675z"/>
+                    <path d="M489.629,256.008c-10.813-0.138-19.954,7.977-21.099,18.731C458.35,391.953,355.076,478.721,237.861,468.54   c-50.715-4.405-98.176-26.825-133.789-63.199h66.603c11.782,0,21.333-9.551,21.333-21.333c0-11.782-9.551-21.333-21.333-21.333   H82.291c-21.868-0.012-39.604,17.706-39.616,39.573c0,0.014,0,0.028,0,0.043v88.384c0,11.782,9.551,21.333,21.333,21.333   s21.333-9.551,21.333-21.333v-44.331c104.893,94.467,266.505,86.015,360.972-18.878c36.97-41.05,59.645-92.973,64.628-147.992   c1.096-11.814-7.593-22.279-19.407-23.375C490.901,256.041,490.265,256.01,489.629,256.008z"/>
+                </g>
+              </svg>
+            </div>
+            <div>
+              <input id="captcha_input_base" type="text" placeholder="Введите слова" required>
+              <span>captcha powered by <a href="https://kodi.uz/captcha/">kodi.uz</a></span>
+            </div>
+          </div>
+
+          <div class="alert alert-danger mt-3 d-none expert-error">
+            <span class="ru_text">Нажмите на эксперта, чтобы выбрать</span>
+            <span class="uz_text">Tanlash uchun expert ustiga bosing</span>
+          </div>
+
+          <div class="text-center mt-4">
+            <button type="submit" class="btn btn-primary px-5 py-2">
+              <span class="ru_text">Отправить</span>
+              <span class="uz_text">Yuborish</span>
+            </button>
+          </div>
+        </form>
+
+        <div id="qfe_reg_success" class="d-none text-center mt-4">
+          <h5 class="ru_text">Ваше сообщение успешно отправлено!</h5>
+          <h5 class="uz_text">Xabaringiz muvafaqqiyatli yuborildi!</h5>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<style>
+  .expert-div:hover {
+    border: 2px solid #5078FF;
+    transition: all 0.3s ease;
+  }
+  .captcha_block {
+    border: 1px solid #eceef3;
+    padding: 8px;
+    border-radius: 5px;
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    grid-gap: 8px;
+    align-items: center;
+  }
+  @media (max-width: 768px) {
+    .captcha_block { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script>
+  let s_expert_id = 0;
+  const experts = document.querySelectorAll(".expert-div");
+  const form_qfe = document.querySelector("#qfe_form");
+  const expert_error = document.querySelector(".expert-error");
+  const reg_success = document.querySelector("#qfe_reg_success");
+
+  experts.forEach(item => {
+    item.addEventListener("click", () => {
+      experts.forEach(e => e.style.border = "none");
+      expert_error.classList.add("d-none");
+      item.style.border = "3px solid #5078FF";
+      s_expert_id = item.dataset.id;
+      window.scrollTo({top: document.querySelector(".contact-form").offsetTop - 180, behavior:"smooth"});
+    });
+  });
+
+  form_qfe.addEventListener("submit", e => {
+    e.preventDefault();
+    if (!s_expert_id) {
+      expert_error.classList.remove("d-none");
+      return;
+    }
+
+    fetch("/qfe/", {
+      method: "POST",
+      headers: {"Content-Type": "application/json", "X-CSRFToken": csrftoken},
+      body: JSON.stringify({
+        fio: document.querySelector("#qfe_input_name").value,
+        phone: document.querySelector("#qfe_input_phone").value,
+        s_id: s_expert_id,
+        message: document.querySelector("#qfe_input_message").value,
+        code: document.querySelector("#captcha_code_base").value,
+        answer: document.querySelector("#captcha_input_base").value,
+      })
+    }).then(res => res.json()).then(resp => {
+      if (resp.status === 200) {
+        form_qfe.classList.add("d-none");
+        reg_success.classList.remove("d-none");
+      } else {
+        document.querySelector('#captcha_error_base').classList.remove('d-none');
+        document.querySelector('#captcha_img_base').src = resp.image;
+        document.querySelector('#captcha_code_base').value = resp.code;
+      }
+    });
+  });
+
+  document.querySelector("#captcha_btn_refresh_base").addEventListener("click", () => {
+    fetch('/captcha/', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json','X-CSRFToken': csrftoken},
+      body: JSON.stringify({})
+    }).then(res => res.json()).then(resp => {
+      document.querySelector('#captcha_img_base').src = resp.image;
+      document.querySelector('#captcha_code_base').value = resp.code;
+    });
+  });
+</script>
+{% endblock %}

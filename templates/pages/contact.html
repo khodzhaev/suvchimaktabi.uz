@@ -1,0 +1,351 @@
+{% extends 'pages/base.html' %}
+
+{% load static %}
+
+{% block title %}
+{% endblock title %}
+
+
+{% block style %}
+
+{% endblock style %}
+
+{% block content %}
+<main class="page_content">
+
+  <section class="page_banner">
+    <div class="container">
+      <div class="content_wrapper" style="background-image: url({% static 'pages/assets/images/web_imgs/contact.jpg' %}); width: 100%">
+        <div class="row align-items-center">
+          <div class="col col-12">
+            <ul class="breadcrumb_nav unordered_list">
+              <li><a href="{% url 'pages_index' %}" class="text-white">
+                <span class="uz_text">Bosh sahifa</span>
+                <span class="ru_text">Главная</span>
+              </a></li>
+              <li class="text-white">
+                <span class="uz_text">Bog'lanish</span>
+                <span class="ru_text">Связаться с нами</span>
+              </li>
+            </ul>
+            <h1 class="page_title text-white"><span class="uz_text">Bog'lanish</span>
+              <span class="ru_text">Контакты</span></h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact_section section_space_lg">
+    <div class="container">
+      <div class="row">
+        <div class="col col-lg-5">
+          <div class="pe-lg-5">
+            <div class="section_heading">
+              <h2 class="heading_text">
+                <span class="uz_text">Biz a'loqadamiz</span>
+                <span class="ru_text">Связаться с нами</span>
+              </h2>
+            </div>
+            <div class="iconbox_item contact_info_iconbox">
+              <div class="item_icon">
+                <i class="fas fa-phone text-white"></i>
+              </div>
+              <div class="item_content">
+                <h3 class="item_title ru_text">Телефон</h3>
+                <h3 class="item_title uz_text">Telefon</h3>
+                <p class="mb-0"><a href="tel:{{office.phone}}"  class="text-dark">{{office.phone}}</a></p>
+                {% for i in phones %}
+                <p class="mb-0"><a href="tel:{{i.title}}" class="text-dark">{{i.title}}</a></p>
+                {% endfor %}
+              </div>
+            </div>
+            <div class="iconbox_item contact_info_iconbox">
+              <div class="item_icon">
+                <i class="fas fa-envelope text-white"></i>
+              </div>
+              <div class="item_content">
+                <h3 class="item_title">E-mail</h3>
+                <p class="mb-0"><a class="text-dark" href="mailto:{{office.email}}">{{office.email}}</a></p>
+                {% for i in emails %}
+                <p class="mb-0"><a class="text-dark" href="mailto:{{i.title}}">{{i.title}}</a></p>
+                {% endfor %}
+              </div>
+            </div>
+            <div class="iconbox_item contact_info_iconbox">
+              <div class="item_icon">
+                <i class="fas fa-location text-white" style="font-size: 24px;"></i>
+              </div>
+              <div class="item_content">
+                <h3 class="item_title ru_text">Адрес</h3>
+                <h3 class="item_title uz_text">Adres</h3>
+                <p class="mb-0 ru_text"><a class="text-dark" target="blank" >{{office.address_ru}}</a></p>
+                <p class="mb-0 uz_text"><a class="text-dark" target="blank" >{{office.address_uz}}</a></p>
+
+              </div>
+            </div>
+            <div class="iconbox_item contact_info_iconbox">
+              <div class="item_icon">
+                <i class="fab fa-telegram text-white" style="font-size: 24px;"></i>
+              </div>
+              <div class="item_content">
+                <h3 class="item_title">Telegram bot</h3>
+                <p class="mb-0"><a class="text-dark" target="blank" href="{{office.telegram_bot}}">
+                  <span class="ru_text">So'rovnoma qoldirish</span>
+                  <span class="uz_text">Оставить заявку</span>
+                </a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col col-lg-7">
+          <div class="gmap_canvas">
+            <iframe id="gmap_canvas_iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1453.8866972302103!2d69.25272820183694!3d41.31903101983507!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae8b12f56f4041%3A0x2c34c783f43dcd6a!2z0JHQsNGC0YvRgNCwINCX0LDQutC40YDQvtCy0LAg0YPQu9C40YbQsCwg0KLQsNGI0LrQtdC90YIsINCj0LfQsdC10LrQuNGB0YLQsNC9!5e0!3m2!1sru!2skg!4v1692788074552!5m2!1sru!2skg"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact_form_section section_space_lg bg_light decoration_wrap overflow-hidden">
+    <div class="container decoration_wrap">
+      <div class="row justify-content-center">
+        <div class="col col-lg-7">
+          <div class="section_heading text-center">
+            <h2 class="heading_text mb-0">
+              <span class="ru_text">So'rovnoma qoldirish</span>
+              <span class="uz_text">Оставить заявку</span>
+            </h2>
+          </div>
+        </div>
+      </div>
+
+      <div id="reg_block">
+        <form id="feedback_form">
+          <div class="row justify-content-center">
+            <div class="col col-lg-8">
+              <div class="row">
+  
+                <div class="col">
+                  <div class="form_item m-0">
+                    <label for="input_name" class="input_title">
+                      <span class="ru_text">ФИО</span>
+                  <span class="uz_text">FISH</span> <span class="text-danger">*</span></label>
+                    <input id="input_name" required type="text" name="fio" placeholder="FIO kiriting">
+                  </div>
+                </div>
+  
+                <div class="col">
+                  <div class="form_item m-0">
+                    <label for="input_phone" class="input_title">
+                      <span class="ru_text">Телефон</span>
+                  <span class="uz_text">Telefon</span> <span class="text-danger">*</span></label>
+                    <input id="input_phone" required type="tel" name="phone" placeholder="Telefon raqam">
+                  </div>
+                </div>
+  
+                <div class="col">
+                  <div class="form_item m-0">
+                    <label for="input_email" class="input_title">E-mail</label>
+                    <input id="input_email" type="email" name="email" placeholder="Elektron pochta">
+                  </div>
+                </div>
+  
+                <div class="col pb-0">
+                  <div class="form_item">
+                    <label for="input_message" class="input_title"> 
+                      <span class="ru_text">Сообщение</span>
+                  <span class="uz_text">Xabar</span><span class="text-danger">*</span></label>
+                    <textarea id="input_message" required name="message" placeholder="Habar qoldiring"></textarea>
+                  </div>
+                </div>
+
+                <div class="col pt-0">
+                  <input id="captcha_code" type="hidden" name="captcha_code" value="{{captcha.code}}">
+                  <div id="captcha_error" class="d-none alert alert-danger">
+                    <span class="ru_text">Captcha введена неправильно.</span>
+                    <span class="uz_text">Captcha xato kiritildi.</span>
+                    <span class="en_text">Captcha entered incorrectly.</span>
+                  </div>
+                  <div class="captcha_block">
+                    <div>
+                      <img class="img" src="{{captcha.image.url}}" alt="">
+                      <svg id="captcha_btn_refresh" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 512.016 512.016" style="enable-background:new 0 0 512.016 512.016;" xml:space="preserve" width="18px" height="18px">
+                        <g>
+                          <path d="M256.008,42.675c57.16,0.188,111.87,23.233,151.936,64h-66.603c-11.782,0-21.333,9.551-21.333,21.333   s9.551,21.333,21.333,21.333h88.384c21.874-0.012,39.604-17.742,39.616-39.616V21.341c0-11.782-9.551-21.333-21.333-21.333   s-21.333,9.551-21.333,21.333v44.331C321.782-28.795,160.169-20.343,65.702,84.55C28.733,125.6,6.058,177.523,1.075,232.541   c-1.096,11.814,7.593,22.279,19.407,23.375c0.64,0.059,1.283,0.09,1.927,0.092c10.813,0.138,19.954-7.977,21.099-18.731   C53.35,127.213,145.505,42.82,256.008,42.675z"/>
+                          <path d="M489.629,256.008c-10.813-0.138-19.954,7.977-21.099,18.731C458.35,391.953,355.076,478.721,237.861,468.54   c-50.715-4.405-98.176-26.825-133.789-63.199h66.603c11.782,0,21.333-9.551,21.333-21.333c0-11.782-9.551-21.333-21.333-21.333   H82.291c-21.868-0.012-39.604,17.706-39.616,39.573c0,0.014,0,0.028,0,0.043v88.384c0,11.782,9.551,21.333,21.333,21.333   s21.333-9.551,21.333-21.333v-44.331c104.893,94.467,266.505,86.015,360.972-18.878c36.97-41.05,59.645-92.973,64.628-147.992   c1.096-11.814-7.593-22.279-19.407-23.375C490.901,256.041,490.265,256.01,489.629,256.008z"/>
+                        </g>
+                      </svg>
+                    </div>
+                    <div>
+                      <input id="captcha_input" required type="text" name="captch" placeholder="Введите слова">
+                      <span>captcha powered by <a href="https://kodi.uz/captcha/">kodi.uz</a></span>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="ru_text">
+                      Нажимая на кнопку 'Отправить', вы соглашаетесь <a style="color:#36b1ea; text-decoration: underline;" target="_blank" href="/media/terms.pdf">с пользовательским соглашением</a> и <a style="color:#36b1ea; text-decoration: underline;" target="_blank" href="/media/privacy.pdf">обработкой персональных данных</a>
+                  </div>
+                  <div class="uz_text">
+                      "Yuborish" tugmasini bosish orqali siz <a style="color:#36b1ea; text-decoration: underline;" target="_blank" href="/media/privacy.pdf">foydalanuvchi shartnomasiga </a> va <a style="color:#36b1ea; text-decoration: underline;" target="_blank" href="/media/privacy.pdf">shaxsiy ma'lumotlarni  </a> olishga rozilik bildirasiz
+                  </div>
+                  <div class="en_text">
+                      By clicking the 'Submit' button, you agree to <a style="color:#36b1ea; text-decoration: underline;" target="_blank" href="/media/terms.pdf">the user agreement</a> and <a style="color:#36b1ea; text-decoration: underline;" target="_blank" href="/media/privacy.pdf">processing of personal data</a>
+                  </div>
+                </div>
+  
+                <div class="col">
+                  <button id="feedback_btn" type="submit" class="btn btn_primary w-100 b-block">
+                    <span class="uz_text">
+                      <small>Yuborish</small>
+                      <small>Yuborish</small>
+                    </span>
+                    <span class="ru_text">
+                      <small>Отправить</small>
+                      <small>Отправить</small>
+                    </span>
+                  </button>
+                </div>
+  
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="row justify-content-center d-none" id="reg_success">
+        <div class="col col-lg-8">
+          <div class="bg-white text-center" style="border-radius: 20px; padding: 150px 20px !important;">
+            <h2 class="ru_text">Ваша сообщение успешно отправлено.  </h2>
+            <h2 class="uz_text">Sizning xabaringiz muvaffaqiyatli yuborildi.</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="deco_item shape_img_1 wow fadeInUp" data-wow-delay=".2s">
+        <img src="{% static 'pages/assets/images/web_imgs/blue_rombik.png' %}" alt="Collab – Online Learning Platform">
+      </div>
+      <div class="deco_item shape_img_2 wow fadeInUp" data-wow-delay=".4s">
+        <img src="{% static 'pages/assets/images/web_imgs/blue_rombik.png' %}" alt="Collab – Online Learning Platform">
+      </div>
+    </div>
+
+    <div class="deco_item shape_img_3 wow fadeInLeft" data-wow-delay=".2s">
+      <img src="{% static 'pages/assets/images/web_imgs/blue_rombik.png' %}" alt="Collab – Online Learning Platform">
+    </div>
+    <div class="deco_item shape_img_4 wow fadeInRight" data-wow-delay=".4s">
+      <img src="{% static 'pages/assets/images/web_imgs/blue_rombik.png' %}" alt="Collab – Online Learning Platform">
+    </div>
+  </section>
+
+  <section class="brands_section section_space_lg">
+    <div class="container">
+      <div class="section_heading text-center">
+        <h2 class="heading_text mb-0">
+          <span class="ru_text">Партнеры</span>
+          <span class="uz_text">Hamkorlar</span>
+        </h2>
+      </div>
+      <ul class="brands_logo_list unordered_list">
+        <li>
+          <a href="#!">
+            <img src="{% static 'pages/assets/images/web_imgs/agrobank.svg' %}" alt="Microsoft">
+          </a>
+        </li>
+        <li>
+          <a href="#!">
+            <img src="{% static 'pages/assets/images/web_imgs/suv_hamkor.png' %}" alt="Alphabet">
+          </a>
+        </li>
+        <li>
+          <a href="#!">
+            <img src="{% static 'pages/assets/images/web_imgs/OzRes.png' %}" alt="Intel">
+          </a>
+        </li>
+        <li>
+          <a href="#!">
+            <img src="{% static 'pages/assets/images/web_imgs/mtu.png' %}" alt="Cisco">
+          </a>
+        </li>
+        <li>
+          <a href="#!">
+            <img src="{% static 'pages/assets/images/web_imgs/ozFarmpng.png' %}" alt="Verizon Communications">
+          </a>
+        </li>
+        <li>
+          <a href="#!">
+            <img src="{% static 'pages/assets/images/web_imgs/farm-school.svg' %} " alt="Infopulse.png' %}">
+          </a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+{% endblock content %}
+
+{% block js %}
+<script>
+  let form1 = document.querySelector("#feedback_form");
+  let fio = document.querySelector("#input_name");
+  let phone = document.querySelector("#input_phone");
+  let message = document.querySelector("#input_message");
+  let email = document.querySelector("#input_email");
+  let reg_block = document.querySelector("#reg_block");
+  let reg_success = document.querySelector("#reg_success");
+
+
+  form1.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      
+
+      fetch("/feedback/", {
+          method: "POST",
+          headers: {"Content-Type": "application/json", "X-CSRFToken": csrftoken},
+          body: JSON.stringify({
+            fio: fio.value,
+            phone: phone.value,
+            email: email.value,
+            message: message.value,
+            code: document.querySelector('#captcha_code').value,
+					  answer: document.querySelector('#captcha_input').value,
+          })
+      })
+      .then(resp => resp.json())
+			.then(resp =>{
+				if (resp.status == 200) {
+					reg_block.classList.add("d-none");
+          reg_success.classList.remove("d-none");
+				} else {
+					document.querySelector('#captcha_error').classList.remove('d-none')
+					document.querySelector('.captcha_block img').setAttribute('src', resp.image)
+					document.querySelector('#captcha_code').value = resp.code
+				}
+			})
+  })
+
+</script>
+
+
+<script>
+  let captcha_btn_refresh = document.querySelector('#captcha_btn_refresh');
+  captcha_btn_refresh.addEventListener('click', ()=>{
+      fetch('/captcha/', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': csrftoken
+          },
+          body: JSON.stringify({})
+      })
+      .then(resp => resp.json())
+      .then(resp =>{
+          document.querySelector('.captcha_block img').setAttribute('src', resp.image)
+          document.querySelector('#captcha_code').value = resp.code
+      })
+  })
+</script>
+{% endblock js %}

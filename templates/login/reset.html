@@ -1,0 +1,186 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Сброс пароли | Suvchilar Maktabi</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="Coderthemes" name="author" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'pages/assets/images/fav.png' %}">
+
+		<link href="{% static 'control/assets/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" id="bs-default-stylesheet" />
+		<link href="{% static 'control/assets/css/app.min.css' %}" rel="stylesheet" type="text/css" id="app-default-stylesheet" />
+
+		<link href="{% static 'control/assets/css/bootstrap-dark.min.css' %}" rel="stylesheet" type="text/css" id="bs-dark-stylesheet" disabled />
+		<link href="{% static 'control/assets/css/app-dark.min.css' %}" rel="stylesheet" type="text/css" id="app-dark-stylesheet"  disabled />
+
+		<link href="{% static 'control/assets/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
+
+        <script>
+            function getToken(name) {
+                var cookieValue = null;
+                if (document.cookie && document.cookie !== "") {
+                    var cookies = document.cookie.split(";");
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = cookies[i].trim();
+                        if (cookie.substring(0, name.length + 1) === name + "=") {
+                            cookieValue = decodeURIComponent(
+                                cookie.substring(name.length + 1)
+                            );
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+            var csrftoken = getToken("csrftoken");
+        </script>
+    </head>
+
+    <body class="authentication-bg">
+        <div class="account-pages my-5" id="app">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-6">
+                        <div class="card">
+                            <div class="card-body p-0">
+                                <div class="row g-0">
+                                    <div class="col-12 p-4">
+                                        <div class="mx-auto">
+                                            <a href="{% url 'login_index' %}">
+                                                <img src="{% static 'pages/assets/images/web_imgs/logo_black.svg' %}" alt="" width="250px" />
+                                            </a>
+                                        </div>
+
+                                        <h6 class="h5 mb-0 mt-3">Сброс пароли!</h6>
+                                        <p class="text-muted mt-1 mb-4">
+                                            Введите адрес электронной почты чтобы сбросить пароль.
+                                        </p>
+                                        <div v-if="error == 1" class="alert alert-danger">
+                                            Заполните все поля
+                                        </div>
+                                        <div v-else-if="error == 2" class="alert alert-danger">
+                                            Неверный код
+                                        </div>
+                                        <div v-else-if="error == 3" class="alert alert-danger">
+                                            Пароль должен быть из не менее 6-ти символов
+                                        </div>
+                                        
+                                           
+                                            <div class="mb-3">
+                                                <label class="form-label">Телефон</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text">
+                                                        <i class="icon-dual" data-feather="phone"></i>
+                                                    </span>
+                                                    <input :disabled="step == 1"  type="tel" v-model="phone" name="phone" class="form-control" :class="{'bg-light': step == 1}"
+                                                     id="phone" placeholder="998111223344">
+                                                </div>
+                                            </div>
+
+                                            <div v-if="step == 1" class="mb-3">
+                                                <label class="form-label">Код который был отправлен на {{phone}}</label>
+                                                <input type="text" v-model="code"  class="form-control" id="password" placeholder="Введите код">
+                                            </div>
+
+                                            <div v-if="step == 1" class="mb-3">
+                                                <label class="form-label">Новый пароль</label>
+                                                <input type="text" v-model="password"  class="form-control" id="password" placeholder="Введите ваш пароль">
+                                            </div>
+
+                                            <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 10px;">
+                                                <button v-if="step" @click="step = 0"  class="btn btn-secondary btn-lg">Назад</button>
+                                                <a v-else href="{% url 'login_index' %}" class="btn btn-secondary btn-lg">Назад</a>
+
+                                                <button :disabled="btn_load" @click="reset_password()" v-if="step" class="btn btn-primary btn-lg" type="button">Сбросить</button>
+                                                <button @click="send_phone()" v-else class="btn btn-primary btn-lg" type="button">Продолжить</button>
+
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                
+                            </div> 
+                        </div>
+                </div>
+            </div>
+        </div>
+        <script>
+        var app = new Vue({
+                delimiters: ["[[", "]]"],
+                el: '#app',
+                data: {
+                        step: 0,
+                        error: 0,
+                        phone: "",
+                        code: "",
+                        password: "",
+                        btn_load: false
+                    },
+                methods: {
+                    send_phone() {
+                        this.error = 0
+                        if (this.phone.length > 4) {
+                            this.error = 0
+                            this.step = 1
+                            fetch('/login/reset/sent/', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-CSRFToken': csrftoken
+                                    },
+                                    body: JSON.stringify({
+                                        'phone': this.phone,
+                                    })
+                                })
+                        } else {
+                            this.error = 1
+                        }
+                    },
+                    reset_password() {
+                        this.btn_load = true
+                        this.error = 0
+                        if (this.code.length && this.password.length) {
+                            if (this.password.length > 5) {
+                                fetch('/login/reset/complete/', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-CSRFToken': csrftoken
+                                    },
+                                    body: JSON.stringify({
+                                        'phone': this.phone,
+                                        'code': this.code,
+                                        'password': this.password,
+                                    })
+                                }).then((e) => e.json())
+                                .then((e) => {
+                                    if (e.status == 200) {
+                                        window.location.href = "/login/?reset";
+                                        this.btn_load = false
+                                    } else {
+                                        this.error = 2
+                                        this.btn_load = false
+                                    }
+                                })
+                            } else {
+                                this.error = 3
+                                this.btn_load = false
+                            }
+                        } else {
+                            this.error = 1
+                            this.btn_load = false
+                        }
+                    }
+                }
+            }
+        )
+        </script>
+        <script src="{% static 'control/assets/js/vendor.min.js' %}"></script>
+        <script src="{% static 'control/assets/js/app.min.js' %}"></script>
+        
+    </body>
+</html>

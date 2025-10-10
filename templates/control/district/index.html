@@ -1,0 +1,62 @@
+{% extends 'control/base.html' %}
+
+{% block content %}
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <h4 class="page-title">Все районы</h4>
+        </div>
+    </div>
+</div>     
+<!-- end page title --> 
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                {% if base.code == 'success' %}
+                <div class="alert alert-info">
+                    Район был успешно изменен!
+                </div>
+                {% elif base.code == 'add' %}
+                <div class="alert alert-info">
+                    Район был успешно добавлен!
+                </div>
+                {% elif base.code == 'remove' %}
+                <div class="alert alert-info">
+                    Район был успешно удален!
+                </div>
+                {% elif base.code == 'error' %}
+                <div class="alert alert-danger">
+                    Что-то пошло не так!
+                </div>
+                {% endif %}
+
+                <div class="table-responsive">
+                    <table class="table m-0">
+                        <thead>
+                            <tr>
+                                <th>Название</th>
+                                <th>Регион</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for f in districts %}
+                            <tr>
+                                <th>{{f.title}}</th>
+                                <td>{{f.region.title}}</td>
+                                <td><a href="{% url 'control_district_detail' f.id %}" class="btn btn-secondary btn-sm">Подробнее</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock content %}
+

@@ -1,0 +1,62 @@
+{% extends 'pages/base.html' %}
+
+{% load static %}
+
+{% block title %}
+{% endblock title %}
+
+{% block content %}
+<main class="page_content">
+
+  <section class="page_banner">
+    <div class="container">
+      <div class="content_wrapper" style="background-image: url({% static 'pages/assets/images/web_imgs/gallery.jpg' %}); width: 100%">
+        <div class="row align-items-center">
+          <div class="col col-12">
+            <ul class="breadcrumb_nav unordered_list">
+              <li><a href="{% url 'pages_index' %}" class="text-white">
+                <span class="uz_text">Bosh sahifa</span>
+                <span class="ru_text">Главная</span>
+              </a></li>
+              <li class="text-white">
+                <span class="uz_text">Galereya</span>
+                <span class="ru_text">Галерея</span>
+              </li>
+            </ul>
+            <h1 class="page_title text-white">
+              <span class="uz_text">Galereya</span>
+              <span class="ru_text">Галерея</span>
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="blog_section section_space_lg">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          {% for i in galleries %}
+        <div class="card card-body mb-3">
+           <div class="d-flex align-items-center p-3">
+              <img style="width: 50px; margin-right: 20px;" src="{% static 'pages/assets/folder.png' %}" alt="">
+              <h4 class="mb-0"><a class="text-dark" href="{% url 'pages_gallery_detail' i.id %}">
+                 <span class="ru_text">{{i.title_ru}}</span>
+                 <span class="uz_text">{{i.title_uz}}</span>
+                 <span class="en_text">{{i.title_en}}</span>
+                 <br> <small>({{i.count_photos}}
+                    <span class="ru_text">фотографии</span>
+                    <span class="uz_text">rasmlar</span>
+                    <span class="en_text">photos</span>
+                    )</small> </a></h4>
+           </div>
+        </div>
+        {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+  
+</main>
+{% endblock %}

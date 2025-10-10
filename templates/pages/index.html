@@ -1,0 +1,1328 @@
+{% extends 'pages/base.html' %}
+
+{% load static %}
+
+{% block title %}
+{% endblock title %}
+
+{% block style %}
+<style>
+  .form-control{
+    border-radius: 10px;
+    border: 1px solid #D2D2D2;
+    height: 60px;
+    padding: 5px 20px;
+  }
+  .input-group-text{
+    background-color: #fff;
+    border: 1px solid #D2D2D2;
+    border-right: 0;
+    border-radius: 8px;
+  }
+  .input-group input{
+    border-left: 0;
+  }
+  .input-group span i{
+    color: #D2D2D2;
+  }
+  .input-group input:focus{
+    border-color: #D2D2D2
+  }
+  .form-check-div{
+    border-radius: 10px;
+    border: 1px solid #D2D2D2;
+    height: 60px;
+    padding: 0 30px;
+    padding-top: 15px;
+  }
+  #register_block input:focus, #register_block select:focus{
+    border-color: #D2D2D2;
+  }
+  #register_block input, #register_block select{
+    outline: none !important;
+    -webkit-box-shadow: none !important;
+            box-shadow: none !important;
+  }
+  #register_block .reg_pagination{
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    padding-top: 6px;
+  }
+  @media screen and (max-width: 440px) {
+    .step_3_text{
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+  }
+</style>
+
+<style>
+  #region10:hover {
+      fill: #0026a5;
+      cursor: pointer
+  }
+  #region20:hover {
+      fill: #0026a5;
+      cursor: pointer
+  }
+  #region25:hover {
+      fill: #0026a5;
+      cursor: pointer
+  }
+  #region30:hover {
+      fill: #0026a5;
+      cursor: pointer
+  }
+  #region40:hover {
+      fill: #0026a5;
+      cursor: pointer
+  }
+  #region50:hover {
+      fill: #0026a5;
+      cursor: pointer
+  }
+  #region60:hover {
+      fill: #0026a5;
+      cursor: pointer
+  }
+  #region70:hover {
+      fill: #0026a5;
+      cursor: pointer
+  }
+  #region75:hover {
+      fill: #0026a5;
+      cursor: pointer
+  }
+  #region80:hover {
+      fill: #0026a5;
+      cursor: pointer
+  }
+  #region85:hover {
+      fill: #0026a5;
+      cursor: pointer
+  }
+  #region90:hover {
+      fill: #0026a5;
+      cursor: pointer
+  }
+  #region95:hover {
+      fill: #0026a5;
+      cursor: pointer
+  }
+</style>
+
+<!-- captcha style -->
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  .leaflet-container {
+    z-index: 1 !important;
+  }
+
+  @media (max-width: 768px) {
+    #map {
+      height: 350px;
+    }
+  }
+</style>
+{% endblock style %}
+
+{% block content %}
+<main class="page_content">
+
+    <section class="hero_banner style_1">
+      <div class="container">
+        <div class="content_wrap" style="background-color: #5078FF;">
+          <div class="row">
+            <div class="col col-lg-7">
+              <h2 class="banner_big_title" style="font-size: 40px;">
+                <span class="uz_text">
+“Suvchilar maktabi” orqali zamonaviy suv tejamkor texnologiyalar bo‘yicha xorijiy bilimlarga ega bo‘ling</span>
+                <span class="ru_text">“Suvchilar maktabi”  получите зарубежные знания о современных водосберегающих технологиях</span>
+              </h2>
+              <p class="banner_description">
+                <span class="ru_text">В 13 регионах республики созданы экспериментальные участки площадью 15–20 гектаров в “Suvchilar maktabi” с внедрением передовых водосберегающих технологий. На этих участках установлены современные водосберегающие технологии, такие как капельное орошение, дождевание и дискретный полив.</span>
+                <span class="uz_text">Respublikaning 13 ta hududidagi “Suvchilar maktabida” 15-20 gektarlik ilg‘or suv tejovchi texnologiyalar joriy qilingan tajriba maydonlari tashkil qilingan. Tajriba maydonlarida zamonaviy suv tejamkor texnologiyalar ya'ni tomchilatib, yomg‘irlatib, diskret sug‘orish o'rnatilgan.</span>
+              </p>
+              <ul class="banner_btns_group unordered_list">
+                <!-- <li>
+                  <a class="btn btn_white" href="{% url 'pages_course' %}">
+                    <span class="uz_text">÷
+                      <small>Batafsil ma'lumot</small>
+                      <small>Batafsil ma'lumot</small>
+                    </span>
+                    <span class="ru_text">
+                      <small>Подробнее</small>
+                      <small>Подробнее</small>
+                    </span>
+                  </a>
+                </li> -->
+                <li>
+                  <a class="video_play_btn text-white" target="blank" href="https://www.youtube.com/watch?v=Jo5c4gV1BMY">
+                    <span class="icon" data-magnetic><i class="fas fa-play"></i></span>
+                    <span class="text uz_text">Videoni ko'rish</span>
+                    <span class="text ru_text">Посмотреть видео</span>
+                  </a>
+                </li>
+              </ul>
+              <ul class="mt-4 unordered_list">
+                <li>
+                  <a target="_blank" style="display: flex; justify-content: center; align-items: center; height: 60px; width: 60px; color: #5078FF; background-color: #fff; border-radius: 50%; margin-right: 10px;" href="{{ office.facebook }}"><i class="fab fa-2x fa-facebook-f"></i></a>
+                </li>
+                <li>
+                  <a target="_blank" style="display: flex; justify-content: center; align-items: center; height: 60px; width: 60px; color: #5078FF; background-color: #fff; border-radius: 50%; margin-right: 10px;" href="{{ office.youtube }}"><i class="fab fa-2x fa-youtube"></i></a>
+                </li>
+                <li>
+                  <a target="_blank" style="display: flex; justify-content: center; align-items: center; height: 60px; width: 60px; color: #5078FF; background-color: #fff; border-radius: 50%; margin-right: 10px;" href="{{ office.telegram }}"><i class="fab fa-2x fa-telegram"></i></a>
+                </li>
+                <li>
+                  <a target="_blank" style="display: flex; justify-content: center; align-items: center; height: 60px; width: 60px; color: #5078FF; background-color: #fff; border-radius: 50%; margin-right: 10px;" href="{{ office.instagram }}"><i class="fab fa-2x fa-instagram"></i></a>
+                </li>
+              </ul>
+            </div>
+            <div class="col col-lg-5">
+              <div class="banner_image_1 decoration_wrap">
+                <div class="image_wrap">
+                  <img src="{% static 'pages/assets/images/web_imgs/index_main.jpg' %}">
+                </div>
+                <!-- <div class="satisfied_student">
+                  <h6 class="uz_text">61 528+, O'quv kursi ishtirokchilari</h6>
+                  <h6 class="ru_text">61 528+, Участники учебного курса</h6>
+                  <ul class="students_thumbnail unordered_list_center">
+                    <li>
+                      <span>
+                        <img src="{% static 'pages/assets/images/web_imgs/index_small_1.jpeg' %}">
+                      </span>
+                    </li>
+                    <li>
+                      <span>
+                        <img src="{% static 'pages/assets/images/web_imgs/index_small_2.jpeg' %}">
+                      </span>
+                    </li>
+                    <li>
+                      <span>
+                        <img src="{% static 'pages/assets/images/web_imgs/index_small_3.jpeg' %}">
+                      </span>
+                    </li>
+                    <li>
+                      <span>
+                        <img src="{% static 'pages/assets/images/web_imgs/index_small_4.jpeg' %}">
+                      </span>
+                    </li>
+                  </ul>
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="expect_from_course section_space_lg">
+      <div class="container">
+        <div class="row">
+          <div class="col col-lg-6">
+            <div class="section_heading">
+              <h2 class="heading_text">
+                <span class="uz_text">Bizning vazifamiz</span>
+                <span class="ru_text">Наша миссия</span>
+              </h2>
+              <p class="heading_description mb-0 uz_text" style="text-align: justify;">
+                Qishloq xo‘jaligida bugungi kunda yuqori hosil olish, suv va energiyadan oqilona foydalanish, sug‘oriladigan yerlar holatini yaxshilashga alohida e’tibor qaratilmoqda. Oliy o‘quv yurtlari va xorijlik mutaxass­islar bilan hamkorlikda amalga oshirilayotgan mazkur loyiha fermer va mutaxassislarni qisqa kurslar orqali zamonaviy sug‘orish usullariga o‘rgatish, malaka oshirish va ishlab chiqarish samaradorligini oshirishga xizmat qilmoqda. 
+              </p>
+              <p class="heading_description mb-0 ru_text" style="text-align: justify;">
+                В агропромышленном комплексе сегодня особое внимание уделяется получению высокой урожайности, рациональному использованию воды и энергии, улучшению состояния орошаемых земель. Этот проект, реализуемый в сотрудничестве с университетами и зарубежными специалистами, служит для обучения фермеров и специалистов современным методам орошения посредством краткосрочных курсов, повышения их квалификации и повышения эффективности производства.
+              </p>
+            </div>
+
+            <div class="image_widget">
+              {% if office.about_image %}
+              <img src="{{ office.about_image.url }}" alt="Suvchilar maktabi ">
+              {% endif %}
+            </div>
+          </div>
+          <div class="col col-lg-6">
+            <!-- Button will hide on Mobile Device -->
+            <div class="btn_wrap pt-0 d-none d-lg-flex justify-content-end">
+              <a class="btn border_dark" href="{% url 'pages_about' %}">
+                <span class="uz_text">
+                  <small>Batafsil ma'lumot</small>
+                  <small>Batafsil ma'lumot</small>
+                </span>
+                <span class="ru_text">
+                  <small>Подробнее</small>
+                  <small>Подробнее</small>
+                </span>
+              </a>
+            </div>
+
+            <div class="row">
+              <div class="col col-md-6">
+                <div class="service_item" data-magnetic>
+                  <div class="item_icon">
+                    <img src="{% static 'pages/assets/images/service/icon_academic_cap.svg' %}" alt="Suvchilar maktabi ">
+                  </div>
+                  <div class="item_content">
+                    <h3 class="item_title uz_text">Ta'lim</h3>
+                    <h3 class="item_title ru_text">Оброзование</h3>
+                    <p class="mb-0 ru_text">                          
+                      Мы предоставляем бесплатное обучение нашим участникам.
+                    </p>
+                    <p class="mb-0 uz_text">
+                      Bizda tinglovchilar qulay va bepul ta’lim olishadi.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col col-md-6">
+                <div class="service_item" data-magnetic>
+                  <div class="item_icon">
+                    <img src="{% static 'pages/assets/images/service/icon_physics.svg' %}" alt="Suvchilar maktabi ">
+                  </div>
+                  <div class="item_content">
+                    <h3 class="item_title ru_text">Преподователи</h3>
+                    <h3 class="item_title uz_text">O'qituvchilar</h3>
+                    <p class="mb-0 ru_text">
+                      Мы гордимся нашими экспертами-преподавателями, включая зарубежных специалистов.
+                    </p>
+                    <p class="mb-0 uz_text">
+                      O‘quv kursida xorijiy va mahalliy professorlar bilim berib borishadi.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col col-md-6">
+                <div class="service_item" data-magnetic>
+                  <div class="item_icon">
+                    <img src="{% static 'pages/assets/images/service/icon_communication.svg' %}" alt="Suvchilar maktabi ">
+                  </div>
+                  <div class="item_content">
+                    <h3 class="item_title ru_text">Мобильность</h3>
+                    <h3 class="item_title uz_text">Mobillik</h3>
+                    <p class="mb-0 ru_text">
+                      Мы ценим время фермеров, поэтому обучение проводится на месте, путешествуя по их участкам.
+                    </p>
+                    <p class="mb-0 uz_text">
+                      Biz fermerlarga qulaylikni taqdim etamiz. Siz o‘quv kursini o‘zingiz yashayotgan hududda o‘qish imkoniyatiga egasiz.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col col-md-6">
+                <div class="service_item" data-magnetic>
+                  <div class="item_icon">
+                    <img src="{% static 'pages/assets/images/service/icon_diploma.svg' %}" alt="Suvchilar maktabi ">
+                  </div>
+                  <div class="item_content">
+                    <h3 class="item_title ru_text">Сертификат</h3>
+                    <h3 class="item_title uz_text">Sertifikat</h3>
+                    <p class="mb-0 ru_text">
+                      Завершивших курс участников мы награждаем сертификатами и подарками.
+                    </p>
+                    <p class="mb-0 uz_text">
+                      Kursni tamomlagan ishtirokchilarni sovg‘a va sertifikat bilan taqdirlaymiz.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="btn_wrap pb-0 d-block d-lg-none text-center">
+              <a class="btn border_dark" href="{% url 'pages_course' %}">
+                <span class="uz_text">
+                  <small>Batafsil ma'lumot</small>
+                  <small>Batafsil ma'lumot</small>
+                </span>
+                <span class="ru_text">
+                  <small>Подробнее</small>
+                  <small>Подробнее</small>
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- <section class="counter_section bg_light section_space_md">
+      <div class="container">
+        <div class="row">
+          <div class="col col-lg-3 col-md-6">
+            <div class="counter_item" style="padding-right: 0;">
+              <h3 class="counter_value">
+                <span class="counter_value_text">61528</span>
+                <span>+</span>
+              </h3>
+              <p class="mb-0 uz_text">
+                O'quv kursi ishtirokchilari
+              </p>
+              <p class="ru_text mb-0">
+                Участники учебного курса
+              </p>
+            </div>
+          </div>
+
+          <div class="col col-lg-3 col-md-6">
+            <div class="counter_item">
+              <h3 class="counter_value">
+                <span class="counter_value_text">50</span>
+                <span>+</span>
+              </h3>
+              <p class="mb-0 uz_text">
+                Malakali o'qituvchilar
+              </p>
+              <p class="ru_text mb-0">
+                Квалифицированные преподаватели
+              </p>
+            </div>
+          </div>
+
+          <div class="col col-lg-3 col-md-6">
+            <div class="counter_item">
+              <h3 class="counter_value">
+                <span class="counter_value_text">15</span>
+                <span>+</span>
+              </h3>
+              <p class="mb-0 uz_text">
+                Turkiya davlatidan jalb etilgan mutaxassislar
+              </p>
+              <p class="ru_text mb-0">
+                Специалисты эксперты из Турции
+              </p>
+            </div>
+          </div>
+
+          <div class="col col-lg-3 col-md-6">
+            <div class="counter_item">
+              <h3 class="counter_value">
+                <span class="counter_value_text">2</span>
+                <span>+</span>
+              </h3>
+              <p class="mb-0 uz_text">
+                Ispaniya davlatidan jalb etilgan mutaxassislar
+              </p>
+              <p class="ru_text mb-0">
+                Специалисты эксперты из Испании
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> -->
+
+
+
+
+    <section class="popular_event_section section_space_lg bg_primary decoration_wrap">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col col-lg-7">
+            <div class="section_heading mb-lg-0">
+              <h2 class="heading_text text-white">
+                <span class="uz_text">O'quv dasturi</span>
+                <span class="ru_text">Программа обучения</span>
+              </h2>
+              <p class="heading_description mb-0 text-white ru_text" style="text-align: justify;">
+                Наша программа обучения разработана с учетом потребностей современных агро специалистов. Обучение – это практический и результативный процесс, который проводится непосредственно на вашем участке.
+                <br><br>
+                Наши эксперты-преподаватели, включая зарубежных специалистов, делятся передовыми методами и технологиями орошения, оптимизации водопотребления и улучшения результативности в сельском хозяйстве. Весь процесс ориентирован на применение знаний в реальных условиях, позволяя вам мгновенно видеть результаты.
+                <br><br>
+                Мы понимаем, как важно ваше время, поэтому обучение проводится без отрыва от производства. Вы получаете не только теоретическую базу, но и конкретные практические навыки, которые сразу можно внедрить на вашем участке. По завершении курса, каждый участник получает сертификат и подарки, символизирующие ваше стремление к профессиональному росту и развитию.
+              </p>
+              <p class="heading_description mb-0 text-white uz_text" style="text-align: justify;">
+                O‘quv dasturimizda qishloq xo‘jaligi sohasida o‘z faoliyatini olib borayotgan fermer xo‘jaliklari rahbar va suvchilari hamda suv xo‘jaligi xodimlari bugungi kunda o‘z sohalarida qo‘llanilayotgan innovatsion texnologiyalar, sohada rivojlangan xorijiy mamlakatlar amaliyotiga joriy etilayotgan yangi bilim va ko‘nikmalarni egallagan holda, o‘z faoliyatlarini takomillashtirib, suvdan samarali foydalanish orqali yuqori hosildorlikka erishish kabi nazariy va amaliy bilimlarga ega bo‘lishadi.
+              </p>
+              
+            </div>
+          </div>
+          <div class="col col-lg-5">
+            <div class="popular_event_list">
+              <h3 class="wrap_title uz_text">Dastur haqida qisqacha</h3>
+              <h3 class="wrap_title ru_text">Коротко о программе</h3>
+              <ul class="unordered_list_block">
+                <li>
+                  <div class="column">
+                    <strong class="time">08:30</strong>
+                  </div>
+                  <div class="column">
+                    <p class="event_title uz_text">Qatnashchilarni ro‘yxatdan o‘tkazish va ochilish qismi</p>
+                    <p class="event_title ru_text">Регистрация и открытие участников</p>
+                    <span class="event_name">
+                    </span>
+                  </div>
+                </li>
+                <li>
+                  <div class="column">
+                    <strong class="time">09:30</strong>
+                  </div>
+                  <div class="column">
+                    <p class="event_title uz_text">Suv tejovchi texnologiyalarning afzalliklari va ularni samaradorligi</p>
+                    <p class="event_title ru_text">Преимущества водосберегающих технологий и их эффективность</p>
+                    <span class="event_name">
+                    </span>
+                  </div>
+                </li>
+                <li>
+                  <div class="column">
+                    <strong class="time">10:40</strong>
+                  </div>
+                  <div class="column">
+                    <p class="event_title uz_text">Xorijiy tajriba. Zamonaviy sug‘orish tizimining ahamiyati va suvdan foydalanish madaniyati (Turkiya tajribasi)</p>
+                    <p class="event_title ru_text">Зарубежный опыт. Важность современной ирригационной системы и культуры водопользования (опыт Турции)</p>
+                    <span class="event_name">
+                    </span>
+                  </div>
+                </li>
+              </ul>
+              <a class="btn btn_primary w-100 mt-4" href="{% url 'pages_course' %}">
+                <span class="uz_text">
+                  <small>Batafsil o'quv dasturi</small>
+                  <small>Batafsil o'quv dasturi</small>
+                </span>
+                <span class="ru_text">
+                  <small>Подробно о программе</small>
+                  <small>Подробно о программе</small>
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="deco_item shape_img_1" data-parallax='{"y" : 130, "smoothness": 6}'>
+        <img src="{% static 'pages/assets/images/shape/shape_img_3.png' %}" alt="Suvchilar maktabi ">
+      </div>
+      <div class="deco_item shape_img_2" data-parallax='{"x" : -130, "smoothness": 6}'>
+        <img src="{% static 'pages/assets/images/shape/shape_img_3.png' %}" alt="Suvchilar maktabi ">
+      </div>
+      <div class="deco_item shape_img_3" data-parallax='{"y" : -130, "smoothness": 6}'>
+        <img src="{% static 'pages/assets/images/shape/shape_img_3.png' %}" alt="Suvchilar maktabi ">
+      </div>
+    </section>
+
+
+    <section class="courses_info_section section_space_lg">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col col-lg-6">
+            <div class="image_widget">
+              <img src="{% static 'pages/assets/images/web_imgs/index_support.jpg' %}" alt="Suvchilar maktabi ">
+            </div>
+          </div>
+          <div class="col col-lg-6">
+            <div class="content_wrap ps-lg-3">
+              <div class="section_heading">
+                <h2 class="heading_text uz_text">Fermer ta'limini qo'llab-quvvatlash</h2>
+                <h2 class="heading_text ru_text">Поддержка обучении фермеров</h2>
+                <p class="heading_description mb-0 ru_text" style="text-align: justify;">
+                  Мы придаем большое значение не только начальному этапу обучения, но и долгосрочной поддержке наших фермеров. После завершения курса вы становитесь частью нашей обширной сети поддержки.
+                </p>
+                <p class="heading_description mb-0 uz_text" style="text-align: justify;">
+                  Biz nafaqat dastlabki tayyorgarlikka, balki fermerlarimizni uzoq muddatli qo‘llab-quvvatlashga ham katta ahamiyat beramiz. Kursni tugatgandan so'ng siz bizning keng ko'lamli qo'llab-quvvatlash tarmog'imizning bir qismiga aylanasiz.
+                </p>
+              </div>
+              <ul class="info_list unordered_list_block">
+                <li class="d-flex">
+                  <i class="fas fa-square"></i>
+                  <span class="ru_text">
+                    Мы успешно обучили более 70 000 фермеров из 70 центров различных областей Республики Узбекистан.
+                  </span>
+                  <span class="uz_text">
+                    Respublikamizning 155 ta tumanidan 61 528 dan ortiq tinglovchilar kursni muvaffaqiyatli tamomlashdi.
+                  </span>
+                </li>
+                <li class="d-flex">
+                  <i class="fas fa-square"></i>
+                  <span class="ru_text">
+                    В нашей команде есть как отечественные, так и зарубежные специалисты
+                  </span>
+                  <span class="uz_text">
+                    Jamoamiz tarkibida ham mahalliy, ham xorijiy mutaxassislar bor
+                  </span>
+                </li>
+                <li class="d-flex">
+                  <i class="fas fa-square"></i>
+                  <span class="ru_text">
+                    В перспективе мы планируем предоставить доступ к онлайн-курсам
+                  </span>
+                  <span class="uz_text">
+                    Kelajakda biz onlayn kurslarga kirishni rejalashtirmoqdamiz
+                  </span>
+                </li>
+              </ul>
+              <div class="btn_wrap pb-0">
+                <a class="btn btn_primary" href="{% url 'pages_course' %}">
+                  <span class="uz_text">
+                    <small>Batafsil</small>
+                    <small>Batafsil</small>
+                  </span>
+                  <span class="ru_text">
+                    <small>Подробнее</small>
+                    <small>Подробнее</small>
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="advertisement_section bg_primary">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col col-lg-6">
+            <div class="section_heading mb-lg-0">
+              <h2 class="heading_text text-white ru_text">Наши международные эксперты</h2>
+              <h2 class="heading_text text-white uz_text">Bizning xalqaro ekspertlarimiz </h2>
+              <p class="heading_description mb-0 text-white ru_text" style="text-align: justify;">
+                Незаменимое звено в нашей образовательной программе. Мы глубоко ценим их опыт, знания и вклад в обучение. Их международный опыт и передовые практики являются вдохновением для всех нас. С их поддержкой, учебный процесс становится более разнообразным, уникальным и актуальным. Благодарим наших международных экспертов за важный вклад в распространение знаний и практик по бережливому использованию водных ресурсов.
+              </p>
+              <p class="heading_description mb-0 text-white uz_text" style="text-align: justify;">
+                Xalqaro ekspertlar chuqur bilim va ko‘nikmaga shu bilan birgalikda ko‘p yillik tajribaga ham ega. Ularning yordami bilan respublikamizdagi ko‘plab fermer xo‘jaliklari rahbar va suvchilari hamda suv xo‘jaligi xodimlari o‘quv jarayonida xorijiy bilim va ko‘nikmaga ega bo‘lishmoqda. Xalqaro ekspertlarimiz zamonaviy sug‘orish tizimining ahamiyati va suvdan foydalanish madaniyati, tizimlarni qurish va ishga tushirish tartibi haqida bilim va ko‘nikmalarini berib kelishmoqda.
+                
+                <br><br>
+                Qishloq xo‘jaligida islohotlar samarasi suvni isrof qilmaslik, undan to‘g‘ri foydalanishga bog‘liq. Suvga bo‘lgan munosabat o‘zgarmas ekan, hosildorlikni oshirish haqida gap bo‘lishi mumkin emas.
+                <br><br>
+                Irrigatsiya va melioratsiya ishlarini bugungi kun talablari darajasida sifatli bajarish joylarda hosildorlikni har yili 2-3 sentnerdan oshirib borish imkonini beradi. 
+                <br><br>
+
+                Shavkat Mirziyoyev
+                O‘zbekiston Respublikasi Prezidenti
+              </p>
+            </div>
+          </div>
+          <div class="col col-lg-6">
+            <div class="row images_group decoration_wrap">
+              <div class="col col-md-6 col-sm-6">
+                <div class="image_wrap">
+                  <img src="{% static 'pages/assets/images/web_imgs/index_expert_1.jpg' %}" alt="Suvchilar maktabi ">
+                </div>
+                <div class="image_wrap">
+                  <img src="{% static 'pages/assets/images/web_imgs/index_expert_2.jpg' %}" alt="Suvchilar maktabi ">
+                </div>
+              </div>
+              <div class="col col-md-6 col-sm-6">
+                <div class="image_wrap">
+                  <img src="{% static 'pages/assets/images/web_imgs/index_expert_3.jpg' %}" alt="Suvchilar maktabi ">
+                </div>
+                <div class="image_wrap">
+                  <img src="{% static 'pages/assets/images/web_imgs/index_expert_4.jpg' %}" alt="Suvchilar maktabi ">
+                </div>
+              </div>
+              <div class="deco_item shape_img_1" data-parallax='{"y" : -130, "smoothness": 6}'>
+                <img src="{% static 'pages/assets/images/shape/shape_img_3.png' %}" alt="Suvchilar maktabi ">
+              </div>
+              <div class="deco_item shape_img_2" data-parallax='{"y" : 130, "smoothness": 6}'>
+                <img src="{% static 'pages/assets/images/shape/shape_img_3.png' %}" alt="Suvchilar maktabi ">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <section id="ariza_send" class="section_space_lg pt-50">
+      <div class="container">
+        <div class="section_heading">
+          <h2 class="heading_text text-center mb-0">
+            <span class="uz_text">Ro'yxatdan o'tish</span>
+            <span class="ru_text">Регистрация</span>
+          </h2>
+        </div>
+        <div id="register_block">
+          <form id="register_form">
+
+            <div id="reg_step_1" class="">
+
+              <div class="pt-2 pb-5 d-flex justify-content-between align-items-center">
+                <div>
+                  <span class="reg_pagination rounded-circle bg-primary text-white">1</span>
+                </div>
+                <div class="w-100">
+                  <div style="background-color: #f0f0f0; padding: 3px; margin: 0 10px"></div>
+                </div>
+                <div>
+                  <span class="reg_pagination rounded-circle border">2</span>
+                </div>
+                <div class="w-100">
+                  <div style="background-color: #f0f0f0; padding: 3px; margin: 0 10px"></div>
+                </div>
+                <div>
+                  <span class="reg_pagination rounded-circle border">3</span>
+                </div>
+              </div>
+
+              <div class="row">
+
+                <div class="col col-lg-12">
+                  <label for="input_phone" class="pb-1">
+                    <span class="uz_text">Telefon raqamingiz</span>
+                    <span class="ru_text">Номер телефона</span>
+
+                    <span class="badge alert-warning mx-2 d-none phone-checking">
+                      <span class="ru_text">Проверка номера телефона</span>
+                      <span class="uz_text">Telefon raqam tekshirilmoqda</span>
+                    </span>
+                    <span class="badge alert-danger mx-2 d-none phone-used">
+                      <span class="ru_text">Этот номер телефона уже используется</span>
+                      <span class="uz_text">Bu telefon raqamidan oldin foydalanilgan</span>
+                    </span>
+                    <span class="badge alert-primary mx-2 d-none phone-valid">
+                      <span class="ru_text">Вы можете использовать этот номер телефона</span>
+                      <span class="uz_text">Bu telefon raqamidan foydalanish mumkin</span>
+                    </span>
+
+                  </label>
+                  <div class="input-group">
+                    <span class="input-group-text">
+                      <i class="fas fa-phone"></i><span style="padding-left: 5px;">+998</span>
+                    </span>
+                    <input id="input_phone" class="form-control" required type="number">
+                  </div>
+                </div>
+
+             
+
+                <div class="col col-lg-12">
+                  <label for="input_inn" class="pb-1 uz_text">STIR kiriting</label>
+                  <label for="input_inn" class="pb-1 ru_text">Введите ваш ИНН</label>
+                  <span class="badge alert-warning mx-2 d-none inn-checking">
+                    <span class="ru_text">Проверка ИНН</span>
+                    <span class="uz_text">STIR tekshirilmoqda</span>
+                  </span>
+                  <span class="badge alert-danger mx-2 d-none inn-used">
+                    <span class="ru_text">Введенный ИНН уже используется</span>
+                    <span class="uz_text">Bu STIR oldin foydalanilgan</span>
+                  </span>
+                  <span class="badge alert-primary mx-2 d-none inn-valid">
+                    <span class="ru_text">Вы можете использовать введеный ИНН</span>
+                    <span class="uz_text">Bu STIR bilan foydalanish mumkin</span>
+                  </span>
+                  <span class="badge alert-danger mx-2 d-none inn-not-found">
+                    <span class="ru_text">Введенный ИНН не найден</span>
+                    <span class="uz_text">Bu STIR topilmadi</span>
+                  </span>
+                  <input id="input_inn" class="form-control"  required type="number" >
+
+                </div>
+
+                <div class="col col-lg-6">
+                  <label for="input_region" class="pb-1 uz_text">Fermer yoki dehqon xo'jaligi joylashgan viloyatni tanlang</label>
+                  <label for="input_region" class="pb-1 ru_text">Выберите провинцию, в которой расположена ферма</label>
+                  <select id="input_region" class="form-control" required>
+                    <option value=""></option>
+                  </select>
+                </div>
+
+                <div class="col col-lg-6">
+                  <label for="input_district" class="pb-1 uz_text">Fermer yoki dehqon xo'jaligi joylashgan tumanni tanlang</label>
+                  <label for="input_district" class="pb-1 ru_text">Выберите район, в котором расположена ферма</label>
+                  <select id="input_district" class="form-control" required disabled></select>
+                </div>
+
+                <div class="col">
+                  <label for="input_company" class="pb-1 uz_text">Fermer yoki dehqon xo'jaligi nomi</label>
+                  <label for="input_company" class="pb-1 ru_text">Название фермы или хозяйства</label>
+                  <input id="input_company" class="form-control" required type="text">
+                </div>
+
+                <div class="col">
+                  <label for="input_activity" class="pb-1 uz_text">Fermer va dehqon xo'jaligi faoliyat turi</label>
+                  <label for="input_activity" class="pb-1 ru_text">Вид деятельности фермерское хозяйство</label>
+                  <select id="input_activity" class="form-control" required>
+                    <option value=""></option>
+                    <option value="1">Пахтачилик/ғаллачилик</option>
+                    <option value="2">Боғдорчилик/Узумчилик</option>
+                    <option value="3">Сабзавотлар/Илдиз сабзавотлари</option>
+                    <option value="4">Сабзавотлар/ғаллачилик</option>
+                    <option value="5">Бошқа</option>
+                  </select>
+                </div>
+
+                <div class="col">
+                  <label for="input_job" class="pb-1 uz_text">Sizning lavozimingiz</label>
+                  <label for="input_job" class="pb-1 ru_text">Твоя позиция</label>
+                  <select id="input_job" class="form-control" required>
+                    <option value=""></option>
+                    <option value="raxbar">Xo'jalik raxbari</option>
+                    <option value="ishchi">Ishchisi</option>
+                    <option value="irrigator">Irrigator</option>
+                    <option value="bank">Bank xodimi</option>
+                  </select>
+                </div>
+
+                
+
+                <div class="col pt-5">
+                  <div class="text-center">
+                    <button id="step_1_btn" type="submit" class="btn btn_primary">
+                      <span class="uz_text">
+                        <small>Keyingisi</small>
+                        <small>Keyingisi</small>
+                      </span>
+                      <span class="ru_text">
+                        <small>Далее</small>
+                        <small>Далее</small>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <div id="reg_step_2" class="d-none">
+
+              <div class="pt-2 pb-5 d-flex justify-content-between align-items-center">
+                <div>
+                  <span class="reg_pagination rounded-circle border border-primary text-primary">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+                <div class="w-100">
+                  <div style="background-color: #5078FF; padding: 3px; margin: 0 10px"></div>
+                </div>
+                <div>
+                  <span class="reg_pagination rounded-circle bg-primary text-white">2</span>
+                </div>
+                <div class="w-100">
+                  <div style="background-color: #f0f0f0; padding: 3px; margin: 0 10px"></div>
+                </div>
+                <div>
+                  <span class="reg_pagination rounded-circle border">3</span>
+                </div>
+              </div>
+
+              <div class="row">
+
+                <div class="col col-lg-12">
+                  <label for="input_fio" class="pb-1 uz_text">FISH</label>
+                  <label for="input_fio" class="pb-1 ru_text">ФИО</label>
+                  <div class="input-group">
+                    <span class="input-group-text">
+                      <i class="fas fa-user"></i>
+                    </span>
+                    <input id="input_fio" class="form-control" required type="text" placeholder="Azizov Aziz Azizovich">
+                  </div>
+                </div>
+
+                <div class="col col-lg-6">
+                  <label for="input_birthday" class="pb-1 uz_text">Tug'ilgan sana</label>
+                  <label for="input_birthday" class="pb-1 ru_text">Дата рождения</label>
+                  <input id="input_birthday" class="form-control" required type="date" placeholder="l">
+                </div>
+
+                <div class="col col-lg-6">
+                  <label for="" class="pb-1 uz_text">Jinsingiz</label>
+                  <label for="" class="pb-1 ru_text">Пол</label>
+                  <div class="d-flex">
+                    <div class="form-check-div">
+                      <div class="form-check">
+                        <input class="form-check-input" checked style="margin-right: 5px; margin-bottom: 3px" type="radio" name="gender" id="male">
+                        <label class="form-check-label uz_text" for="male">Erkak</label>
+                        <label class="form-check-label ru_text" for="male">Мужчина</label>
+                      </div>
+                    </div>
+                    <div class="p-2"></div>
+                    <div class="form-check-div">
+                      <div class="form-check">
+                        <input class="form-check-input" style="margin-right: 5px; margin-bottom: 3px" type="radio" name="gender" id="female">
+                        <label class="form-check-label uz_text" for="female">Ayol</label>
+                        <label class="form-check-label ru_text" for="female">Женщина</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              
+
+                <div class="col">
+                  <label for="input_birthday" class="pb-1 uz_text">Mehnat daftari</label>
+                  <label for="input_birthday" class="pb-1 ru_text">Трудовая книжка</label>
+                  <input id="input_doc" class="form-control" required type="file" accept=".pdf, .jpeg, .jpg, .png">
+                </div>
+
+                <!-- <div class="col pb-0">
+                  <input id="captcha_code" type="hidden" name="captcha_code" value="{{captcha.code}}">
+                  <div id="captcha_error" class="d-none alert alert-danger">
+                    <span class="ru_text">Captcha введена неправильно.</span>
+                    <span class="uz_text">Captcha xato kiritildi.</span>
+                    <span class="en_text">Captcha entered incorrectly.</span>
+                  </div>
+                  <div class="captcha_block">
+                    <div>
+                      <img class="imgz" src="{{captcha.image.url}}" alt="">
+                      <svg id="captcha_btn_refresh" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 512.016 512.016" style="enable-background:new 0 0 512.016 512.016;" xml:space="preserve" width="18px" height="18px">
+                        <g>
+                          <path d="M256.008,42.675c57.16,0.188,111.87,23.233,151.936,64h-66.603c-11.782,0-21.333,9.551-21.333,21.333   s9.551,21.333,21.333,21.333h88.384c21.874-0.012,39.604-17.742,39.616-39.616V21.341c0-11.782-9.551-21.333-21.333-21.333   s-21.333,9.551-21.333,21.333v44.331C321.782-28.795,160.169-20.343,65.702,84.55C28.733,125.6,6.058,177.523,1.075,232.541   c-1.096,11.814,7.593,22.279,19.407,23.375c0.64,0.059,1.283,0.09,1.927,0.092c10.813,0.138,19.954-7.977,21.099-18.731   C53.35,127.213,145.505,42.82,256.008,42.675z"/>
+                          <path d="M489.629,256.008c-10.813-0.138-19.954,7.977-21.099,18.731C458.35,391.953,355.076,478.721,237.861,468.54   c-50.715-4.405-98.176-26.825-133.789-63.199h66.603c11.782,0,21.333-9.551,21.333-21.333c0-11.782-9.551-21.333-21.333-21.333   H82.291c-21.868-0.012-39.604,17.706-39.616,39.573c0,0.014,0,0.028,0,0.043v88.384c0,11.782,9.551,21.333,21.333,21.333   s21.333-9.551,21.333-21.333v-44.331c104.893,94.467,266.505,86.015,360.972-18.878c36.97-41.05,59.645-92.973,64.628-147.992   c1.096-11.814-7.593-22.279-19.407-23.375C490.901,256.041,490.265,256.01,489.629,256.008z"/>
+                        </g>
+                      </svg>
+                    </div>
+                    <div>
+                      <input id="captcha_input" required type="text" name="captch" placeholder="Введите слова">
+                      <span>captcha powered by <a href="https://kodi.uz/captcha/">kodi.uz</a></span>
+                    </div>
+                  </div>
+                </div>
+                <br> -->
+                <div>
+                  <div class="ru_text">
+                      Нажимая на кнопку 'Отправить', вы соглашаетесь <a style="color:#36b1ea; text-decoration: underline;" target="_blank" href="/media/terms.pdf">с пользовательским соглашением</a> и <a style="color:#36b1ea; text-decoration: underline;" target="_blank" href="/media/privacy.pdf">обработкой персональных данных</a>
+                  </div>
+                  <div class="uz_text">
+                      "Yuborish" tugmasini bosish orqali siz <a style="color:#36b1ea; text-decoration: underline;" target="_blank" href="/media/privacy.pdf">foydalanuvchi shartnomasiga </a> va <a style="color:#36b1ea; text-decoration: underline;" target="_blank" href="/media/privacy.pdf">shaxsiy ma'lumotlarni  </a> olishga rozilik bildirasiz
+                  </div>
+                  <div class="en_text">
+                      By clicking the 'Submit' button, you agree to <a style="color:#36b1ea; text-decoration: underline;" target="_blank" href="/media/terms.pdf">the user agreement</a> and <a style="color:#36b1ea; text-decoration: underline;" target="_blank" href="/media/privacy.pdf">processing of personal data</a>
+                  </div>
+                </div>
+
+                <div class="col pt-5">
+                  <div class="text-center">
+                    <button id="step_2_btn" type="submit" class="btn btn_primary">
+                      <span>
+                        <span class="uz_text"><small>Yuborish</small><small>Yuborish</small></span>
+                        <span class="ru_text"><small>Далее</small><small>Далее</small></span>
+                      </span>
+                      <span class="d-flex align-items-center d-none">
+                        <span class="small-loader" style="width: 10px; height: 10px; font-size: 6px; margin-right: 20px"></span>
+                        <span class="uz_text"><small>Ma'lumotlar saqlanmoqda</small></span>
+                        <span class="ru_text"><small>Данные сохраняются</small></span>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <div id="reg_step_3" class="d-none">
+
+              <div class="pt-2 mb-4 d-flex justify-content-between align-items-center">
+                <div>
+                  <span class="reg_pagination rounded-circle border border-primary text-primary">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+                <div class="w-100">
+                  <div style="background-color: #5078FF; padding: 3px; margin: 0 10px"></div>
+                </div>
+                <div>
+                  <span class="reg_pagination rounded-circle border border-primary text-primary">
+                    <i class="fas fa-check"></i>
+                  </span>
+                </div>
+                <div class="w-100">
+                  <div style="background-color: #5078FF; padding: 3px; margin: 0 10px"></div>
+                </div>
+                <div>
+                  <span class="reg_pagination rounded-circle bg-primary text-white">3</span>
+                </div>
+              </div>
+
+              <div class="row">
+
+                <div class="col-lg-6 pt-5 text-center px-5">
+                  <i class="far fa-address-card text-primary" style="font-size: 50px;"></i>
+                  <p class="pt-4">
+                    <span class="uz_text">
+                      Siz muvafaqqiyatli ro‘yxatdan o‘tdingiz.
+                      <br>Sizning 
+                      <b>ID raqamingiz:</b>
+                    </span>
+                    <span class="ru_text">
+                      Вы успешно зарегистрировались.
+                      <br>Ваш 
+                      <b>ID номер:</b>
+                    </span>
+                    <br>
+                    <b><span class="student_id">---</span></b>
+                  </p>
+                </div>
+  
+                <div class="col-lg-6 pt-5 text-center px-5">
+                  <i class="far fa-certificate text-primary" style="font-size: 50px;"></i>
+                  <p class="pt-4 px-5 step_3_text uz_text">
+                    Kurs yakunlanganidan so‘ng, shu yerda sertifikatni yuklab olishingiz mumkin. Qo‘shimcha ma’lumot sms orqali yuboriladi.
+                  </p>
+                  <p class="pt-4 px-5 step_3_text ru_text">
+                    После прохождения курса вы можете скачать сертификат здесь. Дополнительная информация будет отправлена ​​по SMS.
+                  </p>
+                </div>
+
+                <div class="col pt-5">
+                  <div class="text-center">
+                    <button id="step_3_btn" type="button" class="btn btn_primary">
+                      <span class="uz_text">
+                        <small>Yakunlash</small>
+                        <small>Yakunlash</small>
+                      </span>
+                      <span class="ru_text">
+                        <small>Закончить</small>
+                        <small>Закончить</small>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="my-5">
+      <div class="container">
+        <div class="row">
+          <div class="section_heading">
+            <h2 class="heading_text">
+              <span class="uz_text">O'zbekiston Respublikasini barcha hududlarida</span>
+              <span class="ru_text">Мы по всей Республике Узбекистана</span>
+            </h2>
+          </div>
+
+          <!-- Map Section -->
+          <div id="map" style="width: 100%; height: 500px; border-radius: 10px; margin-bottom: 50px;"></div>
+        </div>
+
+        <div style="text-align: justify; margin-top: 10px;">
+          {% for i in branchs %}
+          <div class="card card-body d-flex justify-content-between flex-row mb-3">
+            <span>
+              <b>{{i.title}}</b> – {{i.address}}
+            </span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-map-pin" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /><path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z" /></svg>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+</main>
+{% endblock content %}
+
+{% block js %}
+
+
+<!-- map js -->
+<script>
+  const branches = JSON.parse('{{ branchs_json|safe|escapejs }}');
+
+  // ✅ Center map to Uzbekistan
+  const uzbekistanCenter = [41.3775, 64.5853]; // Geographic center of Uzbekistan
+  const map = L.map('map').setView(uzbekistanCenter, 6);
+
+  // Add OpenStreetMap tiles
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution:
+      '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+  }).addTo(map);
+
+  // Add branch markers
+  branches.forEach(branch => {
+    const lat = parseFloat(branch.lat);
+    const lon = parseFloat(branch.lon);
+
+    if (!isNaN(lat) && !isNaN(lon)) {
+      L.marker([lat, lon])
+        .addTo(map)
+        .bindPopup(`<b>${branch.title || "No title"}</b><br>${branch.address || ""}`);
+    }
+  });
+</script>
+
+
+<script>
+  let file_base = "";
+ document.getElementById('input_doc').addEventListener('change', function() {
+     var file = this.files[0];
+     var maxSize = 2 * 1024 * 1024; // 2 МБ в байтах
+
+     if (file.size > maxSize) {
+         alert('Ошибка: Размер файла не должен превышать 2 МБ.');
+         this.value = ''; // Сброс выбранного файла
+     } else {
+         // Использование FileReader для чтения файла как Base64
+         var reader = new FileReader();    
+         reader.onload = function(e) {
+             file_base = e.target.result; // Сохраняем Base64 представление файла
+             console.log(file_base); // Для проверки можно вывести в консоль
+         };
+         reader.readAsDataURL(file); // Читаем содержимое файла
+     }
+});
+</script>
+<script>
+  let ariza_send = document.querySelector('#ariza_send');
+
+  let today = new Date().getDate();
+  let lastDay = localStorage.getItem('lastDay');
+  let protectCount = localStorage.getItem('protectCount');
+
+  // Проверьте, новый ли сегодня день по сравнению с последним сохраненным днем
+  if (lastDay === null || lastDay != today) {
+      // Если это новый день, сбросьте счетчик
+      protectCount = 0;
+      localStorage.setItem('lastDay', today);
+      localStorage.setItem('protectCount', protectCount);
+  }
+
+  // Переведите protectCount в числовой тип, чтобы можно было с ним работать как с числом
+  protectCount = parseInt(protectCount);
+
+  // Проверьте, не превысило ли значение protectCount лимит
+  if (protectCount >= 925) {
+    ariza_send.style.display = 'none';
+  }
+
+
+  fetch("/regions/").then(resp => resp.json()).then(data => {
+    let regions_arr = data.regions;
+
+    let form = document.querySelector("#register_form");
+
+    let reg_step_1 = document.querySelector("#reg_step_1");
+    let reg_step_2 = document.querySelector("#reg_step_2");
+    let reg_step_3 = document.querySelector("#reg_step_3");
+
+    // register step 1
+    let fio = document.querySelector("#input_fio");
+    let phone = document.querySelector("#input_phone");
+    let birthday = document.querySelector("#input_birthday");
+    let male = document.querySelector("#male");
+    let female = document.querySelector("#female");
+
+    let region = document.querySelector("#input_region");
+    let region_str = "";
+    let district = document.querySelector("#input_district");
+    let district_str = "";
+    let inn = document.querySelector("#input_inn");
+    let inn_str = "";
+
+    let step_1_btn = document.querySelector("#step_1_btn");
+
+    let phone_checking = document.querySelector(".phone-checking");
+    let phone_used = document.querySelector(".phone-used");
+    let phone_valid = document.querySelector(".phone-valid");
+
+    let inn_checking = document.querySelector(".inn-checking");
+    let inn_used = document.querySelector(".inn-used");
+    let inn_valid = document.querySelector(".inn-valid");
+    let inn_not_found = document.querySelector(".inn-not-found");
+
+    phone.addEventListener("input", () => {
+      if (phone.value.length == 9){
+        phone.setAttribute("disabled", "true");
+        phone_valid.classList.add("d-none");
+        phone_used.classList.add("d-none");
+        phone_checking.classList.remove("d-none");
+
+        fetch("/phone/check/", {
+          method: "POST",
+          headers: {"Content-Type": "application/json", "X-CSRFToken": csrftoken},
+          body: JSON.stringify({"phone": `998${phone.value}`})
+        }).then(resp => resp.json()).then(data => {
+          phone.removeAttribute("disabled");
+          phone_checking.classList.add("d-none");
+
+          if (data.status == "valid"){phone_valid.classList.remove("d-none")}
+          else if (data.status == "used"){phone_used.classList.remove("d-none")}
+        })
+      } else{
+        phone_checking.classList.add("d-none");
+        phone_valid.classList.add("d-none");
+        phone_used.classList.add("d-none");
+      }
+    })
+
+    inn.addEventListener("input", () => {
+      console.log(inn.value);
+      if (inn.value.length == 9){
+        inn.setAttribute("disabled", "true");
+        inn_valid.classList.add("d-none");
+        inn_used.classList.add("d-none");
+        inn_checking.classList.remove("d-none");
+        inn_not_found.classList.add("d-none");
+        fetch("/inn/check/", {
+          method: "POST",
+          headers: {"Content-Type": "application/json", "X-CSRFToken": csrftoken},
+          body: JSON.stringify({"inn": `${inn.value}`})
+        }).then(resp => resp.json()).then(data => {
+          inn.removeAttribute("disabled");
+          inn_checking.classList.add("d-none");
+
+          if (data.status == "valid"){
+            inn_valid.classList.remove("d-none")
+            document.querySelector("#input_company").value = data.company_name;
+            console.log(data.company_name);
+          }
+          else if (data.status == "used"){inn_used.classList.remove("d-none")}
+          else if (data.status == "not_found"){inn_not_found.classList.remove("d-none")}
+          })
+        } else{
+          inn_checking.classList.add("d-none");
+          inn_valid.classList.add("d-none");
+          inn_used.classList.add("d-none");
+          inn_not_found.classList.add("d-none");
+        }
+    })
+
+
+    regions_arr.forEach((region, r_num) => {
+      region_str += `<option value="${r_num}">${region.title}</option>`
+    });
+    region.innerHTML += region_str;
+
+
+    region.addEventListener("change", () => {
+      if (region.value) {
+        district_str = "";
+        regions_arr[region.value].districts.forEach((dis, d_num) => {
+          district_str += `<option value="${d_num}">${dis.title}</option>`
+        });
+        district.removeAttribute("disabled");
+        district.innerHTML = `<option value=""></option> ${district_str}`;
+      } else {
+        district.innerHTML = "<option value=''></option>";
+        district.setAttribute("disabled", true)
+      }
+    })
+
+
+    step_1_btn.addEventListener("click", () => {
+      if ( phone.value  && region.value && district.value) {
+        if (male.checked || female.checked){
+          reg_step_1.classList.add("d-none");
+          reg_step_2.classList.remove("d-none");
+        }
+      }
+    })
+
+
+    // register step 2
+    let company = document.querySelector("#input_company");
+    let activity = document.querySelector("#input_activity");
+    let job = document.querySelector("#input_job");
+
+    let step_2_btn = document.querySelector("#step_2_btn");
+
+
+    step_2_btn.addEventListener("click", () => {
+      if (fio.value && phone.value && birthday.value && region.value && district.value && company.value && activity.value && job.value) {
+        //if (document.querySelector("#captcha_input").value){
+          if (male.checked || female.checked){
+            step_2_btn.setAttribute("disabled", true);
+            step_2_btn.firstElementChild.classList.add("d-none");
+            step_2_btn.lastElementChild.classList.remove("d-none");
+
+            let selected_gender = "";
+
+            if (male.checked){selected_gender = "Erkak"}else{selected_gender = "Ayol"};
+
+            fetch("/register/", {
+              method: "POST",
+              headers: {"Content-Type": "application/json", "X-CSRFToken": csrftoken},
+              body: JSON.stringify({
+                fio: fio.value,
+                phone: `998${phone.value}`,
+                birthday: birthday.value,
+                region: region.options[region.selectedIndex].text,
+                district: district.options[district.selectedIndex].text,
+                company: company.value,
+                activity: activity.options[activity.selectedIndex].text,
+                job: job.options[job.selectedIndex].text,
+                gender: selected_gender,
+                inn: inn.value,
+                file: file_base
+                //code: document.querySelector('#captcha_code').value,
+                //answer: document.querySelector('#captcha_input').value,
+              })
+            }).then(resp => resp.json()).then(data => {
+              step_2_btn.firstElementChild.classList.remove("d-none");
+              step_2_btn.lastElementChild.classList.add("d-none");
+
+              if (data.status == 200){
+                reg_step_2.classList.add("d-none");
+                reg_step_3.classList.remove("d-none");
+                document.querySelector(".student_id").innerText = data.id;
+              }
+            })
+          }
+        //}
+      }
+
+      // Увеличьте protectCount и сохраните его в localStorage
+      protectCount += 1;
+      localStorage.setItem('protectCount', protectCount);
+
+      // Проверьте, не достигло ли значение protectCount лимита после увеличения
+      if (protectCount >= 5) {
+          ariza_send.style.display = 'none';
+      }
+    })
+
+
+    // register step 3
+    let step_3_btn = document.querySelector("#step_3_btn");
+
+
+    step_3_btn.addEventListener("click", () => {
+      window.location.reload()
+      fio.value = "";
+      phone.value = "";
+      birthday.value = "";
+      male.checked = true;
+      female.checked = false;
+      region.value = "";
+      district.value = "";
+
+      district.setAttribute("disabled", "true");
+
+      phone_checking.classList.add("d-none");
+      phone_used.classList.add("d-none");
+      phone_valid.classList.add("d-none");
+
+      reg_step_3.classList.add("d-none");
+      reg_step_1.classList.remove("d-none");
+
+      company.value = "";
+      activity.value = "";
+      job.value = "";
+
+      step_2_btn.removeAttribute("disabled");
+    })
+
+
+    //let captcha_btn_refresh = document.querySelector('#captcha_btn_refresh');
+    //captcha_btn_refresh.addEventListener('click', ()=>{
+    //    fetch('/captcha/', {
+    //        method: 'POST',
+    //        headers: {
+    //            'Content-Type': 'application/json',
+    //            'X-CSRFToken': csrftoken
+    //        },
+    //        body: JSON.stringify({})
+    //    })
+    //    .then(resp => resp.json())
+    //    .then(resp =>{
+    //        document.querySelector('.captcha_block .imgz').setAttribute('src', resp.image)
+    //        document.querySelector('#captcha_code').value = resp.code
+    //    })
+    //})
+  })
+</script>
+{% endblock js %}

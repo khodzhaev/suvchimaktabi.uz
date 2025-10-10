@@ -1,0 +1,60 @@
+{% extends 'pages/base.html' %}
+
+{% load static %}
+
+{% block title %}
+{% endblock title %}
+
+{% block content %}
+
+
+<main class="page_content">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.css" integrity="sha512-Woz+DqWYJ51bpVk5Fv0yES/edIMXjj3Ynda+KWTIkGoynAMHrqTcDUQltbipuiaD5ymEo9520lyoVOo9jCQOCA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <section class="page_banner">
+    <div class="container">
+      <div class="content_wrapper" style="background-image: url({% static 'pages/assets/images/web_imgs/gallery.jpg' %}); width: 100%">
+        <div class="row align-items-center">
+          <div class="col col-12">
+            <ul class="breadcrumb_nav unordered_list">
+              <li><a href="{% url 'pages_index' %}" class="text-white">
+                <span class="uz_text">Bosh sahifa</span>
+                <span class="ru_text">Главная</span>
+              </a></li>
+              <li class="text-white">
+                <span class="uz_text">Galereya</span>
+                <span class="ru_text">Галерея</span>
+              </li>
+            </ul>
+            <h1 class="page_title text-white ru_text">{{gallery.title_ru}}</h1>
+            <h1 class="page_title text-white uz_text">{{gallery.title_uz}}</h1>
+            <h1 class="page_title text-white en_text">{{gallery.title_en}}</h1>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="blog_section section_space_lg">
+    <div class="container">
+      <div class="row mt-5">
+        {% for i in gallery.galleryphoto_set.all %}
+         <div class="col-lg-4 col-md-6 col-12 mb-2">
+            <div class="feature-card-widget-8g wow fadeInUp" data-wow-delay="0.1s">
+               <a href="{{i.image.url}}" data-lightbox="image" data-title="{{i.title_ru}}">
+                  <img style="object-fit: cover; object-position: center; height: 300px; width: 600px" src="{{i.image.url}}" alt="">
+               </a>
+            </div>
+         </div>
+         {% endfor %}
+      </div>
+    </div>
+  </section>
+  
+</main>
+{% endblock %}
+
+{% block js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js" integrity="sha512-Ixzuzfxv1EqafeQlTCufWfaC6ful6WFqIz4G+dWvK0beHw0NVJwvCKSgafpy5gwNqKmgUfIBraVwkKI+Cz0SEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% endblock js %}

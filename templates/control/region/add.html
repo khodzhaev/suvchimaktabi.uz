@@ -1,0 +1,35 @@
+{% extends 'control/base.html' %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <h4 class="page-title">Добавить регион</h4>
+        </div>
+    </div>
+</div>     
+
+<div class="row">
+    <div class="col-12">
+        <form action="{% url 'control_region_create' %}" method="POST">
+            {% csrf_token %}
+            <div class="card">
+                <div class="card-body">
+
+                    {% if base.code == 'exist' %}
+                    <div class="alert alert-danger">
+                        Это название уже использовалось!
+                    </div>
+                    {% endif %}
+
+                    <label>Название</label> 
+                    <input required type="text" name="title" class="form-control mb-3">
+
+                    <button type="submit" class="btn btn-primary btn-lg w-100 ">Добавить</button>
+                </div>
+            </div>
+        
+    </form>
+    </div> 
+</div>
+{% endblock content %}

@@ -1,0 +1,62 @@
+{% extends 'control/base.html' %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <h4 class="page-title">Редактировать регион</h4>
+        </div>
+    </div>
+</div>     
+
+<div class="row">
+    <div class="col-12">
+        <form action="{% url 'control_region_edit' %}" method="POST">
+            {% csrf_token %}
+            <div class="card">
+                <div class="card-body">
+
+                  {% if base.code == 'exist' %}
+                  <div class="alert alert-danger">
+                      Это название уже использовалось!
+                  </div>
+                  {% endif %}
+
+                  <input type="hidden" name="id" value="{{region.id}}">
+
+                    <label>Название</label> 
+                    <input required type="text" name="title" class="form-control mb-3" value="{{region.title}}">
+
+                    <div class="row">
+                        <div class="col-md-6"><button type="submit" class="btn btn-primary btn-lg w-100">Сохранить</button></div>
+                        <div class="col-md-6"><button type="button" data-bs-target="#folder_delete" data-bs-toggle="modal" class="btn btn-danger btn-lg w-100">Удалить</button></div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div> 
+</div>
+
+<div class="modal" id="folder_delete" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Удалить регион</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>После удаления вы не сможете вернуть обратно, вы действительно хотите удалить?</p>
+        </div>
+        <div class="modal-footer">
+          <form action="{% url 'control_region_remove' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" value="{{region.id}}" name="id">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+            <button type="submit" class="btn btn-danger">Да, удалить!</button>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
+
+{% endblock content %}

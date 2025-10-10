@@ -1,0 +1,250 @@
+{% extends 'control/base.html' %}
+
+{% load static %}
+
+{% block style %}
+<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script> -->
+<script src="{% static 'pages/assets/js/vue.js' %}"></script>
+
+{% endblock style %}
+
+{% block content %}
+<div id="root">
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <h4 class="page-title">Excel</h4>
+            </div>
+        </div>
+    </div>     
+    <!-- end page title --> 
+    
+    <form action="{% url 'control_excel_create' %}" class="form_form" @submit="send_form($event)" method="POST">
+        <div class="d-flex align-items-bottom mb-2">
+            {% csrf_token %}
+            <input type="hidden" name="selected_districts" required>
+
+            <div style="width: 40%;">
+                <label for="">От</label>
+                <input type="date" class="form-control" required name="from">
+            </div>
+
+            <div class="px-1"></div>
+
+            <div style="width: 40%;">
+                <label for="">До</label>
+                <input type="date" class="form-control" required name="until">
+            </div>
+
+            <div class="px-1"></div>
+
+            <div style="width: 20%;">
+                <label for="" style="visibility: hidden;">q</label><br>
+                {% if waiting %}
+                    <button type="button" disabled class="btn w-100 btn-success">Отправить</button>
+                {% else %}
+                    <button type="submit" class="btn w-100 btn-success">Отправить</button>
+                {% endif %}
+            </div>
+        </div>
+    </form>
+
+    {% if base.code == 'remove' %}
+    <div class="alert alert-info">
+        Успешно удалена!
+    </div>
+    {% elif base.code == 'error' %}
+    <div class="alert alert-danger">
+        Что-то пошло не так!
+    </div>
+    {% elif base.code == 'd_t_error' %}
+    <div class="alert alert-danger">
+        Район не найден
+    </div>
+    {% elif base.code == 'created' %}
+    <div class="alert alert-info">
+        Успешно создано. Подождите немного и обновите браузер
+    </div>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-12" v-show="error">
+            <div class="alert alert-danger">Пожалуйста, выберите хотя бы 1 район</div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card card-body">
+                <div class="bg-light px-3 rounded text-center mb-2">
+                    <h3 class="text-dark">Все районы</h3>
+                </div>
+                <p class="pt-2">Нажимайте кнопки, чтобы выбрать</p>
+                <div v-for="r in all_reg" v-if="r.all_selected == false">
+                    <h4>[[r.title]]</h4>
+                    <hr>
+                    <div class="mb-2">
+                        <span v-for="dis in r.districts" v-if="dis.selected == false">
+                            <button type="button" @click="district_add(dis.id, dis.title, dis.r_id)" class="btn btn-outline-primary m-1">
+                                [[dis.title]]
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card card-body">
+                <div class="bg-light px-3 rounded text-center mb-2">
+                    <h3 class="text-dark">Выбранные районы</h3>
+                </div>
+                <p class="pt-2">Нажмите кнопки, чтобы отменить выбор</p>
+                <div v-for="r in user_dis" v-show="r.districts.length > 0">
+                    <h4>[[r.title]]</h4>
+                    <hr>
+                    <div class="mb-2">
+                        <span v-for="dis in r.districts">
+                            <button type="button" @click="district_remove(dis.id, dis.r_id)" class="btn btn-primary m-1">
+                                [[dis.title]]
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table m-0">
+                            <thead>
+                                <tr>
+                                    <th>Заголовок</th>
+                                    <th>Файл</th>
+                                    <th>Район</th>
+                                    <th>Скачать</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for f in excels %}
+                                <tr>
+                                    <th>{{f.title}} <br> <a class="text-danger" href="#f{{f.id}}" data-bs-toggle="modal"><small>Удалить</small></a></th>
+                                    <td>{{f.file}}</td>
+                                    <td>{{f.district.title}}</td>
+                                    <td>
+                                        {% if f.download %}
+                                            <a class="btn btn-primary" target="_blank" href="/{{f.file}}">Скачать</a>
+                                        {% else %}
+                                            <button type="button" class="btn btn-primary" disabled>Подождите и перезагрузите браузер</button>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    {% for f in excels %}
+    <div class="modal" id="f{{f.id}}" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Удалить Excel</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>После удаления вы не сможете вернуть обратно, вы действительно хотите удалить?</p>
+                </div>
+                <div class="modal-footer">
+                    <form action="{% url 'control_excel_remove' %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{f.id}}" name="id">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                        <button type="submit" class="btn btn-danger">Да, удалить!</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}
+
+{% block script %}
+<script>
+var app = new Vue({
+    delimiters: ["[[", "]]"],
+    el: '#root',
+    data: {
+        all_reg: [],
+        user_dis: [],
+        selected_districts: "",
+        error: false,
+    },
+    mounted() {
+        fetch("/control/users/districts/", {
+            method: "POST",
+            headers: {"Content-Type": "application/json", "X-CSRFToken": csrftoken},
+        }).then(resp => resp.json()).then(data => {
+            if (data.status == 200){
+                this.all_reg = data.all_reg;
+                data.all_reg.forEach(reg => {
+                    this.user_dis.push({title: reg.title, id: reg.id, districts: []})
+                })
+            }
+        })
+    },
+    methods: {
+        district_add(id, title, r_id) {
+            let reg = this.user_dis.find(item => item.id == r_id);
+            let s_reg = this.all_reg.find(item => item.id == r_id);
+            let s_reg_dis = s_reg.districts.find(item => item.id == id);
+            this.error = false;
+
+            reg.districts.push({title: title, id: id, r_id: r_id});
+            s_reg_dis.selected = true;
+
+            if (this.selected_districts.length == 0){
+                this.selected_districts += `${id}`;
+            } else{
+                this.selected_districts += `:${id}`;
+            };
+
+            let all_selected = s_reg.districts.every(item => item.selected);
+
+            if (all_selected){s_reg.all_selected = true};
+        },
+
+
+        district_remove(id, r_id) {
+            let reg = this.user_dis.find(item => item.id == r_id);
+            let s_reg = this.all_reg.find(item => item.id == r_id);
+            let s_reg_dis = s_reg.districts.find(item => item.id == id);
+
+            reg.districts = reg.districts.filter(item => item.id != id);
+            s_reg.all_selected = false;
+            s_reg_dis.selected = false;
+
+            let s_districts = this.selected_districts.split(":");
+            this.selected_districts = s_districts.filter(item => +item != +id).join(":");
+        },
+
+
+        send_form(e) {
+            e.preventDefault();
+            if (this.selected_districts.length == 0){
+                this.error = true;
+            } else {
+                document.querySelector("[name='selected_districts']").value = this.selected_districts;
+                document.querySelector(".form_form").submit()
+            }
+        },
+    }
+})
+</script>
+{% endblock script %}

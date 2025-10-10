@@ -1,0 +1,208 @@
+{% extends 'control/base.html' %}
+
+{% load static %}
+
+{% block style %}
+<script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
+{% endblock style %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <h4 class="page-title">Создать пользователя</h4>
+        </div>
+    </div>
+</div>
+
+<div id="root">
+    <form action="{% url 'control_users_create' %}" class="form_form" @submit="send_form($event)" method="POST">
+
+        <input type="hidden" name="selected_districts" v-model="selected_districts">
+
+        <div class="row">
+        <div class="col-12">
+            {% if base.code == 'exist' %}
+                <div class="alert alert-danger">
+                    Пользователь уже существует!
+                </div>
+            {% elif base.code == 'error' %}
+                <div class="alert alert-danger">
+                    Что-то пошло не так!
+                </div>
+            {% endif %}
+                {% csrf_token %}
+                <div class="card">
+                    <div class="card-body">
+                        <div class="alert alert-danger" v-show="user_phone.length && user_phone.length != 12">
+                            Телефон должен состоять из 12 цифр.
+                        </div>
+                        <label>Телефон</label>
+                        <input type="number" required name="phone" class="form-control mb-2" placeholder="998901112233" v-model="user_phone">
+                        <label>Полное имя</label>
+                        <input type="text" required name="fio" class="form-control mb-2" >
+                        <label>Пароль</label>
+                        <input type="text" required name="password" class="form-control mb-2" >
+                    </div>
+                </div>
+            </div> 
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-body">
+                    <label>Выберите вариант</label>
+                    <select required class="form-control form-control-lg" v-model="user_for" @change="user_for_change()">
+                        <option value=""></option>
+                        <option value="all">Создаваемый пользователь будет видеть заявки со всех районов</option>
+                        <option value="selected">Создаваемый пользователь будет видеть заявки только из выбранных районов</option>
+                    </select>
+
+                    <button class="btn btn-primary mt-2" style="width: 200px;" type="submit">Создать</button>
+                </div>
+            </div>
+            <div class="col-12" v-show="user_for == 'all'">
+                <div class="card card-body">
+                    <h3>Этот пользователь может просматривать заявки из всех регионов</h3>
+                </div>
+            </div>
+            <div class="col-12" v-show="error">
+                <div class="alert alert-danger">Пожалуйста, выберите хотя бы 1 район</div>
+            </div>
+            <div class="col-lg-6" v-show="user_for == 'selected'">
+                <div class="card card-body">
+                    <div class="bg-light px-3 rounded text-center mb-2">
+                        <h3 class="text-dark">Все районы</h3>
+                    </div>
+                    <p class="pt-2">Нажимайте кнопки, чтобы выбрать</p>
+                    <div v-for="r in all_reg" v-if="r.all_selected == false">
+                        <h4>[[r.title]]</h4>
+                        <hr>
+                        <div class="mb-2">
+                            <span v-for="dis in r.districts" v-if="dis.selected == false">
+                                <button type="button" @click="district_add(dis.id, dis.title, dis.r_id)" class="btn btn-outline-primary m-1">
+                                    [[dis.title]]
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6" v-show="user_for == 'selected'">
+                <div class="card card-body">
+                    <div class="bg-light px-3 rounded text-center mb-2">
+                        <h3 class="text-dark">Районы пользователя</h3>
+                    </div>
+                    <p class="pt-2">Нажмите кнопки, чтобы отменить выбор</p>
+                    <div v-for="r in user_dis" v-show="r.districts.length > 0">
+                        <h4>[[r.title]]</h4>
+                        <hr>
+                        <div class="mb-2">
+                            <span v-for="dis in r.districts">
+                                <button type="button" @click="district_remove(dis.id, dis.r_id)" class="btn btn-primary m-1">
+                                    [[dis.title]]
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+{% endblock content %}
+
+{% block script %}
+<script>
+var app = new Vue({
+    delimiters: ["[[", "]]"],
+    el: '#root',
+    data: {
+        all_reg: [],
+        user_dis: [],
+        user_for: "",
+        selected_districts: "",
+        error: false,
+        user_phone: ""
+    },
+    mounted() {
+        fetch("/control/users/districts/", {
+            method: "POST",
+            headers: {"Content-Type": "application/json", "X-CSRFToken": csrftoken},
+        }).then(resp => resp.json()).then(data => {
+            if (data.status == 200){
+                this.all_reg = data.all_reg;
+                data.all_reg.forEach(reg => {
+                    this.user_dis.push({title: reg.title, id: reg.id, districts: []})
+                })
+            }
+        })
+    },
+    methods: {
+        user_for_change() {
+            this.error = false;
+            if (this.user_for == "all"){this.selected_districts = "0"}
+            else {
+                this.selected_districts = "";
+
+                this.user_dis.forEach(item => {item.districts = []})
+
+                this.all_reg.forEach(r => {
+                    r.all_selected = false;
+
+                    r.districts.forEach(d => {
+                        d.selected = false
+                    })
+                })
+            }
+        },
+
+
+        send_form(e) {
+            e.preventDefault();
+            if (this.user_for == "selected" && this.selected_districts.length == 0){
+                this.error = true;
+            } else if (this.user_phone.length == 12) {
+                document.querySelector(".form_form").submit()
+            }
+        },
+
+
+        district_add(id, title, r_id) {
+            let reg = this.user_dis.find(item => item.id == r_id);
+            let s_reg = this.all_reg.find(item => item.id == r_id);
+            let s_reg_dis = s_reg.districts.find(item => item.id == id);
+            this.error = false;
+
+            reg.districts.push({title: title, id: id, r_id: r_id});
+            s_reg_dis.selected = true;
+
+            if (this.selected_districts.length == 0){
+                this.selected_districts += `${id}`;
+            } else{
+                this.selected_districts += `:${id}`;
+            };
+
+            let all_selected = s_reg.districts.every(item => item.selected);
+
+            if (all_selected){s_reg.all_selected = true};
+        },
+
+
+        district_remove(id, r_id) {
+            let reg = this.user_dis.find(item => item.id == r_id);
+            let s_reg = this.all_reg.find(item => item.id == r_id);
+            let s_reg_dis = s_reg.districts.find(item => item.id == id);
+
+            reg.districts = reg.districts.filter(item => item.id != id);
+            s_reg.all_selected = false;
+            s_reg_dis.selected = false;
+
+            let s_districts = this.selected_districts.split(":");
+            this.selected_districts = s_districts.filter(item => +item != +id).join(":");
+        }
+    }
+})
+</script>
+{% endblock script %}

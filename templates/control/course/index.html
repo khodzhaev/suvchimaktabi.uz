@@ -1,0 +1,63 @@
+{% extends 'control/base.html' %}
+
+{% block content %}
+<!-- start page title -->
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <h4 class="page-title">Все программу</h4>
+        </div>
+    </div>
+</div>     
+<!-- end page title --> 
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                {% if base.code == 'success' %}
+                <div class="alert alert-info">
+                    Программа была успешна изменена!
+                </div>
+                {% elif base.code == 'add' %}
+                <div class="alert alert-info">
+                    Программа была успешна добавлена!
+                </div>
+                {% elif base.code == 'remove' %}
+                <div class="alert alert-info">
+                    Программа была успешна удалена!
+                </div>
+                {% elif base.code == 'error' %}
+                <div class="alert alert-danger">
+                    Что-то пошло не так!
+                </div>
+                {% endif %}
+
+                <div class="table-responsive">
+                    <table class="table m-0">
+                        <thead>
+                            <tr>
+                                <th>Дата</th>
+                                <th>Интервал</th>
+                                <th>Название</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for c in courses %}
+                            <tr>
+                                <th>{{c.priority}}</th>
+                                <th>{{c.time_interval}}</th>
+                                <td>{{c.title_ru}}</td>
+                                <td><a href="{% url 'control_course_detail' c.id %}" class="btn btn-secondary btn-sm">Подробнее</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock content %}

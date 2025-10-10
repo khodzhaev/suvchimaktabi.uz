@@ -1,0 +1,518 @@
+{% extends 'pages/base.html' %}
+
+{% load static %}
+
+{% block title %}
+{% endblock title %}
+
+{% block content %}
+<style>
+  ul, ol {
+    list-style: none;
+  }
+  .slider_img img {
+    border-radius: 10px;
+  }
+  @media (max-width: 550px) {
+    .d-flex {
+      display: block !important;
+    }
+    .d-flex img {
+      margin-bottom: 20px;
+    }
+    .details_content{
+      padding-right: 0 !important;
+    }
+  }
+</style>
+<main class="page_content">
+
+  <section class="page_banner">
+    <div class="container">
+      <div class="content_wrapper bg_light">
+        <div class="row align-items-center">
+          <div class="col col-lg-7">
+            <ul class="breadcrumb_nav unordered_list">
+              <li class="text-dark"><a href="{% url 'pages_index' %}">
+                  <span class="uz_text">Bosh sahifa</span>
+                  <span class="ru_text">Главная</span>
+              </a></li>
+              <li class="text-dark">
+                <span class="uz_text">Fermer va agroklasterlar o'quv kursi</span>
+                  <span class="ru_text">Учебный курс "Фермер и агрокластеры"
+                  </span>
+              </li>
+            </ul>
+            <h1 class="page_title">
+              
+              <span class="uz_text">Fermer va agroklasterlar o'quv kursi</span>
+                  <span class="ru_text">Курсы обучения «Suvchilar maktabi» продолжаются!</span>
+            </h1>
+          </div>
+          <div class="col col-lg-5">
+            <div class="image_widget page_banner_image">
+              <img src="{% static 'pages/assets/images/fermer/main.jpg' %}">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="details_section mentor_details_section section_space_lg pb-0 mt-5">
+    <div class="container">
+      <div class="section_space_md pt-0">
+        <div class="row align-items-center">
+          <div class="col col-lg-6">
+            <div class="details_image image_widget border border-primary border-3">
+              <img src="{% static 'pages/assets/images/fermer/3-min.jpg' %}">
+            </div>
+          </div>
+          <div class="col col-lg-6">
+            <div class="details_content ps-lg-5">
+              <h3 class="mentor_name">
+                <span class="uz_text"> Suv resurslari va ulardan foydalanish tartibi</span>
+                <span class="ru_text">Что вы получите после прохождения нашего курса</span>
+              </h3>
+              <p style="text-align: justify;" class="ru_text">
+                <b>Знания и Навыки:</b> Вы усвоите современные методы и техники управления водными ресурсами, научитесь оптимизировать и эффективно использовать воду в сельском хозяйстве. Эти знания помогут вам добиваться лучших результатов в ваших агропроектах.
+                <br>
+                <b>Сертификация:</b> По завершении курсов вы получите официальный сертификат, подтверждающий вашу квалификацию в области бережливого использования водных ресурсов. Это документ, который подтвердит ваши знания и навыки перед вашими партнерами и работодателями.
+                <br>
+                <b>Поддержка и Сеть:</b> Вы становитесь частью сообщества "Suvchilar maktabi", где можно обмениваться опытом, получать дополнительную поддержку и консультации от экспертов. Эта сеть связей может стать ценным ресурсом для дальнейшего развития.
+              </p>
+              <p style="text-align: justify;" class="uz_text">
+                <b>Shartnomaviy munosabatlar</b>, suvni boshqarish, suvning hisobi va hisobotini yuritish, suv xo‘jaligi xizmatlari, suv solig‘i va amaldagi qonunchilik hujjatlari
+                <br> <br>
+                <b>Viloyat va tumanlarning tuproq sharoiti</b> uning suvi, havo va tuz rejimi, ekinlarning suvga talabi, sug‘orish muddatlari va me’yorlari
+                <br> <br>
+                <b>Tomchilatib</b> yomg‘irlatib sug‘orish texnologiyasini joriy qilish uchun talab etiladigan zarur shart-sharoitlar va ekin turlari
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="details_section mentor_details_section section_space_lg pb-0 mt-5">
+    <div class="container">
+      <div class="section_space_md pt-0">
+        <div class="row align-items-center">
+
+          <div class="col col-lg-6">
+            <div class="details_content" style="padding-right: 50px;">
+              <h3 class="mentor_name">
+                <span class="uz_text">Bizning afzaliklarimiz</span>
+                <span class="ru_text">Что вы получите после прохождения нашего курса</span>
+              </h3>
+              <p style="text-align: justify;" class="ru_text">
+                <b>Знания и Навыки:</b> Вы усвоите современные методы и техники управления водными ресурсами, научитесь оптимизировать и эффективно использовать воду в сельском хозяйстве. Эти знания помогут вам добиваться лучших результатов в ваших агропроектах.
+                <br>
+                <b>Сертификация:</b> По завершении курсов вы получите официальный сертификат, подтверждающий вашу квалификацию в области бережливого использования водных ресурсов. Это документ, который подтвердит ваши знания и навыки перед вашими партнерами и работодателями.
+                <br>
+                <b>Поддержка и Сеть:</b> Вы становитесь частью сообщества "Suvchilar maktabi", где можно обмениваться опытом, получать дополнительную поддержку и консультации от экспертов. Эта сеть связей может стать ценным ресурсом для дальнейшего развития.
+              </p>
+              <p style="text-align: justify;" class="uz_text">
+                <b>Xorijiy mutaxassislar</b> va sohada yuqori malakali, xalqaro tajribaga ega o`qituvchilardan bilim olish imkoniyati
+                <br> <br>
+                <b> Nazariy va amaliy</b> mashg`ulotlarning uyg`unligi ta`lim jarayonining asosiy qismlaridan biri hisoblanadi
+                <br> <br>
+                <b> O`quv kursi</b>, dars materiallari, kofebreyk va tushlik barchasi bepul taqdim etiladi.
+                <br> <br>
+                <b>Xorijiy mutaxassislar</b> va sohada yuqori malakali, xalqaro tajribaga ega o`qituvchilardan bilim olish imkoniyati
+              </p>
+            </div>
+          </div>
+
+
+          <div class="col col-lg-6">
+            <div class="details_image image_widget border border-primary border-3">
+              <img src="{% static 'pages/assets/images/fermer/4-min.jpg' %}">
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section_space_lg pt-0 pb-5">
+    <div class="container">
+      <div class="section_heading text-center">
+        <h2 class="heading_text mb-0">
+          <span class="uz_text">O'quv dasturi</span>
+          <span class="ru_text">Программа обучения</span>
+        </h2>
+      </div>
+      
+      <div class="container mt-5">
+        <h1 class="fw-bold fs-1 text-start">1 - KUN</h1>
+        <div class="container mt-1">
+          <div
+            class="swiffy-slider d-flex justify-content-center slider-item-show6 slider-item-show2-sm slider-item-snapstart slider-nav-caretfill slider-nav-autopause slider-indicators-square slider-indicators-outside slider-nav-animation-slow"
+          >
+            <ul class="slider-container py-5 d-flex gap-5">
+              <li class="slide-visible">
+                <div id="slide1">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/fermer/1-min.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+              <li class="slide-visible">
+                <div d="slide2">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/fermer/5-min.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+              <li class="slide-visible">
+                <div id="slide3">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/fermer/6-min.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+              <li class="slide-visible">
+                <div id="slide4">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/fermer/7-min.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+            </ul>
+  
+            <!-- <button type="button" class="slider-nav"></button>
+            <button type="button" class="slider-nav slider-nav-next"></button> -->
+          </div>
+        </div>
+        <div
+          class="mt-1 d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">
+            Suv resurslari va ulardan foydalanish tartibi, shartnomaviy munosabatlar, suvni
+            boshqarish, suvning hisob va hisobotini yuritish, suv xo'jalik xizmatlari, suv solig'i va
+            amaldagi qonunchilik hujjatlari
+          </h6>
+          <h3 class="fw-bold text-start">9:30 - 10:30</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">
+            Viloyat va tumanlarning tuproq sharoiti, uning suv, havo va tuz rejimi, ekinlarning suvga
+            talabi, sug'orish muddatlari va me'yorlari.
+          </h6>
+          <h3 class="fw-bold">10:45 - 11:45</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">
+            <b>Tomchilab sug'orish texnalogiyasi </b>turlari, joriy qilish uchun zarur shart-sharoitlar
+            va ekin turlari , tizimga servis xizmatini ko'rsatish, quruvchi tashkilot va fermer
+            xo'jaligi vazifalari, tizimni kelgusi sug'orish mavsumiga soz saqlash.
+          </h6>
+          <h3 class="fw-bold">12:00 - 13:00</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">Tushlik</h6>
+          <h3 class="fw-bold">13:00 - 14:00</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">
+            <b>Tomchilatib sug'orish texnologiyasi</b>da sug'orish sxemalari , quvurlarni
+            joylashtirish va unga qo'yiladigan talablar. Ekinlarni sug'orish muddatlari va me'yorlari .
+            Agrotexnik tadbirlarini o'tkazish.
+          </h6>
+          <h3 class="fw-bold">14:00 - 15:00</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">
+            Yerlarni <b>lazerli tekislash, diskret sug'orish</b> texnologiyasi. Agrotexnik tadbirlarni
+            o'tkazish.
+          </h6>
+          <h3 class="fw-bold">15:15 - 16:15</h3>
+        </div>
+      </div>
+      <div class="container mt-5">
+        <h1 class="fw-bold fs-1 text-start">2 - KUN</h1>
+        <div class="container mt-1">
+          <div
+            class="swiffy-slider d-flex justify-content-center slider-item-show6 slider-item-show2-sm slider-item-snapstart slider-nav-caretfill slider-nav-autopause slider-indicators-square slider-indicators-outside slider-nav-animation-slow"
+          >
+            <ul class="slider-container py-5 d-flex gap-5">
+              <li class="slide-visible">
+                <div id="slide1">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/fermer/8-min.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+              <li class="slide-visible">
+                <div d="slide2">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/fermer/9-min.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+              <li class="slide-visible">
+                <div id="slide3">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/fermer/10-min.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+              <li class="slide-visible">
+                <div id="slide4">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/fermer/11-min.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+            </ul>
+  
+            <!-- <button type="button" class="slider-nav"></button>
+            <button type="button" class="slider-nav slider-nav-next"></button> -->
+          </div>
+        </div>
+        <div
+          class="mt-1 d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">
+            <b> Hududlarda yomg'irlatib sug'orish</b> texnologiyasini joriy qilish uchun talab
+            etiladigan zarur shart-sharoitlar va ekin turlari.
+          </h6>
+          <h3 class="fw-bold text-start">9:30 - 10:30</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">
+            <b>"Center Pivot"</b> yomg'irlatib sug'orish texnologiyasi va ishda tushirish tartibi.
+          </h6>
+          <h3 class="fw-bold">10:45 - 11:45</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">
+            <b>"Sprinkler" va Ko'chma (barabanli)</b> yomg'irlatib sug'orish texnologiyasi va ishga
+            tushirish tartibi.
+          </h6>
+          <h3 class="fw-bold">12:00 - 13:00</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">Tushlik</h6>
+          <h3 class="fw-bold">13:00 - 14:00</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">
+            <b>Gidrogel va tuproq osti sug'orish</b> texnologiyalari va ishga tushirish tartibi.
+          </h6>
+          <h3 class="fw-bold">14:00 - 15:00</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">Tinglovchilar bilan muloqot</h6>
+          <h3 class="fw-bold">15:15 - 16:15</h3>
+        </div>
+      </div>
+      <div class="container mt-5">
+        <h1 class="fw-bold fs-1 text-start">3 - KUN (AMALIYOT VA SERTIFIKAT TOPSHIRISH)</h1>
+        <div class="container mt-1">
+          <div
+            class="swiffy-slider d-flex justify-content-center slider-item-show6 slider-item-show2-sm slider-item-snapstart slider-nav-caretfill slider-nav-autopause slider-indicators-square slider-indicators-outside slider-nav-animation-slow"
+          >
+            <ul class="slider-container py-5 d-flex gap-5">
+              <li class="slide-visible">
+                <div id="slide1">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/fermer/12-min.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+              <li class="slide-visible">
+                <div d="slide2">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/fermer/13-min.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+              <li class="slide-visible">
+                <div id="slide3">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/fermer/14-min.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+              <li class="slide-visible">
+                <div id="slide4">
+                  <div class="slider_img text-center gap-3">
+                    <img
+                    src="{% static 'pages/assets/images/fermer/15-min.jpg' %}" />
+                  </div>
+                </div>
+              </li>
+            </ul>
+  
+            <!-- <button type="button" class="slider-nav"></button>
+            <button type="button" class="slider-nav slider-nav-next"></button> -->
+          </div>
+        </div>
+        <div
+          class="mt-1 d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">
+            Suv olish joyini , suvni boshqarish va hisobga olish vositasidan, shuningdek, raqamli
+            texnologiyadan foydalanish. Suvning hisobi va hisobotini yuritish, dalolatnoma
+            rasmiylashtirish, suv xo'jaligi xizmati va suv solig'i uchun to'lov; <br />
+            Tomchilatib sug`orish texnologiyasidan foydalanish; <br />
+            "Sprinkler" yordamida yomg'irlatib sug'orish tizimidan foydalanish; <br />
+            Tuproq ostidan sug'orish tizimidan foydalanish; <br />
+            Diskret sug'orish tizimidan foydalanish;
+          </h6>
+          <h3 class="fw-bold text-start">9:30 - 11:30</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">
+            Davlat imtiyozlari va mavjud platformalarini ishlash tartibi to`grisida tushunchalar berish
+            (“Tomchi”-mobil ilovasi, “Tomchi-reyestr”, “Agro-subsidiya”, “Suvkredit.uz”).
+          </h6>
+          <h3 class="fw-bold">11:30 - 12:30</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">
+            <b>Xorijiy tajriba</b> (Ispaniya, Turkiya, Xitoy davlatlari misolida).
+          </h6>
+          <h3 class="fw-bold">12:30 - 13:00</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">Tushlik</h6>
+          <h3 class="fw-bold">13:00 - 14:00</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">Tinglovchilarni test sinovidan o'tkazish</h6>
+          <h3 class="fw-bold">14:00 - 15:30</h3>
+        </div>
+        <div
+          class="d-flex flex-row course justify-content-between align-items-center card card-body mt-2"
+        >
+          <h6 class="col-md-8">Sertifikatlarni topshirish</h6>
+          <h3 class="fw-bold">15:30 - 16:00</h3>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <section class="testimonial_section section_space_lg pt-0">
+    <div class="container">
+      <div class="section_heading">
+        <div class="row align-items-center">
+          <div class="col col-12">
+            <h2 class="heading_text mb-0">
+              <span class="ru_text">Наши наставники</span>
+              <span class="uz_text">Bizning Ustozlar</span>
+              <span class="en_text">Our mentors</span>
+            </h2>
+          </div>
+        </div>
+      </div>
+      <div>
+        <style>
+          .grid-4 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-gap: 20px;
+            text-align: center;
+            justify-content: space-between;
+            align-items: space-between;
+          }
+          .mentor_item img{
+            border-radius: 8px;
+          }
+          @media screen and (max-width: 991px) {
+            .grid-4{
+              grid-template-columns: 1fr 1fr 1fr;
+            }
+            .mentor_item {
+              padding: 10px
+            }
+          }
+          @media screen and (max-width: 740px) {
+            .grid-4{
+              grid-template-columns: 1fr 1fr;
+            }
+          }
+          @media screen and (max-width: 550px) {
+            .grid-4{
+              grid-template-columns: 1fr;
+            }
+          }
+        </style>
+        <div class="grid-4">
+          {% for i in experts %}
+            <div class="mentor_item">
+              <div class="mentor_image">
+                <img src="{{ i.image.url }}">
+              </div>
+              <div class="mentor_content">
+                <h3 class="mentor_name ru_text">{{i.fio_ru}}</h3>
+                <h3 class="mentor_name uz_text">{{i.fio_uz}}</h3>
+                <h3 class="mentor_name en_text">{{i.fio_en}}</h3>
+                <p class="mentor_designation ru_text">{{i.profession_ru}}</p>
+                <p class="mentor_designation uz_text">{{i.profession_uz}}</p>
+                <p class="mentor_designation en_text">{{i.profession_en}}</p>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  
+</main>
+
+<script>
+  let courses = document.querySelectorAll('.orderz')
+  courses.forEach((item, i) => {
+    if (i % 2 == 0) {
+      item.classList.add('order-2')
+    } 
+  })
+</script>
+{% endblock %}

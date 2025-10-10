@@ -1,0 +1,189 @@
+{% extends 'control/base.html' %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="page-title-box">
+            <h4 class="page-title">Редактировать альбом</h4>
+        </div>
+    </div>
+</div>     
+
+<div class="row">
+    <div class="col-12">
+        <form enctype="multipart/form-data"   action="{% url 'control_folder_edit' %}" method="POST">
+            {% csrf_token %}
+            <div class="card">
+                <div class="card-body">
+
+                  {% if base.code == 'p_edit' %}
+                  <div class="alert alert-info">
+                      Изображение был успешно изменен!
+                  </div>
+                  {% elif base.code == 'p_create' %}
+                  <div class="alert alert-info">
+                      Изображение был успешно добавлен!
+                  </div>
+                  {% elif base.code == 'p_remove' %}
+                  <div class="alert alert-info">
+                      Изображение был успешно удален!
+                  </div>
+                  {% elif base.code == 'error' %}
+                  <div class="alert alert-danger">
+                      Что-то пошло не так!
+                  </div>
+                  {% endif %}
+
+                    <input type="hidden" name="id" value="{{folder.id}}">
+                    <label>Приоритет</label>
+                    <input type="number" required name="priority" class="form-control mb-2"  value="{{folder.priority}}">
+                    <label>Название (РУ) </label> 
+                    <input required type="text" name="title_ru" class="form-control mb-2" value="{{folder.title_ru}}">
+                    <label>Название (EN) </label> 
+                    <input required type="text" name="title_en" class="form-control mb-2" value="{{folder.title_en}}">
+                    <label>Название (O'Z) </label> 
+                    <input required type="text" name="title_uz" class="form-control mb-3" value="{{folder.title_uz}}">
+
+                    <div class="row">
+                        <div class="col-md-6"><button type="submit" class="btn btn-primary btn-lg w-100">Сохранить</button></div>
+                        <div class="col-md-6"><button type="button" data-bs-target="#folder_delete" data-bs-toggle="modal" class="btn btn-danger btn-lg w-100">Удалить</button></div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    <div class="card">
+        <div class="card-body">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h4>Изоброжении</h4>
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addPhoto">Добавить</button>
+            </div>
+            <hr>
+            <div style="display: grid; grid-template-columns: repeat(5, 1fr); grid-gap: 5px;">
+                {% for p in photos %}
+                <div class="mt-0 mb-2 card card-body p-1">
+                    <img src="{{p.image.url}}" style="width: 100%; height: 200px; object-fit: contain; object-position: center;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 5px; margin-top: 5px;">
+                        <button data-bs-toggle="modal" data-bs-target="#mEdit{{p.id}}" class="btn btn-info btn-sm">Изменить</button>
+                        <button data-bs-toggle="modal" data-bs-target="#mDelete{{p.id}}" class="btn btn-danger btn-sm">Удалить</button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    </div> 
+</div>
+
+<div class="modal" id="folder_delete" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Удалить альбом</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>После удаления вы не сможете вернуть обратно, вы действительно хотите удалить?</p>
+        </div>
+        <div class="modal-footer">
+          <form action="{% url 'control_folder_remove' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" value="{{folder.id}}" name="id">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+            <button type="submit" class="btn btn-danger">Да, удалить!</button>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="modal" id="addPhoto" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Добавить новое изоброжение</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="{% url 'control_gallery_create' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="fid" value="{{folder.id}}">
+            <div class="modal-body">
+                <label>Приоритет</label>
+                <input type="number" required name="priority" class="form-control mb-2" >
+                <label>Изоброжение</label> 
+                <input required type="file" name="image" accept="image/png, image/jpg, image/jpeg" class="form-control mb-2">
+                <label>Название (РУ)</label>
+                <input type="text" required name="title_ru" class="form-control mb-2" >
+                <label>Название (EN)</label>
+                <input type="text" required name="title_en" class="form-control mb-2" >
+                <label>Название (O'Z)</label>
+                <input type="text" required name="title_uz" class="form-control mb-2" >
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                <button type="submit" class="btn btn-primary">Добавить</button>
+            </div>
+        </form>
+      </div>
+    </div>
+</div>
+
+{% for p in photos %}
+<div class="modal" id="mEdit{{p.id}}" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Редактировать изоброжение</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="{% url 'control_gallery_edit' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="fid" value="{{folder.id}}">
+            <input type="hidden" value="{{p.id}}" name="id">
+            <div class="modal-body">
+                <label>Приоритет</label>
+                <input type="number" required name="priority" class="form-control mb-2" value="{{p.priority}}">
+                <label>Изоброжение</label> 
+                <input type="file" name="image" class="form-control mb-2">
+                <label>Название (РУ)</label>
+                <input type="text" required name="title_ru" class="form-control mb-2"  value="{{p.title_ru}}">
+                <label>Название (EN)</label>
+                <input type="text" required name="title_en" class="form-control mb-2"  value="{{p.title_en}}">
+                <label>Название (O'Z)</label>
+                <input type="text" required name="title_uz" class="form-control mb-2"  value="{{p.title_uz}}">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+            </div>
+        </form>
+      </div>
+    </div>
+</div>
+{% endfor %}
+
+{% for p in photos %}
+<div class="modal" id="mDelete{{p.id}}" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Удалить изоброжение</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>После удаления вы не сможете вернуть обратно, вы действительно хотите удалить?</p>
+        </div>
+        <div class="modal-footer">
+          <form action="{% url 'control_gallery_remove' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" value="{{p.id}}" name="id">
+            <input type="hidden" name="fid" value="{{folder.id}}">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+            <button type="submit" class="btn btn-danger">Да, удалить!</button>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock content %}
