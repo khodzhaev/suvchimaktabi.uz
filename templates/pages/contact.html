@@ -22,14 +22,17 @@
               <li><a href="{% url 'pages_index' %}" class="text-white">
                 <span class="uz_text">Bosh sahifa</span>
                 <span class="ru_text">Главная</span>
+                  <span class="en_text">Home</span>
               </a></li>
               <li class="text-white">
                 <span class="uz_text">Bog'lanish</span>
                 <span class="ru_text">Связаться с нами</span>
+                  <span class="en_text">Contact</span>
               </li>
             </ul>
             <h1 class="page_title text-white"><span class="uz_text">Bog'lanish</span>
               <span class="ru_text">Контакты</span></h1>
+                <span class="en_text">Contact</span>
           </div>
         </div>
       </div>
@@ -45,6 +48,7 @@
               <h2 class="heading_text">
                 <span class="uz_text">Biz a'loqadamiz</span>
                 <span class="ru_text">Связаться с нами</span>
+                  <span class="en_text">We are in touch</span>
               </h2>
             </div>
             <div class="iconbox_item contact_info_iconbox">
@@ -54,6 +58,7 @@
               <div class="item_content">
                 <h3 class="item_title ru_text">Телефон</h3>
                 <h3 class="item_title uz_text">Telefon</h3>
+                  <h3 class="item_title en_text">Phone</h3>
                 <p class="mb-0"><a href="tel:{{office.phone}}"  class="text-dark">{{office.phone}}</a></p>
                 {% for i in phones %}
                 <p class="mb-0"><a href="tel:{{i.title}}" class="text-dark">{{i.title}}</a></p>
@@ -79,8 +84,10 @@
               <div class="item_content">
                 <h3 class="item_title ru_text">Адрес</h3>
                 <h3 class="item_title uz_text">Adres</h3>
+                  <h3 class="item_title en_text">Address</h3>
                 <p class="mb-0 ru_text"><a class="text-dark" target="blank" >{{office.address_ru}}</a></p>
                 <p class="mb-0 uz_text"><a class="text-dark" target="blank" >{{office.address_uz}}</a></p>
+                  <p class="mb-0 en_text"><a class="text-dark" target="blank" >{{office.address_en}}</a></p>
 
               </div>
             </div>
@@ -93,6 +100,7 @@
                 <p class="mb-0"><a class="text-dark" target="blank" href="{{office.telegram_bot}}">
                   <span class="ru_text">So'rovnoma qoldirish</span>
                   <span class="uz_text">Оставить заявку</span>
+                    <span class="en_text">Leave a request</span>
                 </a></p>
               </div>
             </div>
@@ -115,6 +123,7 @@
             <h2 class="heading_text mb-0">
               <span class="ru_text">So'rovnoma qoldirish</span>
               <span class="uz_text">Оставить заявку</span>
+                <span class="en_text">Leave a request</span>
             </h2>
           </div>
         </div>
@@ -131,6 +140,7 @@
                     <label for="input_name" class="input_title">
                       <span class="ru_text">ФИО</span>
                   <span class="uz_text">FISH</span> <span class="text-danger">*</span></label>
+            <span class="en_text">Full name</span> <span class="text-danger">*</span>
                     <input id="input_name" required type="text" name="fio" placeholder="FIO kiriting">
                   </div>
                 </div>
@@ -140,6 +150,7 @@
                     <label for="input_phone" class="input_title">
                       <span class="ru_text">Телефон</span>
                   <span class="uz_text">Telefon</span> <span class="text-danger">*</span></label>
+            <span class="en_text">Phone</span> <span class="text-danger">*</span>
                     <input id="input_phone" required type="tel" name="phone" placeholder="Telefon raqam">
                   </div>
                 </div>
@@ -156,6 +167,7 @@
                     <label for="input_message" class="input_title"> 
                       <span class="ru_text">Сообщение</span>
                   <span class="uz_text">Xabar</span><span class="text-danger">*</span></label>
+            <span class="en_text">Message</span><span class="text-danger">*</span>
                     <textarea id="input_message" required name="message" placeholder="Habar qoldiring"></textarea>
                   </div>
                 </div>
@@ -206,6 +218,9 @@
                       <small>Отправить</small>
                       <small>Отправить</small>
                     </span>
+                    <span class="en_text">
+                      <small>Submit</small>
+                      <small>Submit</small>
                   </button>
                 </div>
   
@@ -220,6 +235,7 @@
           <div class="bg-white text-center" style="border-radius: 20px; padding: 150px 20px !important;">
             <h2 class="ru_text">Ваша сообщение успешно отправлено.  </h2>
             <h2 class="uz_text">Sizning xabaringiz muvaffaqiyatli yuborildi.</h2>
+              <h2 class="en_text">Your message has been sent successfully.</h2>
           </div>
         </div>
       </div>
@@ -246,6 +262,7 @@
         <h2 class="heading_text mb-0">
           <span class="ru_text">Партнеры</span>
           <span class="uz_text">Hamkorlar</span>
+            <span class="en_text">Partners</span>
         </h2>
       </div>
       <ul class="brands_logo_list unordered_list">

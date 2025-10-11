@@ -1,0 +1,11 @@
+404 = ✅
+about = ✅
+base = ✅
+books_caregory = ✅
+books = ✅
+contact = ✅
+index
+news_all = ✅
+news_detail = ✅
+qfe = ✅
+videos = ✅

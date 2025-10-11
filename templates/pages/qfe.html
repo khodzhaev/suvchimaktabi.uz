@@ -27,14 +27,17 @@
                   <h5 class="mb-1">
                     <span class="uz_text">{{i.fio_uz}}</span>
                     <span class="ru_text">{{i.fio_ru}}</span>
+                      <span class="en_text">{{i.fio_en}}</span>
                   </h5>
                   <p class="mb-0 text-muted">
                     <span class="uz_text">{{i.profession_uz}}</span>
                     <span class="ru_text">{{i.profession_ru}}</span>
+                      <span class="en_text">{{i.profession_en}}</span>
                   </p>
                   <p class="mb-0">
                     <span class="uz_text">{{i.direction_uz}}</span>
                     <span class="ru_text">{{i.direction_ru}}</span>
+                      <span class="en_text">{{i.direction_en}}</span>
                   </p>
                 </div>
               </div>
@@ -61,14 +64,17 @@
                   <h5 class="mb-1">
                     <span class="uz_text">{{i.fio_uz}}</span>
                     <span class="ru_text">{{i.fio_ru}}</span>
+                      <span class="en_text">{{i.fio_en}}</span>
                   </h5>
                   <p class="mb-0 text-muted">
                     <span class="uz_text">{{i.profession_uz}}</span>
                     <span class="ru_text">{{i.profession_ru}}</span>
+                      <span class="en_text">{{i.profession_en}}</span>
                   </p>
                   <p class="mb-0">
                     <span class="uz_text">{{i.direction_uz}}</span>
                     <span class="ru_text">{{i.direction_ru}}</span>
+                      <span class="en_text">{{i.direction_en}}</span>
                   </p>
                 </div>
               </div>
@@ -91,6 +97,7 @@
             <label>
               <span class="uz_text">Ismingiz</span>
               <span class="ru_text">ФИО</span>
+              <span class="en_text">Your name</span>
             </label>
             <input id="qfe_input_name" class="form-control" required>
           </div>
@@ -99,6 +106,7 @@
             <label>
               <span class="uz_text">Telefon raqamingiz</span>
               <span class="ru_text">Номер телефона</span>
+              <span class="en_text">Your phone number</span>
             </label>
             <input id="qfe_input_phone" class="form-control" required>
           </div>
@@ -107,6 +115,7 @@
             <label>
               <span class="uz_text">Savolingiz kiriting</span>
               <span class="ru_text">Введите Ваш вопрос</span>
+              <span class="en_text">Enter your question</span>
             </label>
             <textarea id="qfe_input_message" class="form-control" rows="3" required></textarea>
           </div>
@@ -116,6 +125,7 @@
           <div id="captcha_error_base" class="alert alert-danger d-none">
             <span class="ru_text">Captcha введена неправильно.</span>
             <span class="uz_text">Captcha xato kiritildi.</span>
+              <span class="en_text">Captcha entered incorrectly.</span>
           </div>
 
           <div class="captcha_block mb-3">
@@ -137,12 +147,14 @@
           <div class="alert alert-danger mt-3 d-none expert-error">
             <span class="ru_text">Нажмите на эксперта, чтобы выбрать</span>
             <span class="uz_text">Tanlash uchun expert ustiga bosing</span>
+              <span class="en_text">Click on an expert to select</span>
           </div>
 
           <div class="text-center mt-4">
             <button type="submit" class="btn btn-primary px-5 py-2">
               <span class="ru_text">Отправить</span>
               <span class="uz_text">Yuborish</span>
+                <span class="en_text">Submit</span>
             </button>
           </div>
         </form>
@@ -150,6 +162,7 @@
         <div id="qfe_reg_success" class="d-none text-center mt-4">
           <h5 class="ru_text">Ваше сообщение успешно отправлено!</h5>
           <h5 class="uz_text">Xabaringiz muvafaqqiyatli yuborildi!</h5>
+            <h5 class="en_text">Your message has been sent successfully!</h5>
         </div>
       </div>
     </div>

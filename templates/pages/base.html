@@ -137,12 +137,12 @@
               <button class="btn dropdown-toggle" style="padding: 6px 12px;" data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="uz_text" style="font-weight: bold;">O'z</span>
                 <span class="ru_text" style="font-weight: bold;">Ру</span>
-                <span class=""></span>
+                <span class="en_text" style="font-weight: bold;">En</span>
               </button>
               <ul class="dropdown-menu dropdown-menu-dark">
                 <li><a style="cursor: pointer;" class="dropdown-item text-dark" id='uz_btn'>O'z</a></li>
                 <li><a style="cursor: pointer;" class="dropdown-item text-dark" id='ru_btn'>Ру</a></li>
-                <li><a style="cursor: pointer;" class="dropdown-item text-dark" id='en_btn'></a></li>
+                <li><a style="cursor: pointer;" class="dropdown-item text-dark" id='en_btn'>EN</a></li>
               </ul>
             </div>
           </div>
@@ -167,21 +167,21 @@
                       <a class="nav-link" href="{% url 'pages_index' %}" id="home_button">
                         <span class="uz_text">Bosh sahifa</span>
                         <span class="ru_text">Главная</span>
-                        <span class="en_text"></span>
+                          <span class="en_text">Home</span>
                       </a>
                     </li>
                     <li {% if request.path == '/about/' %} class="active" {% endif %}>
                       <a class="nav-link" href="{% url 'pages_about' %}" id="about_button">
                         <span class="uz_text">Biz haqimizda</span>
                         <span class="ru_text">О нас</span>
-                        <span class="en_text"></span>
+                          <span class="en_text">About us</span>
                       </a>
                     </li>
                     <li {% if request.path == '/course/' %} class="active" {% endif %}>
                       <a class="dropdown" data-bs-toggle="dropdown" class="nav-link"  id="course_button" style="cursor: pointer;">
                         <span class="uz_text">O'quv dasturi</span>
                         <span class="ru_text">Программа обучения</span>
-                        <span class="en_text"></span>
+                          <span class="en_text">Curriculum</span>
                       </a>
                       <ul class="dropdown-menu dropdown-menu-dark" style="list-style: none;">
                         <li><a style="cursor: pointer;" href="{% url 'pages_course_loyihachi' %}" class="dropdown-item text-dark text-white-hover">Loyihachilar kursi</a></li>
@@ -193,14 +193,14 @@
                       <a class="nav-link" href="{% url 'pages_news_all' %}" id="blog_button">
                         <span class="uz_text">Yangiliklar</span>
                         <span class="ru_text">Новости</span>
-                        <span class="en_text"></span>
+                          <span class="en_text">News</span>
                       </a>
                     </li>
                     <li {% if request.path == '/videos/' %} class="active" {% endif %}>
                       <a class="nav-link" href="{% url 'pages_videos' %}" id="videos_button">
                         <span class="uz_text">Vide darslar</span>
                         <span class="ru_text">Видеокурсы</span>
-                        <span class="en_text"></span>
+                          <span class="en_text">Video courses</span>
                       </a>
                     </li>
                     <li {% if request.path == '/experts/' %} class="active" {% endif %}>
@@ -214,14 +214,14 @@
                       <a class="nav-link" href="{% url 'pages_books_category' %}" id="books_button">
                         <span class="uz_text">Kitoblar</span>
                         <span class="ru_text">Книги</span>
-                        <span class="en_text"></span>
+                          <span class="en_text">Books</span>
                       </a>
                     </li>
                     <li {% if request.path == '/contact/' %} class="active" {% endif %}>
                       <a class="nav-link" href="{% url 'pages_contact' %}" id="contact_button">
                         <span class="uz_text">Bog'lanish</span>
                         <span class="ru_text">Контакты</span>
-                        <span class="en_text"></span>
+                          <span class="en_text">Contact</span>
                       </a>
                     </li>
                   </ul>
@@ -231,7 +231,10 @@
             </div>
             <div class="col col-lg-2 col-5 lang_div">
               <button class="btn btn_primary w-100" style="padding: 12px 12px;">
-                <i class="fas fa-calendar"></i> <span class="uz_text">Kalendar</span><span class="ru_text">Календарь</span>
+                <i class="fas fa-calendar"></i>
+                <span class="uz_text">Kalendar</span>
+                <span class="ru_text">Календарь</span>
+                <span class="en_text">Calendar</span>
               </button>
             </div>
           </div>
@@ -249,33 +252,33 @@
             <h2 class="mb-3" ><a class="text-dark" {% if request.path == '/' %} style="color: #5078FF !important" {% endif %} class="nav-link" href="{% url 'pages_index' %}" id="home_button">
               <span class="uz_text">Bosh sahifa</span>
               <span class="ru_text">Главная</span>
-              <span class="en_text"></span>
+                <span class="en_text">Home</span>
             </a></h2>
 
             <h2 class="mb-3" ><a class="text-dark" {% if request.path == '/about/' %} style="color: #5078FF !important" {% endif %} class="nav-link" href="{% url 'pages_about' %}" id="about_button">
               <span class="uz_text">Biz haqimizda</span>
               <span class="ru_text">О нас</span>
-              <span class="en_text"></span>
+                <span class="en_text">About us</span>
             </a></h2>
 
             <h2 class="mb-3" >
               <a class="text-dark" {% if request.path == '/course/' %} style="color: #5078FF !important" {% endif %} class="nav-link" href="{% url 'pages_course' %}" id="course_button">
                 <span class="uz_text">O'quv dasturi</span>
                 <span class="ru_text">Программа обучения</span>
-                <span class="en_text"></span>
+                  <span class="en_text">Curriculum</span>
               </a>
             </h2>
 
             <h2 class="mb-3" ><a class="text-dark" {% if request.path == '/news/' %} style="color: #5078FF !important" {% endif %} class="nav-link" href="{% url 'pages_news_all' %}" id="blog_button">
               <span class="uz_text">Yangiliklar</span>
               <span class="ru_text">Новости</span>
-              <span class="en_text"></span>
+                <span class="en_text">News</span>
             </a></h2>
           
             <h2 class="mb-3" ><a class="text-dark" {% if request.path == '/videos/' %} style="color: #5078FF !important" {% endif %} class="nav-link" href="{% url 'pages_videos' %}" id="videos_button">
               <span class="uz_text">Vide darslar</span>
               <span class="ru_text">Видеокурсы</span>
-              <span class="en_text"></span>
+                <span class="en_text">Video courses</span>
             </a></h2>
           
             <h2 class="mb-3" ><a class="text-dark" {% if request.path == '/experts/' %} style="color: #5078FF !important" {% endif %} class="nav-link" href="{% url 'pages_qfe' %}" id="qfe_button">
@@ -287,14 +290,14 @@
             <h2 class="mb-3" ><a class="text-dark" {% if request.path == '/books_category/' %} style="color: #5078FF !important" {% endif %} class="nav-link" href="{% url 'pages_books_category' %}" id="books_button">
               <span class="uz_text">Kitoblar</span>
               <span class="ru_text">Книги</span>
-              <span class="en_text"></span>
+                <span class="en_text">Books</span>
             </a></h2>
           
             <h2 class="mb-3" >
               <a class="text-dark" {% if request.path == '/contact/' %} style="color: #5078FF !important" {% endif %} class="nav-link" href="{% url 'pages_contact' %}" id="contact_button">
                 <span class="uz_text">Bog'lanish</span>
                 <span class="ru_text">Контакты</span>
-                <span class="en_text"></span>
+                  <span class="en_text">Contact</span>
               </a>
             </h2>
 
@@ -450,12 +453,12 @@
                 <button style="padding: 12px;" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                   <span class="uz_text">Bekor</span>
                   <span class="ru_text">Закрыть</span>
-                  <span class="en_text"></span>
+                    <span class="en_text">Cancel</span>
                 </button>
                 <button style="padding: 12px;" type="submit" class="btn btn-primary">
                   <span class="uz_text">Yuborish</span>
                   <span class="ru_text">Отправить</span>
-                  <span class="en_text"></span>
+                    <span class="en_text">Send</span>
                 </button>
               </div>
             </form>
@@ -464,12 +467,13 @@
               <div class="modal-body text-center">
                 <h2 class="uz_text">Xabaringiz muvafaqqiyatli yuborildi, bizning mutaxassislar siz bila tez orada aloqaga chiqishadi!</h2>
                 <h2 class="ru_text">Ваше сообщение успешно отправлено, наши специалисты свяжутся с вами в ближайшее время!</h2>
+                  <h2 class="en_text">Your message has been sent successfully, our experts will contact you soon!</h2>
               </div>
               <div class="modal-footer">
                 <button style="padding: 12px;" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                   <span class="uz_text">Bekor</span>
                   <span class="ru_text">Закрыть</span>
-                  <span class="en_text"></span>
+                    <span class="en_text">Cancel</span>
                 </button>
               </div>
             </div>
@@ -561,19 +565,23 @@
                   <h2 class="heading_text text-white">
                     <span class="uz_text">Sertifikatni yuklab olish</span>
                     <span class="ru_text">Скачать сертификат</span>
+                      <span class="en_text">Download certificate</span>
                   </h2>
                 </div>
                 <div class="alert alert-danger d-none" id="certificate_danger_alert">
                   <span class="ru_text">Сертификат не найден. Введите правильный ID</span>
                   <span class="uz_text">Sertifikat topilmadi. ID ni to'gri kiriting</span>
+                    <span class="en_text">Certificate not found. Enter the correct ID</span>
                 </div>
                 <div class="alert alert-success d-none" id="certificate_success_alert">
                   <span class="ru_text">Сертификат создан. Повторно отправить ID</span>
                   <span class="uz_text">Sertifikat yaratildi. ID ni qaytatdan jo'nating</span>
+                    <span class="en_text">Certificate created. Please resend the ID</span>
                 </div>
                 <form id="certificate_form">
                   <div class="form_item m-0">
                     <input style="border: none;" required type="number" id="certificate_input" placeholder="Sertifikat raqamini kiriting">
+                      <!-- English placeholder: Enter certificate number -->
                     <button type="submit" class="btn btn_white" id="certificate_btn">
                       <span class="uz_text">
                         <small>Yuklash</small>
@@ -583,6 +591,10 @@
                         <small>Скачать</small>
                         <small>Скачать</small>
                       </span>
+                        <span class="en_text">
+                          <small>Download</small>
+                          <small>Download</small>
+                        </span>
                     </button>
                   </div>
                 </form>
@@ -608,6 +620,9 @@
                   </p>
                   <p style="text-align:  justify;" class="mb-3 ru_text">
                     Образовательные программы данного курса подготовки подготовлены с учетом международных образовательных стандартов, а учебный процесс организован с широким использованием передовых педагогических и информационно-коммуникационных технологий. Для проведения образовательной работы и предоставления консультаций на основе договоров привлекаются высококвалифицированные иностранные и местные специалисты.
+                  </p>
+                  <p style="text-align:  justify;" class="mb-3 en_text">
+                    The educational programs of this training course are prepared taking into account international educational standards, and the educational process is organized with extensive use of advanced pedagogical and information and communication technologies. Highly qualified foreign and local specialists are involved on a contractual basis to conduct educational work and provide consultations.
                   </p>
                   <p class="mb-0">
                     <span class="ru_text">Адрес: </span>
@@ -656,7 +671,7 @@
                         <span class="item_icon"><i class="fas fa-caret-right"></i></span>
                         <span class="item_text uz_text">Bosh sahifa</span>
                         <span class="item_text ru_text">Главная</span>
-                        <span class="item_text en_text">Bosh sahifa</span>
+                        <span class="item_text en_text">Home</span>
                       </a>
                     </li>
                     <li>
@@ -664,7 +679,7 @@
                         <span class="item_icon"><i class="fas fa-caret-right"></i></span>
                         <span class="item_text uz_text">Biz haqimizda</span>
                         <span class="item_text ru_text">О нас</span>
-                        <span class="item_text en_text">Biz haqimizda</span>
+                        <span class="item_text en_text">About us</span>
                       </a>
                     </li>
                     <li>
@@ -672,7 +687,7 @@
                         <span class="item_icon"><i class="fas fa-caret-right"></i></span>
                         <span class="item_text uz_text">O'quv dasturi</span>
                         <span class="item_text ru_text">Программа обучения</span>
-                        <span class="item_text en_text">O'quv dasturi</span>
+                        <span class="item_text en_text">Curriculum</span>
                       </a>
                     </li>
                     <li>
@@ -680,7 +695,7 @@
                         <span class="item_icon"><i class="fas fa-caret-right"></i></span>
                         <span class="item_text uz_text">Yangiliklar</span>
                         <span class="item_text ru_text">Новости</span>
-                        <span class="item_text en_text">Yangiliklar</span>
+                        <span class="item_text en_text">News</span>
                       </a>
                     </li>
                     <li>
@@ -712,7 +727,7 @@
                         <span class="item_icon"><i class="fas fa-caret-right"></i></span>
                         <span class="item_text uz_text">Bog'lanish</span>
                         <span class="item_text ru_text">Контакты</span>
-                        <span class="item_text en_text">Bog'lanish</span>
+                        <span class="item_text en_text">Contact</span>
                       </a>
                     </li>
                   </ul>
@@ -723,6 +738,7 @@
                   <h3 class="footer_widget_title">
                     <span class="uz_text">So'ngi yangiliklar</span>
                     <span class="ru_text">Последние новости</span>
+                      <span class="en_text">Latest news</span>
                   </h3>
                   <ul class="blog_small_group unordered_list_block">
                     {% for i in news %}
@@ -735,6 +751,7 @@
                           <strong class="item_title">
                             <span class="uz_text">{{i.title_uz}}</span>
                             <span class="ru_text">{{i.title_ru}}</span>
+                            <span class="en_text">{{i.title_en}}</span>
                           </strong>
                           <small class="item_post_date">{{i.html_date}}</small>
                         </span>
@@ -752,6 +769,7 @@
             <p class="copyright_text text-center mb-0 pb-2">
               <span class="uz_text">2023 "Suvchilar maktabi" MChJ © Barcha huquqlar himoyalangan. Barcha xizmatlar litsenziyalangan.</span>
               <span class="ru_text">2023 OOO "Suvchilar maktabi" © Все права защищены. Все услуги лицензированы.</span>
+              <span class="en_text">2023 LLC "Suvchilar maktabi" © All rights reserved. All services are licensed.</span>
             </p>
             <p class="copyright_text text-center pt-0 mb-0" style="border: none;">Developed by <a href="https://kodi.uz">kodi.uz</a></p>
           </div>
