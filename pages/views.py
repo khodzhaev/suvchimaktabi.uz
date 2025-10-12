@@ -522,3 +522,77 @@ def pages_certificate_download(request):
         except: return JsonResponse({"status": 404}, safe=False)
     return JsonResponse({"status": 404}, safe=False)
 
+
+# program calendar ==============================
+
+from datetime import date
+import calendar
+
+from django.utils.html import strip_tags
+
+
+def programs_calendar(request):
+    office = Office.objects.last()
+    emails = Email.objects.all()
+    phones = Phone.objects.all()
+    news = News.objects.all()[:3]
+
+    today = date.today()
+    year = int(request.GET.get('year', today.year) or today.year)
+    month = int(request.GET.get('month', today.month) or today.month)
+
+    # Bound check
+    if not (1 <= month <= 12):
+        month = today.month
+
+    years_qs = Program.objects.values_list('date', flat=True)
+    years_set = sorted({d.year for d in years_qs if d}, reverse=True) or [today.year]
+    if year not in years_set:
+        years_set.insert(0, year)
+
+    programs_month = Program.objects.filter(date__year=year, date__month=month).order_by('date')
+
+    programs_by_day = {}
+    programs_by_iso = {}
+    for p in programs_month:
+        day = p.date.day
+        programs_by_day.setdefault(day, []).append(p)
+        iso = p.date.isoformat()
+        programs_by_iso.setdefault(iso, []).append({
+            'id': p.id,
+            'title_ru': p.title_ru or '',
+            'title_uz': p.title_uz or '',
+            'title_en': p.title_en or '',
+            'snippet_ru': p.content_ru if p.content_ru else '',
+            'snippet_uz': p.content_uz if p.content_uz else '',
+            'snippet_en': p.content_en if p.content_en else '',
+        })
+
+    cal = calendar.Calendar(firstweekday=0)
+    weeks = []
+    for week in cal.monthdatescalendar(year, month):
+        week_row = []
+        for day_date in week:
+            in_month = day_date.month == month
+            week_row.append({
+                'day': day_date.day,
+                'in_month': in_month,
+                'date': day_date,
+                'iso': day_date.isoformat(),
+                'programs': programs_by_day.get(day_date.day, []) if in_month else [],
+            })
+        weeks.append(week_row)
+
+    context = {
+        "office": office,
+        "phones": phones,
+        "emails": emails,
+        "news": news,
+        "year": year,
+        "month": month,
+        "years": years_set,
+        "weeks": weeks,
+        "today": today,
+        "programs_json": json.dumps(programs_by_iso),
+    }
+    return render(request, "pages/calendar.html", context)

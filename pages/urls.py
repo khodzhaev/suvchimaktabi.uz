@@ -34,4 +34,7 @@ urlpatterns = [
         path('feedback/', views.pages_feedback_create),
         path('captcha/', views.pages_captcha_refresh),
 
+
+
+    path('programs/calendar/', views.programs_calendar, name='programs_calendar'),
 ]
