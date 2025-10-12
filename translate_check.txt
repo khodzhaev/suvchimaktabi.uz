@@ -4,7 +4,7 @@ base = ✅
 books_caregory = ✅
 books = ✅
 contact = ✅
-index
+index = ✅
 news_all = ✅
 news_detail = ✅
 qfe = ✅
