@@ -4,6 +4,7 @@ base = ✅
 books_caregory = ✅
 books = ✅
 contact = ✅
+fermerlar = ✅
 index = ✅
 news_all = ✅
 news_detail = ✅
