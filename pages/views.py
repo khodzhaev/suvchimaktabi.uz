@@ -579,6 +579,8 @@ def programs_calendar(request):
                 'in_month': in_month,
                 'date': day_date,
                 'iso': day_date.isoformat(),
+                'is_today': day_date == today,
+                'is_past': day_date < today,
                 'programs': programs_by_day.get(day_date.day, []) if in_month else [],
             })
         weeks.append(week_row)

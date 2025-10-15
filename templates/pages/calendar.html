@@ -105,27 +105,51 @@
                   <tr>
                     {% for day in week %}
                       {% if not day.in_month %}
-                        <td class="disabled-day small">{{ day.day }}</td>
+                        <td class="disabled-day">{{ day.day }}</td>
                       {% else %}
-                        {% if day.programs %}
-                          <td class="day-with-program position-relative"
-                              data-iso="{{ day.iso }}"
-                              onclick="openProgramsModal(this)">
-                            <div class="fw-semibold mb-1">{{ day.day }}</div>
-                            <span class="badge bg-primary rounded-pill position-absolute top-0 end-0 translate-middle mt-3">
-                              {{ day.programs|length }}
-                            </span>
-                            <div class="program-title small text-truncate text-secondary">
-                              <span class="uz_text">{{ day.programs.0.title_uz|truncatechars:18 }}</span>
-                              <span class="ru_text">{{ day.programs.0.title_ru|truncatechars:18 }}</span>
-                              <span class="en_text">{{ day.programs.0.title_en|truncatechars:18 }}</span>
-                            </div>
-                          </td>
+                        {# determine classes without using set #}
+                        {% if day.is_today %}
+                          {% comment %} today styling {% endcomment %}
+                          {% if day.programs %}
+                            <td class="day-with-program position-relative today-cell"
+                                data-iso="{{ day.iso }}"
+                                onclick="openProgramsModal(this)">
+                          {% else %}
+                            <td onclick="openProgramsModal(this)" data-iso="{{ day.iso }}" class=" today-cell">
+                          {% endif %}
+                        {% elif day.is_past %}
+                          {% if day.programs %}
+                            <td class="day-with-program position-relative past-day"
+                                data-iso="{{ day.iso }}"
+                                onclick="openProgramsModal(this)">
+                          {% else %}
+                            <td onclick="openProgramsModal(this)" data-iso="{{ day.iso }}" class=" past-day text-muted">
+                          {% endif %}
                         {% else %}
-                          <td onclick="openProgramsModal(this)" data-iso="{{ day.iso }}" class="hoverable-day small text-muted">
-                            {{ day.day }}
-                          </td>
+                          {% if day.programs %}
+                            <td class="day-with-program position-relative"
+                                data-iso="{{ day.iso }}"
+                                onclick="openProgramsModal(this)">
+                          {% else %}
+                            <td onclick="openProgramsModal(this)" data-iso="{{ day.iso }}" class="hoverable-day  text-muted">
+                          {% endif %}
                         {% endif %}
+
+                            {# inside the opened <td> now render content depending on programs #}
+                            {% if day.programs %}
+                              <div class="fw-semibold mb-1">{{ day.day }}</div>
+                              <span class="badge bg-primary rounded-pill position-absolute top-0 end-0 translate-middle mt-3">
+                                {{ day.programs|length }}
+                              </span>
+                              <div class="program-title small text-truncate text-secondary">
+                                <span class="uz_text">{{ day.programs.0.title_uz|truncatechars:18 }}</span>
+                                <span class="ru_text">{{ day.programs.0.title_ru|truncatechars:18 }}</span>
+                                <span class="en_text">{{ day.programs.0.title_en|truncatechars:18 }}</span>
+                              </div>
+                            {% else %}
+                              <div class=" text-center">{{ day.day }}</div>
+                            {% endif %}
+                          </td>
                       {% endif %}
                     {% endfor %}
                   </tr>
@@ -237,6 +261,16 @@
   .list-group-item:hover {
     transform: translateY(-2px);
     box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+  }
+
+  .today-cell {
+    border: 2px solid #0d6efd !important;
+    font-weight: 600;
+  }
+
+  .past-day {
+    opacity: 0.55;
+    background-color: #f9f9f9;
   }
 </style>
 
