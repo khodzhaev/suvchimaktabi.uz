@@ -184,9 +184,27 @@
                           <span class="en_text">Curriculum</span>
                       </a>
                       <ul class="dropdown-menu dropdown-menu-dark" style="list-style: none;">
-                        <li><a style="cursor: pointer;" href="{% url 'pages_course_loyihachi' %}" class="dropdown-item text-dark text-white-hover">Loyihachilar kursi</a></li>
-                        <li><a style="cursor: pointer;" href="{% url 'pages_course_fermer' %}" class="dropdown-item text-dark text-white-hover">Fermer va agroklaster kursi</a></li>
-                        <li><a style="cursor: pointer;" href="{% url 'pages_course' %}" class="dropdown-item text-dark text-white-hover">Suvchilar maktabi</a></li>
+                        <li>
+                          <a style="cursor: pointer;" href="{% url 'pages_course_loyihachi' %}" class="dropdown-item text-dark text-white-hover">
+                            <span class="uz_text">Loyihachilar kursi</span>
+                            <span class="ru_text">Курс для проектировщиков</span>
+                            <span class="en_text">Course for designers</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a style="cursor: pointer;" href="{% url 'pages_course_fermer' %}" class="dropdown-item text-dark text-white-hover">
+                            <span class="uz_text">Fermer va agroklaster kursi</span>
+                            <span class="ru_text">Курс для фермеров и агрокластеров</span>
+                            <span class="en_text">Course for farmers and agroclusters</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a style="cursor: pointer;" href="{% url 'pages_course' %}" class="dropdown-item text-dark text-white-hover">
+                            <span class="uz_text">Xorijiy tajribalar</span>
+                            <span class="ru_text">Иностранный опыт</span>
+                            <span class="en_text">Foreign experience</span>
+                          </a>
+                        </li>
                       </ul>
                     </li>
                     <li {% if request.path == '/news/' %} class="active" {% endif %}>

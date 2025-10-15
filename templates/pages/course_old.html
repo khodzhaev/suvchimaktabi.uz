@@ -1,0 +1,187 @@
+<!-- {% extends 'pages/base.html' %}
+
+{% load static %}
+
+{% block title %}
+{% endblock title %}
+
+{% block content %}
+<main class="page_content">
+
+  <section class="page_banner">
+    <div class="container">
+      <div class="content_wrapper bg_light">
+        <div class="row align-items-center">
+          <div class="col col-lg-7">
+            <ul class="breadcrumb_nav unordered_list">
+              <li class="text-dark"><a href="{% url 'pages_index' %}">
+                  <span class="uz_text">Bosh sahifa</span>
+                  <span class="ru_text">Главная</span>
+              </a></li>
+              <li class="text-dark">
+                <span class="uz_text">O'quv dasturi</span>
+                  <span class="ru_text">Программа обучения
+                  </span>
+              </li>
+            </ul>
+            <h1 class="page_title">
+              
+              <span class="uz_text">"Suvchilar maktabi" o‘quv kurslari davom etmoqda!</span>
+                  <span class="ru_text">Курсы обучения «Suvchilar maktabi» продолжаются!</span>
+            </h1>
+          </div>
+          <div class="col col-lg-5">
+            <div class="image_widget page_banner_image">
+              <img src="{% static 'pages/assets/images/web_imgs/course_main.jpg' %}">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="details_section mentor_details_section section_space_lg pb-0 mt-5">
+    <div class="container">
+      <div class="section_space_md pt-0">
+        <div class="row align-items-center">
+          <div class="col col-lg-6">
+            <div class="details_image image_widget border border-primary border-3">
+              <img src="{% static 'pages/assets/images/web_imgs/sertifikat.jpg' %}">
+            </div>
+          </div>
+          <div class="col col-lg-6">
+            <div class="details_content ps-lg-5">
+              <h3 class="mentor_name">
+                <span class="uz_text"> Kursimizni bitirib nimalar olasiz</span>
+                <span class="ru_text">Что вы получите после прохождения нашего курса</span>
+              </h3>
+              <p style="text-align: justify;" class="ru_text">
+                <b>Знания и Навыки:</b> Вы усвоите современные методы и техники управления водными ресурсами, научитесь оптимизировать и эффективно использовать воду в сельском хозяйстве. Эти знания помогут вам добиваться лучших результатов в ваших агропроектах.
+                <br>
+                <b>Сертификация:</b> По завершении курсов вы получите официальный сертификат, подтверждающий вашу квалификацию в области бережливого использования водных ресурсов. Это документ, который подтвердит ваши знания и навыки перед вашими партнерами и работодателями.
+                <br>
+                <b>Поддержка и Сеть:</b> Вы становитесь частью сообщества "Suvchilar maktabi", где можно обмениваться опытом, получать дополнительную поддержку и консультации от экспертов. Эта сеть связей может стать ценным ресурсом для дальнейшего развития.
+              </p>
+              <p style="text-align: justify;" class="uz_text">
+                <b>Bilim va ko'nikmalar:</b> Siz suvni boshqarishning zamonaviy usullari va usullarini o'rganasiz, qishloq xo'jaligida suvni optimallashtirish va undan samarali foydalanishni o'rganasiz. Ushbu bilim sizga qishloq xo'jaligi loyihalarida yaxshi natijalarga erishishga yordam beradi.
+                <br>
+                <b>Sertifikatlash:</b> Kurslarni tugatgandan so'ng siz suv resurslaridan barqaror foydalanish sohasidagi malakangizni tasdiqlovchi rasmiy sertifikat olasiz. Bu sizning hamkorlaringiz va ish beruvchilaringiz oldida bilim va ko'nikmalaringizni tasdiqlaydigan hujjatdir.
+                <br>
+                <b>Qo'llab-quvvatlash va tarmoq:</b> Siz tajriba almashishingiz, mutaxassislardan qo'shimcha yordam va maslahat olishingiz mumkin bo'lgan "Suvchilar maktabi" jamoasining a'zosi bo'lasiz. Ushbu ulanishlar tarmog'i keyingi rivojlanish uchun qimmatli manba bo'lishi mumkin.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section_space_lg pt-0 pb-5">
+    <div class="container">
+      <div class="section_heading text-center">
+        <h2 class="heading_text mb-0">
+          <span class="uz_text">O'quv dasturi</span>
+          <span class="ru_text">Программа обучения</span>
+        </h2>
+      </div>
+      
+        {% for c in courses %}
+        <div class="row align-items-center py-5">
+          <div class="col-md-6 orderz ">
+            <h1>{{c.time_interval}}</h1>
+            <h4 class="ru_text">{{c.title_ru}}</h4>
+            <h4 class="uz_text">{{c.title_uz}}</h4>
+            <h4 class="en_text">{{c.title_en}}</h4>
+            <div class="ru_text">{{c.content_ru | safe}}</div>
+            <div class="uz_text">{{c.content_uz | safe}}</div>
+            <div class="en_text">{{c.content_en | safe}}</div>
+          </div>
+          <div class="col-md-6  ">
+            <img src="{{c.image.url}}" class="w-100" style="border-radius: 10px">
+          </div>
+        </div>
+        <hr>
+        {% endfor %}
+      
+    </div>
+  </section>
+
+  <section class="testimonial_section section_space_lg pt-0">
+    <div class="container">
+      <div class="section_heading">
+        <div class="row align-items-center">
+          <div class="col col-12">
+            <h2 class="heading_text mb-0">
+              <span class="ru_text">Наши наставники</span>
+              <span class="uz_text">Bizning Ustozlar</span>
+              <span class="en_text">Our mentors</span>
+            </h2>
+          </div>
+        </div>
+      </div>
+      <div>
+        <style>
+          .grid-4 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-gap: 20px;
+            text-align: center;
+            justify-content: space-between;
+            align-items: space-between;
+          }
+          .mentor_item img{
+            border-radius: 8px;
+          }
+          @media screen and (max-width: 991px) {
+            .grid-4{
+              grid-template-columns: 1fr 1fr 1fr;
+            }
+            .mentor_item {
+              padding: 10px
+            }
+          }
+          @media screen and (max-width: 740px) {
+            .grid-4{
+              grid-template-columns: 1fr 1fr;
+            }
+          }
+          @media screen and (max-width: 550px) {
+            .grid-4{
+              grid-template-columns: 1fr;
+            }
+          }
+        </style>
+        <div class="grid-4">
+          {% for i in experts %}
+            <div class="mentor_item">
+              <div class="mentor_image">
+                <img src="{{ i.image.url }}">
+              </div>
+              <div class="mentor_content">
+                <h3 class="mentor_name ru_text">{{i.fio_ru}}</h3>
+                <h3 class="mentor_name uz_text">{{i.fio_uz}}</h3>
+                <h3 class="mentor_name en_text">{{i.fio_en}}</h3>
+                <p class="mentor_designation ru_text">{{i.profession_ru}}</p>
+                <p class="mentor_designation uz_text">{{i.profession_uz}}</p>
+                <p class="mentor_designation en_text">{{i.profession_en}}</p>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  
+</main>
+
+<script>
+  let courses = document.querySelectorAll('.orderz')
+  courses.forEach((item, i) => {
+    if (i % 2 == 0) {
+      item.classList.add('order-2')
+    } 
+  })
+</script>
+{% endblock %} -->
